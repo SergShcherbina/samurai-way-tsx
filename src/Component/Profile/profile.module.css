@@ -1,0 +1,10 @@
+.content {
+    grid-area: content;
+
+}
+.contentBanner {
+    object-fit: cover;
+    width: 100%;
+    height: 310px;
+}
+

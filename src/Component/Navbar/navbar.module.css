@@ -1,0 +1,12 @@
+.nav {
+    grid-area: nav;
+    background-color: #75a514;
+    padding: 10px 0 0 20px;
+    font-size: 24px;
+    gap: 10px;
+}
+
+a {
+    color: aliceblue;
+    text-decoration: none;
+}
