@@ -1,0 +1,19 @@
+.contentBanner {
+    object-fit: cover;
+    width: 100%;
+    height: 310px;
+}
+.avatar {
+    height: 155px;
+}
+
+.profileInfo {
+    display: grid;
+    grid-template-columns: 2fr 10fr ;
+    gap: 10px;
+}
+.profileDescr {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
