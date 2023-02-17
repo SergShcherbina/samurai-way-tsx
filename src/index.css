@@ -14,3 +14,8 @@ code {
 a {
   text-decoration: none;
 }
+
+.boxShadowEl {                         /*общий стиль для блоков с тенями */
+  box-shadow: #00000014 0px 4px 19px;
+  border-radius: 10px;
+}

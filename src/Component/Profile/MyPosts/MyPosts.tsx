@@ -1,7 +1,17 @@
 import classes from './myPosts.module.css';
 import {Post} from "./Post/Post";
+import {MyPostDataType} from "../Profile";
 
-export const MyPosts = () => {
+
+export const MyPosts = (props: MyPostDataType) => {
+    const postElement = props.myPostData
+        .map((el) => <Post
+            id={el.id}
+            message={el.message}
+            counterLike={el.likeCount}
+            counterDislike={el.counterDislike}/>
+        )
+
     return (
         <div>
             <h3> My Post</h3>
@@ -13,12 +23,9 @@ export const MyPosts = () => {
             </div>
 
             <div>
-                <Post message="Hi, how are you?"
-                      counterLike={25}
-                      counterDislike={2}/>
-                <Post message="What do you do?"
-                      counterLike={30}
-                      counterDislike={3}/>
+                {
+                    postElement
+                }
             </div>
         </div>
     )

@@ -1,20 +1,9 @@
 .dialogs {
     display: grid;
     grid-template: auto/ 2fr 10fr;
+    padding: 10px
 }
-.dialogs a {
-    color: #144EA5FF;
-}
-
-.dialogsItem {
-    padding: 10px;
-}
-
 .active a {
     color: red;
     font-weight: 500;
-}
-
-.message {
-    padding: 10px;
 }

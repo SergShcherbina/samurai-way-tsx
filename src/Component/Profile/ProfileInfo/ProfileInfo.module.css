@@ -11,6 +11,7 @@
     display: grid;
     grid-template-columns: 2fr 10fr ;
     gap: 10px;
+    margin-top: 8px;
 }
 .profileDescr {
     display: flex;

@@ -10,15 +10,49 @@ import {News} from "./Component/News/News";
 import {Music} from "./Component/Music/Music";
 import {Setting} from "./Component/Setting/Setting";
 
-function App() {
+export type Data = {
+    dateState: DataType
+}
+export type DataType = {
+    dialogsData: ArrayDataType[]
+    messageData: ArrayDataMessageType[]
+    myPostData: PostDataType[]
+    friendData: FriendDataType[]
+}
+export type ArrayDataType = {
+    id: number
+    name: string
+}
+export type ArrayDataMessageType = {
+    id: number
+    messageD: string
+}
+export type PostDataType = {
+    id: number
+    message: string
+    likeCount: number
+    counterDislike: number
+}
+export type FriendDataType = {
+    id: number
+    name: string
+    src: string
+}
+
+function App(props: Data) {
     return (
         <Router>
             <div className="app-wrapper">
                 <Header/>
-                <Navbar/>
+                <Navbar friendData={props.dateState.friendData} />
                 <div className="app-wrapper-content">
-                    <Route path={"/profile"} component={Profile}/>
-                    <Route path={"/message"} component={Dialogs}/>
+                    <Route path={"/profile"} render={() => <Profile myPostData={props.dateState.myPostData}/>}/>
+                    <Route path={"/message"} render={() => {
+                        return (
+                            <Dialogs dialogsData={props.dateState.dialogsData}
+                                     messageData={props.dateState.messageData}/>
+                        )
+                    }}/>
                     <Route path={"/news"} component={News}/>
                     <Route path={"/music"} component={Music}/>
                     <Route path={"/setting"} component={Setting}/>
