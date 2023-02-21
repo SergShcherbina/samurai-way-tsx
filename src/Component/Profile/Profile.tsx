@@ -5,6 +5,7 @@ import {PostDataType} from "../../App";
 
 export type  MyPostDataType = {
     myPostData: PostDataType[]
+    addPost: (valueTextarea: string) => void
 }
 
 export const Profile = (props: MyPostDataType) => {
@@ -14,7 +15,7 @@ export const Profile = (props: MyPostDataType) => {
                 <ProfileInfo/>
             </div>
             <div>
-                <MyPosts myPostData={props.myPostData}/>
+                <MyPosts myPostData={props.myPostData} addPost={props.addPost}/>
             </div>
         </div>
     )

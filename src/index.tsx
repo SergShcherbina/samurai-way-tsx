@@ -1,11 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import {state} from "./Component/redax/state";
+import {rerenderEntireTree} from "./render";
 
 
-ReactDOM.render(
-    <App dateState={state}/>,
-    document.getElementById('root')
-);
+rerenderEntireTree(state);

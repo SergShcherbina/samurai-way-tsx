@@ -1,8 +1,9 @@
 .item_post{
     margin-top: 15px;
-    margin-top: 15px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    box-shadow: #00000014 0px 2px 15px;
 }
-
 .item_post>img{
     object-fit: cover;
     width: 100px;

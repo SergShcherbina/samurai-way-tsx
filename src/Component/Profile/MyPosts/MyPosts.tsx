@@ -1,10 +1,19 @@
 import classes from './myPosts.module.css';
 import {Post} from "./Post/Post";
 import {MyPostDataType} from "../Profile";
+import React from 'react'
+import {useAutoAnimate} from "@formkit/auto-animate/react";
 
+export const MyPosts: React.FC<MyPostDataType> = ({myPostData, addPost}) => {
+    let textTextareaRef: any  = React.createRef();
+    let [refDivAnimate]: any = useAutoAnimate()
 
-export const MyPosts = (props: MyPostDataType) => {
-    const postElement = props.myPostData
+    const onClickTextarea = () => {
+        console.log(`Текст: ${textTextareaRef.current.value}`)
+        addPost(textTextareaRef.current.value);
+        textTextareaRef.current.value = ''
+    }
+    const postElement = myPostData
         .map((el) => <Post
             id={el.id}
             message={el.message}
@@ -14,15 +23,19 @@ export const MyPosts = (props: MyPostDataType) => {
 
     return (
         <div>
-            <h3> My Post</h3>
-            <div>
+            <h3>My Post</h3>
+            <div className={classes.textAreaBlock}>
                 <div>
-                    <textarea placeholder="Введите текст"/>
+                    <textarea
+                        ref={textTextareaRef}
+                        placeholder="Введите текст"/>
                 </div>
-                <button className={classes.button}>Send</button>
+                <button
+                    onClick={onClickTextarea}
+                    className={classes.button}>Send
+                </button>
             </div>
-
-            <div>
+            <div ref={refDivAnimate}>
                 {
                     postElement
                 }

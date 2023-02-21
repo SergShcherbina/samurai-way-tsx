@@ -13,10 +13,8 @@ export const EveryFriend = (props: FriendDataType) => {
 
 const WrapperFriends = styled.div `
     display: flex;
-  flex-direction: column;
-  
+  flex-direction: column;  
 `
-
 const ImageFriaengs = styled.img `
   max-width: 40px;
   max-height: 40px;

@@ -9,8 +9,10 @@ type DialogType = {
 }
 
 export const Dialogs = (props: DialogType) => {
+
      const messageElement = props.messageData
          .map((el, i) => <Message message={el.messageD} key={i}/>)
+
      const dialogElement = props.dialogsData
          .map((el, i) => <DialogItem key={i + el.id} name={el.name} id={el.id}/>
          )

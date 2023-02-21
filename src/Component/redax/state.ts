@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from "../../render";
+
 export const state = {
     dialogsData:[
         {id: 1, name: 'Sacha'},
@@ -24,3 +26,19 @@ export const state = {
         {id: 3, name: 'Nik', src: 'https://vjoy.cc/wp-content/uploads/2020/10/174602245.jpg'},
     ]
 }
+
+export const addPost = (valueTextarea: string) => {
+    if(valueTextarea.trim() === '') {
+        return;
+    } else {
+        let newPostObj = {id: 4, message: valueTextarea, likeCount: 0, counterDislike: 0}
+        console.log(state)
+        state.myPostData.push(newPostObj)
+        rerenderEntireTree(state);
+    }
+    // let newPostObj = {id: 4, message: valueTextarea, likeCount: 0, counterDislike: 0}
+    // console.log(state)
+    // state.myPostData.push(newPostObj)
+    // rerenderEntireTree(state);
+}
+

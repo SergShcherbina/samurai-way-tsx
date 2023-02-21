@@ -12,6 +12,7 @@ import {Setting} from "./Component/Setting/Setting";
 
 export type Data = {
     dateState: DataType
+    addPost: (valueTextarea: string) => void
 }
 export type DataType = {
     dialogsData: ArrayDataType[]
@@ -46,7 +47,10 @@ function App(props: Data) {
                 <Header/>
                 <Navbar friendData={props.dateState.friendData} />
                 <div className="app-wrapper-content">
-                    <Route path={"/profile"} render={() => <Profile myPostData={props.dateState.myPostData}/>}/>
+                    <Route path={"/profile"} render={() => <Profile
+                        myPostData={props.dateState.myPostData}
+                        addPost={props.addPost}/>}
+                    />
                     <Route path={"/message"} render={() => {
                         return (
                             <Dialogs dialogsData={props.dateState.dialogsData}
