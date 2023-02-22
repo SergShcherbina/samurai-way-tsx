@@ -36,9 +36,5 @@ export const addPost = (valueTextarea: string) => {
         state.myPostData.push(newPostObj)
         rerenderEntireTree(state);
     }
-    // let newPostObj = {id: 4, message: valueTextarea, likeCount: 0, counterDislike: 0}
-    // console.log(state)
-    // state.myPostData.push(newPostObj)
-    // rerenderEntireTree(state);
 }
 

@@ -1,17 +1,28 @@
 import classes from './myPosts.module.css';
 import {Post} from "./Post/Post";
 import {MyPostDataType} from "../Profile";
-import React from 'react'
+import React, {ChangeEvent, useState} from 'react'
 import {useAutoAnimate} from "@formkit/auto-animate/react";
 
 export const MyPosts: React.FC<MyPostDataType> = ({myPostData, addPost}) => {
-    let textTextareaRef: any  = React.createRef();
+    const [ valueTextarea, setValueTextarea ] = useState('')
+    // let textTextareaRef: any  = React.createRef();
     let [refDivAnimate]: any = useAutoAnimate()
 
+    const onChangeValueTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setValueTextarea(e.currentTarget.value)
+    }
     const onClickTextarea = () => {
-        console.log(`Текст: ${textTextareaRef.current.value}`)
-        addPost(textTextareaRef.current.value);
-        textTextareaRef.current.value = ''
+        if(valueTextarea.trim() === '') {
+            console.log(valueTextarea.trim())
+            return;
+        } else {
+            setValueTextarea('')
+            addPost(valueTextarea);
+
+        }
+
+        // textTextareaRef.current.value = ''
     }
     const postElement = myPostData
         .map((el) => <Post
@@ -27,7 +38,9 @@ export const MyPosts: React.FC<MyPostDataType> = ({myPostData, addPost}) => {
             <div className={classes.textAreaBlock}>
                 <div>
                     <textarea
-                        ref={textTextareaRef}
+                        // ref={textTextareaRef}
+                        value={valueTextarea}
+                        onChange={onChangeValueTextarea}
                         placeholder="Введите текст"/>
                 </div>
                 <button
