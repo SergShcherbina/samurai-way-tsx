@@ -1,11 +1,15 @@
 import React from 'react';
 import styled from "styled-components";
 import {EveryFriend} from "./EveryFriend/EveryFriend";
-import {FriendType} from "../Navbar";
+import {SidebarType} from "../../../App";
 
-export const Friends = (props: FriendType) => {
+type FriendsType = {
+    sidebar: SidebarType[]
+}
 
-    const viewFriends = props.friendData
+export const Friends = (props: FriendsType) => {
+
+    const viewFriends = props.sidebar
         .map((el, i) => {
             return <EveryFriend name={el.name} id={el.id} src={el.src}/>
         })
@@ -17,7 +21,6 @@ export const Friends = (props: FriendType) => {
                 {
                     viewFriends
                 }
-
             </BlockFriends>
         </div>
     );

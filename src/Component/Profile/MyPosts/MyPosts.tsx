@@ -1,34 +1,42 @@
 import classes from './myPosts.module.css';
 import {Post} from "./Post/Post";
-import {MyPostDataType} from "../Profile";
 import React, {ChangeEvent, useState} from 'react'
 import {useAutoAnimate} from "@formkit/auto-animate/react";
+import {PostsType} from "../../../App";
 
-export const MyPosts: React.FC<MyPostDataType> = ({myPostData, addPost}) => {
-    const [ valueTextarea, setValueTextarea ] = useState('')
-    // let textTextareaRef: any  = React.createRef();
+type MyPostType = {
+    posts: PostsType[]
+    addPost: (valueTextarea: string) => void
+    newPostText: string
+    updateNewPostText: (postText: string) => void
+}
+
+export const MyPosts: React.FC<MyPostType> = ({
+                                                  posts,
+                                                  addPost,
+                                                  newPostText,
+                                                  updateNewPostText }) => {
     let [refDivAnimate]: any = useAutoAnimate()
 
     const onChangeValueTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setValueTextarea(e.currentTarget.value)
+        console.log(e.currentTarget.value)
+        updateNewPostText(e.currentTarget.value)
     }
+
     const onClickTextarea = () => {
-        if(valueTextarea.trim() === '') {
-            console.log(valueTextarea.trim())
+        if(newPostText.trim() === '') {
             return;
         } else {
-            setValueTextarea('')
-            addPost(valueTextarea);
 
+            addPost(newPostText);
         }
-
         // textTextareaRef.current.value = ''
     }
-    const postElement = myPostData
+    const postElement = posts
         .map((el) => <Post
             id={el.id}
             message={el.message}
-            counterLike={el.likeCount}
+            counterLike={el.likeCounter}
             counterDislike={el.counterDislike}/>
         )
 
@@ -39,7 +47,7 @@ export const MyPosts: React.FC<MyPostDataType> = ({myPostData, addPost}) => {
                 <div>
                     <textarea
                         // ref={textTextareaRef}
-                        value={valueTextarea}
+                        value={newPostText}
                         onChange={onChangeValueTextarea}
                         placeholder="Введите текст"/>
                 </div>

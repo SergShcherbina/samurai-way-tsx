@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
-import {FriendDataType} from "../../../../App";
 
-export const EveryFriend = (props: FriendDataType) => {
+export const EveryFriend = (props: any) => {
     return (
         <WrapperFriends >
             <ImageFriaengs src={props.src}/>

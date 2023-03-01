@@ -1,21 +1,27 @@
 import classes from './profile.module.css';
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {PostDataType} from "../../App";
+import {PostsType} from "../../App";
 
-export type  MyPostDataType = {
-    myPostData: PostDataType[]
+type ProfileType = {
+    posts: PostsType[]
     addPost: (valueTextarea: string) => void
+    newPostText: string
+    updateNewPostText: (postText: string) => void
 }
 
-export const Profile = (props: MyPostDataType) => {
+export const Profile = (props: ProfileType) => {
     return (
         <div className={classes.content}>
             <div>
                 <ProfileInfo/>
             </div>
             <div>
-                <MyPosts myPostData={props.myPostData} addPost={props.addPost}/>
+                <MyPosts
+                    posts={props.posts}
+                    addPost={props.addPost}
+                    newPostText={props.newPostText}
+                    updateNewPostText={props.updateNewPostText} />
             </div>
         </div>
     )

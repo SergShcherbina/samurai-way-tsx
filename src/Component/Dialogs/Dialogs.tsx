@@ -1,14 +1,11 @@
 import classes from './Dialogs.module.css'
 import {Message} from "./Message/Message";
 import {DialogItem} from "./DialogItem/DialogItem";
-import {ArrayDataMessageType, ArrayDataType} from "../../App";
+import {DialogsType} from "../../App";
 
-type DialogType = {
-    messageData: ArrayDataMessageType[]
-    dialogsData: ArrayDataType[]
-}
 
-export const Dialogs = (props: DialogType) => {
+
+export const Dialogs = (props: DialogsType) => {
 
      const messageElement = props.messageData
          .map((el, i) => <Message message={el.messageD} key={i}/>)
