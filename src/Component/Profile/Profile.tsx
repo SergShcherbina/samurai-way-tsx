@@ -5,9 +5,8 @@ import {PostsType} from "../../App";
 
 type ProfileType = {
     posts: PostsType[]
-    addPost: (valueTextarea: string) => void
     newPostText: string
-    updateNewPostText: (postText: string) => void
+    dispatch: (action: {type: string}) => void
 }
 
 export const Profile = (props: ProfileType) => {
@@ -19,9 +18,9 @@ export const Profile = (props: ProfileType) => {
             <div>
                 <MyPosts
                     posts={props.posts}
-                    addPost={props.addPost}
+                    dispatch={props.dispatch}
                     newPostText={props.newPostText}
-                    updateNewPostText={props.updateNewPostText} />
+                />
             </div>
         </div>
     )

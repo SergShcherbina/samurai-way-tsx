@@ -4,7 +4,7 @@ import {Header} from "./Component/Header/Header";
 import {Footer} from "./Component/Footer/Footer";
 import {Navbar} from "./Component/Navbar/Navbar";
 import {Profile} from "./Component/Profile/Profile";
-import {Dialogs} from "./Component/Dialogs/Dialogs";
+import {Dialogs, DialogsType} from "./Component/Dialogs/Dialogs";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import {News} from "./Component/News/News";
 import {Music} from "./Component/Music/Music";
@@ -13,13 +13,13 @@ import {Setting} from "./Component/Setting/Setting";
 
 export type RedaxType = {
     dataState: StateType
-    addPost: (valueTextarea: string) => void
-    updateNewPostText: (postText: string) => void
+    dispatch: (action: {type: string, text?: string}) => void
 }
 export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsType
     sidebar: SidebarType[]
+
 }
 export type SidebarType = {
     id: number
@@ -29,10 +29,6 @@ export type SidebarType = {
 export type ProfilePageType = {
     posts: PostsType[]
     newPostText: string
-}
-export type DialogsType = {
-    dialogsData: DialogsDataType[]
-    messageData: MessageDataType[]
 }
 export type DialogsDataType = {
     id: number
@@ -56,17 +52,19 @@ function App(props: RedaxType) {
                 <Header/>
                 <Navbar sidebar={props.dataState.sidebar}/>
                 <div className="app-wrapper-content">
-                    <Route path={"/profile"} render={() => (
+                    <Route exact path={"/"} render={() => (
                         <Profile
                             posts={props.dataState.profilePage.posts}
-                            addPost={props.addPost}
+                            dispatch={props.dispatch}
                             newPostText={props.dataState.profilePage.newPostText}
-                            updateNewPostText={props.updateNewPostText}
                         />
                     )}/>
                     <Route path={"/message"} render={() => (
                         <Dialogs dialogsData={props.dataState.dialogsPage.dialogsData }
-                                 messageData={props.dataState.dialogsPage.messageData }/>
+                                 messageData={props.dataState.dialogsPage.messageData }
+                                 messageText={props.dataState.dialogsPage.messageText }
+                                 dispatch={props.dispatch}
+                        />
                     )}/>
                     <Route path={"/news"} component={News}/>
                     <Route path={"/music"} component={Music}/>

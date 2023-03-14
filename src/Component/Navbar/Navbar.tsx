@@ -10,7 +10,7 @@ export type NavbarType = {
 export const Navbar = (props: NavbarType) => {
     return (
         <nav className={classes.nav}>
-            <div> <NavLink activeClassName={classes.active} to="/profile" > Profile </NavLink> </div>
+            <div> <NavLink exact activeClassName={classes.active} to="/" > Profile </NavLink> </div>
             <div> <NavLink activeClassName={classes.active} to="/message" > Message </NavLink> </div>
             <div> <NavLink activeClassName={classes.active} to="/news" > News </NavLink> </div>
             <div> <NavLink activeClassName={classes.active} to="/music" > Music </NavLink> </div>

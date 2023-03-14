@@ -11,7 +11,7 @@ export const Friends = (props: FriendsType) => {
 
     const viewFriends = props.sidebar
         .map((el, i) => {
-            return <EveryFriend name={el.name} id={el.id} src={el.src}/>
+            return <EveryFriend name={el.name} id={el.id} src={el.src} key={el.id}/>
         })
 
     return (

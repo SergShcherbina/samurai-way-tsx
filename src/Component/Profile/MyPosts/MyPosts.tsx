@@ -1,40 +1,38 @@
 import classes from './myPosts.module.css';
 import {Post} from "./Post/Post";
-import React, {ChangeEvent, useState} from 'react'
+import React, {ChangeEvent} from 'react'
 import {useAutoAnimate} from "@formkit/auto-animate/react";
 import {PostsType} from "../../../App";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../redax/state";
 
 type MyPostType = {
     posts: PostsType[]
-    addPost: (valueTextarea: string) => void
+    dispatch: (action: {type: string, text?: string}) => void
     newPostText: string
-    updateNewPostText: (postText: string) => void
 }
 
-export const MyPosts: React.FC<MyPostType> = ({
-                                                  posts,
-                                                  addPost,
-                                                  newPostText,
-                                                  updateNewPostText }) => {
+export const MyPosts: React.FC<MyPostType> = (
+    {
+      dispatch,
+      posts,
+      newPostText,
+}) => {
     let [refDivAnimate]: any = useAutoAnimate()
-
     const onChangeValueTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        console.log(e.currentTarget.value)
-        updateNewPostText(e.currentTarget.value)
+        dispatch(updateNewPostTextActionCreator(e.currentTarget.value))
     }
 
     const onClickTextarea = () => {
         if(newPostText.trim() === '') {
             return;
         } else {
-
-            addPost(newPostText);
+            dispatch(addPostActionCreator());
         }
-        // textTextareaRef.current.value = ''
     }
     const postElement = posts
         .map((el) => <Post
             id={el.id}
+            key={el.id}
             message={el.message}
             counterLike={el.likeCounter}
             counterDislike={el.counterDislike}/>

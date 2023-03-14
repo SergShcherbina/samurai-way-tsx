@@ -1,18 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {state, addPost, updateNewPostText, subscribe} from "./Component/redax/state";
+import {store} from "./Component/redax/state";
 import App, { StateType} from "./App";
 
 
-export const rerenderEntireTree = (state: StateType) => {
+export const rerenderEntireTree = (state: any) => {
     ReactDOM.render(
         <App dataState={state}
-             addPost={addPost}
-             updateNewPostText={updateNewPostText} />,
+             dispatch={store.dispatch.bind(store)} />,
         document.getElementById('root')
     );
 }
-rerenderEntireTree(state)
+rerenderEntireTree(store.getState())
 
-subscribe(rerenderEntireTree)
+store.subscribe(rerenderEntireTree)
