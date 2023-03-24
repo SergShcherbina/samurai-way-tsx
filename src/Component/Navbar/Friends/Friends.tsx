@@ -1,14 +1,12 @@
 import React from 'react';
 import styled from "styled-components";
 import {EveryFriend} from "./EveryFriend/EveryFriend";
-import {SidebarType} from "../../../App";
 
-type FriendsType = {
-    sidebar: SidebarType[]
-}
+type SidebarType = {
+    sidebar: Array<{name: string, id: string, src: string}>
+};
 
-export const Friends = (props: FriendsType) => {
-
+export const Friends = (props: SidebarType) => {
     const viewFriends = props.sidebar
         .map((el, i) => {
             return <EveryFriend name={el.name} id={el.id} src={el.src} key={el.id}/>

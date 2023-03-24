@@ -9,6 +9,9 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import {News} from "./Component/News/News";
 import {Music} from "./Component/Music/Music";
 import {Setting} from "./Component/Setting/Setting";
+import {DialogsContainer} from "./Component/Dialogs/DialogsContainer";
+
+
 
 
 export type RedaxType = {
@@ -44,26 +47,20 @@ export type PostsType = {
     likeCounter: number
     counterDislike: number
 }
-
-function App(props: RedaxType) {
+function App(props: any) {
     return (
         <Router>
             <div className="app-wrapper">
                 <Header/>
-                <Navbar sidebar={props.dataState.sidebar}/>
+                <Navbar store={props.store}/>
                 <div className="app-wrapper-content">
                     <Route exact path={"/"} render={() => (
                         <Profile
-                            posts={props.dataState.profilePage.posts}
-                            dispatch={props.dispatch}
-                            newPostText={props.dataState.profilePage.newPostText}
+                            store={props.store}
                         />
                     )}/>
                     <Route path={"/message"} render={() => (
-                        <Dialogs dialogsData={props.dataState.dialogsPage.dialogsData }
-                                 messageData={props.dataState.dialogsPage.messageData }
-                                 messageText={props.dataState.dialogsPage.messageText }
-                                 dispatch={props.dispatch}
+                        <DialogsContainer store={props.store}
                         />
                     )}/>
                     <Route path={"/news"} component={News}/>

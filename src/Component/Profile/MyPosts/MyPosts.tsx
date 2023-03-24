@@ -3,31 +3,30 @@ import {Post} from "./Post/Post";
 import React, {ChangeEvent} from 'react'
 import {useAutoAnimate} from "@formkit/auto-animate/react";
 import {PostsType} from "../../../App";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../redax/state";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../redax/profile-reducer";
 
-type MyPostType = {
+export type MyPostType = {
+    addPost: () => void
+    updateNewPostText: (text: string) => void
     posts: PostsType[]
-    dispatch: (action: {type: string, text?: string}) => void
     newPostText: string
 }
 
 export const MyPosts: React.FC<MyPostType> = (
     {
-      dispatch,
-      posts,
-      newPostText,
+        updateNewPostText,
+        addPost,
+        posts,
+        newPostText
 }) => {
     let [refDivAnimate]: any = useAutoAnimate()
-    const onChangeValueTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        dispatch(updateNewPostTextActionCreator(e.currentTarget.value))
+
+    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        updateNewPostText(e.currentTarget.value)
     }
 
-    const onClickTextarea = () => {
-        if(newPostText.trim() === '') {
-            return;
-        } else {
-            dispatch(addPostActionCreator());
-        }
+    const onAddPost = () => {
+       addPost()
     }
     const postElement = posts
         .map((el) => <Post
@@ -44,13 +43,12 @@ export const MyPosts: React.FC<MyPostType> = (
             <div className={classes.textAreaBlock}>
                 <div>
                     <textarea
-                        // ref={textTextareaRef}
                         value={newPostText}
-                        onChange={onChangeValueTextarea}
+                        onChange={onPostChange}
                         placeholder="Введите текст"/>
                 </div>
                 <button
-                    onClick={onClickTextarea}
+                    onClick={onAddPost}
                     className={classes.button}>Send
                 </button>
             </div>

@@ -3,12 +3,12 @@ import {Message} from "./Message/Message";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {DialogsDataType, MessageDataType} from "../../App";
 import {ChangeEvent} from "react";
-import {addNewMessageBodyCreator, updateNewMessageBodyCreator} from "../redax/state";
 
 export type DialogsType = {
     dialogsData: DialogsDataType[]
     messageData: MessageDataType[]
-    dispatch: (action: {type: string, text?: string}) => void
+    onChangeHandler: (value: string) => void
+    onClickHandler: () => void
     messageText: string
 }
 
@@ -21,10 +21,10 @@ export const Dialogs = (props: DialogsType) => {
          )
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        props.dispatch(updateNewMessageBodyCreator(e.currentTarget.value))
+        props.onChangeHandler(e.currentTarget.value)
     }
     const onClickHandler = () => {
-        props.dispatch(addNewMessageBodyCreator())
+        props.onClickHandler()
     }
 
     return (

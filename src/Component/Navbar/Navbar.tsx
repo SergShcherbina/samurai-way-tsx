@@ -4,10 +4,10 @@ import {Friends} from "./Friends/Friends";
 import {SidebarType} from "../../App";
 
 export type NavbarType = {
-    sidebar: SidebarType[]
+    store: SidebarType[]
 }
 
-export const Navbar = (props: NavbarType) => {
+export const Navbar = (props: any) => {
     return (
         <nav className={classes.nav}>
             <div> <NavLink exact activeClassName={classes.active} to="/" > Profile </NavLink> </div>
@@ -16,7 +16,7 @@ export const Navbar = (props: NavbarType) => {
             <div> <NavLink activeClassName={classes.active} to="/music" > Music </NavLink> </div>
             <div> <NavLink activeClassName={classes.active} to="/setting" > Setting </NavLink> </div>
             <div>
-                <Friends sidebar={props.sidebar}/>
+                <Friends sidebar={props.store.getState().sidebar}/>
             </div>
         </nav>
     )
