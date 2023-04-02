@@ -1,31 +1,26 @@
 import React from 'react'
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../redax/profile-reducer";
 import {MyPosts} from "./MyPosts";
-import {store} from "../../redax/redux-store";
+import {AppStateType, store} from "../../redax/redux-store";
+import {connect} from "react-redux";
 
-export type MyPostTypeContainer = {
-    store: any
+
+const mapStateToProps = (state: AppStateType) => {
+    return {
+        posts: state.profilePage.posts,
+        newPostText: state.profilePage.newPostText,
+    }
 }
-
-export const MyPostContainer: React.FC<MyPostTypeContainer> = (props) => {
-    const state = props.store.getState();
-
-    const addPost = () => {
-        if(state.profilePage.newPostText.trim() === '') {
-            return;
-        } else {
-            store.dispatch(addPostActionCreator());
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        updateNewPostText: (text: string) => {
+            let action = updateNewPostTextActionCreator(text);
+             dispatch(action)
+        },
+        addPost: () => {
+            dispatch(addPostActionCreator())
         }
     }
-    const onPostChange = (text: string) => {
-        let action = updateNewPostTextActionCreator(text);
-        store.dispatch(action)
-    }
-    return (
-        <MyPosts
-            updateNewPostText={onPostChange}
-            addPost={addPost}
-            posts={state.profilePage.posts}
-            newPostText={state.profilePage.newPostText}/>
-    )
 }
+
+export const MyPostContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)

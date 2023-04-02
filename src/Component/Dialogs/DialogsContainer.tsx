@@ -1,6 +1,8 @@
 import {DialogsDataType, MessageDataType} from "../../App";
 import {addNewMessageBodyCreator, updateNewMessageBodyCreator} from "../redax/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
+import {connect} from "react-redux";
+import {AppStateType} from "../redax/redux-store";
 
 export type DialogsContainer = {
     dialogsData: DialogsDataType[]
@@ -9,24 +11,23 @@ export type DialogsContainer = {
     messageText: string
 }
 
-export const DialogsContainer = (props: any) => {
-    const state = props.store.getState();
 
-    const onChangeHandler = (value: string) => {
-        props.store.dispatch(updateNewMessageBodyCreator(value))
+let mapStateToProps = (state: AppStateType) => {
+    return  {
+        messageText: state.dialogsPage.messageText,
+        messageData: state.dialogsPage.messageData,
+        dialogsData: state.dialogsPage.dialogsData,
     }
-    const onClickHandler = () => {
-        console.log("onClick")
-        props.store.dispatch(addNewMessageBodyCreator())
-    }
-
-    return (
-        <Dialogs
-            dialogsData={state.dialogsPage.dialogsData}
-            messageData={state.dialogsPage.messageData}
-            onChangeHandler={onChangeHandler}
-            onClickHandler={onClickHandler}
-            messageText={state.dialogsPage.messageText}
-        />
-    )
 }
+let mapDispatchToProps = (dispatch: any) => {
+    return {
+        onChangeHandler: (value: string) => {
+            dispatch(updateNewMessageBodyCreator(value))
+        },
+        onClickHandler: () => {
+            dispatch(addNewMessageBodyCreator())
+        },
+    }
+}
+
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)

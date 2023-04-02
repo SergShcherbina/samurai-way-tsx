@@ -1,33 +1,40 @@
 import {ProfilePageType} from "../../App";
 
+
 const  initialState = {
     posts: [
         {id: 1, message: 'Hi, how are you?', likeCounter: 12, counterDislike: 2},
         {id: 2, message: 'It\'s my first post', likeCounter: 11, counterDislike: 2},
-        // {id: 3, message: 'Hi, how are you?', likeCounter: 11, counterDislike: 2},
-        // {id: 4, message: 'Hi, how are you?', likeCounter: 11, counterDislike: 2},
     ],
     newPostText: ''
 };
+type AddPostAT = {
+    type: "ADD-POST"
+}
+type UpdateNewPostTextAT = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newPostText: string
+}
 
-export const profileReducer = (state: any = initialState, action: any) => {
+type ActionType = AddPostAT | UpdateNewPostTextAT;
+
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
     switch (action.type) {
         case 'ADD-POST':
             const valueTextarea: string = state.newPostText
             if (valueTextarea === '') {
-                return;
+                return state;
             } else {
                 let newPostObj = {id: 6, message: valueTextarea, likeCounter: 0, counterDislike: 0}
-                state.posts.push(newPostObj)
-                state.newPostText = '';
+                return {
+                    ...state, posts: [...state.posts, newPostObj], newPostText: ''
+                }
             }
-            break;
         case 'UPDATE-NEW-POST-TEXT':
-            state.newPostText = action.newPostText;
-            break;
+            return {...state, newPostText: action.newPostText}
+        default:
+            return state;
     }
-
-    return state
 }
 
 export const addPostActionCreator = () => {
@@ -37,7 +44,7 @@ export const addPostActionCreator = () => {
 }
 export const updateNewPostTextActionCreator = (value: string) => {
     return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        newPostText: value,
+        type: 'UPDATE-NEW-POST-TEXT' as const,
+        newPostText: value ,
     }
 }

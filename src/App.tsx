@@ -10,6 +10,7 @@ import {News} from "./Component/News/News";
 import {Music} from "./Component/Music/Music";
 import {Setting} from "./Component/Setting/Setting";
 import {DialogsContainer} from "./Component/Dialogs/DialogsContainer";
+import {UsersContainer} from "./Component/Users/UsersContainer";
 
 
 
@@ -52,16 +53,16 @@ function App(props: any) {
         <Router>
             <div className="app-wrapper">
                 <Header/>
-                <Navbar store={props.store}/>
+                <Navbar />
                 <div className="app-wrapper-content">
                     <Route exact path={"/"} render={() => (
-                        <Profile
-                            store={props.store}
-                        />
+                        <Profile/>
                     )}/>
                     <Route path={"/message"} render={() => (
-                        <DialogsContainer store={props.store}
-                        />
+                        <DialogsContainer/>
+                    )}/>
+                    <Route path={"/users"} render={() => (
+                        <UsersContainer/>
                     )}/>
                     <Route path={"/news"} component={News}/>
                     <Route path={"/music"} component={Music}/>

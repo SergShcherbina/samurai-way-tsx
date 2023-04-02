@@ -1,13 +1,13 @@
 import classes from "./navbar.module.css"
 import {NavLink} from "react-router-dom";
-import {Friends} from "./Friends/Friends";
+// import {Friends} from "./Friends/Friends";
 import {SidebarType} from "../../App";
 
 export type NavbarType = {
     store: SidebarType[]
 }
 
-export const Navbar = (props: any) => {
+export const Navbar = () => {
     return (
         <nav className={classes.nav}>
             <div> <NavLink exact activeClassName={classes.active} to="/" > Profile </NavLink> </div>
@@ -15,8 +15,11 @@ export const Navbar = (props: any) => {
             <div> <NavLink activeClassName={classes.active} to="/news" > News </NavLink> </div>
             <div> <NavLink activeClassName={classes.active} to="/music" > Music </NavLink> </div>
             <div> <NavLink activeClassName={classes.active} to="/setting" > Setting </NavLink> </div>
+            <div> <NavLink activeClassName={classes.active} to="/users" > Users </NavLink> </div>
             <div>
-                <Friends sidebar={props.store.getState().sidebar}/>
+                {/*<Friends*/}
+                {/*    //sidebar={props.store.getState().sidebar}*/}
+                {/*/>*/}
             </div>
         </nav>
     )

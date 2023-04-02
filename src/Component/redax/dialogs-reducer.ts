@@ -1,6 +1,19 @@
+import {DialogsDataType, MessageDataType} from "../../App";
 
+export type DialogsReducerType = {
+    dialogsData: DialogsDataType[],
+    messageData: MessageDataType[],
+    messageText: any
+}
+type UpdateNewMessageBodyCreatorType = {
+    type: 'UPDATE-NEW-MESSAGE'
+    valueInput: string
+}
+type AddNewMessageBodyCreatorType = {
+    type: 'ADD-NEW-MESSAGE'
+}
 
-const  initialState = {
+const  initialState : DialogsReducerType = {
         dialogsData: [
             {id: 1, name: 'Sacha'},
             {id: 2, name: 'Petya'},
@@ -19,19 +32,22 @@ const  initialState = {
         messageText: ''
     };
 
-export const dialogsReducer = (state: any = initialState, action: any) => {
+type ActionType = UpdateNewMessageBodyCreatorType | AddNewMessageBodyCreatorType
+
+export const dialogsReducer = (state: DialogsReducerType = initialState, action: ActionType): DialogsReducerType => {
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE':
-            return state.messageText = {...state, messageText: action.valueInput};
+            return {...state, messageText: action.valueInput};
         case 'ADD-NEW-MESSAGE':
             if (state.messageText.trim() === '') {
-                return;
+                break;
             } else {
                 const message = {id: +state.messageText + 11, messageD: state.messageText}
-                state.messageData.push(message);
-                state.messageText = '';
-            }
-            break;
+                return {
+                    ...state, messageData : [...state.messageData, message] , messageText : ''
+                }
+            } default:
+                return state
     }
     return state
 }
