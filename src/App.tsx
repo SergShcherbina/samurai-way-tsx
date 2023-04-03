@@ -48,7 +48,7 @@ export type PostsType = {
     likeCounter: number
     counterDislike: number
 }
-function App(props: any) {
+function App() {
     return (
         <Router>
             <div className="app-wrapper">

@@ -9,11 +9,7 @@ import {Provider} from "react-redux";
 export const rerenderEntireTree = () => {
     ReactDOM.render(
         <Provider store={store}>
-            <App
-                // store={store}
-                // state={state}
-                // dispatch={store.dispatch.bind(store)}
-            />,
+            <App/>,
         </Provider>,
 
         document.getElementById('root')

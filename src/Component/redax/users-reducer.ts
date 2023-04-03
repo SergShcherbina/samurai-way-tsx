@@ -4,29 +4,44 @@ export type usersState = {
     users: UsersType[]
 }
 export type UsersType = {
-    id: string,
-    message: string,
-    status: string,
+    name: string,
+    id: number,
+    photos: PhotoType,
+    status: any,
     followed: boolean,
-    foolName: string
-    location: LocationType,
-    photoUrl: string
 }
-export type LocationType = {
-    city: string,
-    country: string
+export type PhotoType = {
+    small: any,
+    large: any,
 }
+
 
 const initialState : usersState = {
     users: [
-        {id: v1(), message: 'Users 1', followed: false, foolName: 'Dima', status: "i am Boss", location: {city: 'Minsk', country: "Belares"},
-            photoUrl:  " https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png "},
-        {id: v1(), message: 'Users 2', followed: true, foolName: 'Igor', status: "i am Rusian ", location: {city: 'Moscow', country: "Rus"},
-            photoUrl: " https://w7.pngwing.com/pngs/843/694/png-transparent-avatar-female-cartoon-avatar-purple-face-black-hair-thumbnail.png "},
-        {id: v1(), message: 'Users 3', followed: false, foolName: 'Serge', status: "i ia from Ukr", location: {city: 'Kiiv', country: "Ukr"},
-            photoUrl: "https://w7.pngwing.com/pngs/7/618/png-transparent-man-illustration-avatar-icon-fashion-men-avatar-face-fashion-girl-heroes-thumbnail.png "},
-    ]
-}
+            // {
+            //     "name": "Shubert",
+            //     "id": 1,
+            //     "photos": {
+            //         "small": null,
+            //         "large": null
+            //     },
+            //     "status": null,
+            //     "followed": false
+            // },
+            // {
+            //     "name": "Hacker",
+            //     "id": 2,
+            //     "photos": {
+            //         "small": null,
+            //         "large": null
+            //     },
+            //     "status": null,
+            //     "followed": false
+            // }
+        ],
+
+    }
+
 
 type FollowAT = ReturnType<typeof followAC>
 type UnFollowAT = ReturnType<typeof unFollowAC>
@@ -53,13 +68,13 @@ export const usersReducer = (state: usersState = initialState, action: ActionTyp
     }
 }
 
-export const followAC = (userId: string) => {
+export const followAC = (userId: number) => {
     return {
         type: "FOLLOW",
         userId,
     } as const
 }
-export const unFollowAC = (userId: string) => {
+export const unFollowAC = (userId: number) => {
     return {
         type: "UNFOLLOW",
         userId,
