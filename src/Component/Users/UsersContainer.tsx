@@ -4,6 +4,7 @@ import {Users} from "./Users";
 import {AppStateType} from "../redax/redux-store";
 import {followAC, setUsersAC, unFollowAC, UsersType} from "../redax/users-reducer";
 
+
 const mapStateToProps = (state: AppStateType) => {
     return {
         users: state.usersPage.users
@@ -17,7 +18,7 @@ const mapDispatchToProps = (dispatch: any) => {
         unFollow: (userId: string) => {
             dispatch(unFollowAC(userId))
         },
-        setUsers: (users: UsersType) => {
+        setUsers: (users: UsersType[]) => {
             dispatch(setUsersAC(users))
         }
     }
