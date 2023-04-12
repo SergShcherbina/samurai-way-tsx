@@ -3,8 +3,8 @@ import {ProfilePageType} from "../../App";
 
 const  initialState = {
     posts: [
-        {id: 1, message: 'Hi, how are you?', likeCounter: 12, counterDislike: 2},
-        {id: 2, message: 'It\'s my first post', likeCounter: 11, counterDislike: 2},
+        // {id: 1, message: 'Hi, how are you?', likeCounter: 12, counterDislike: 2},
+        // {id: 2, message: 'It\'s my first post', likeCounter: 11, counterDislike: 2},
     ],
     newPostText: ''
 };
@@ -27,7 +27,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             } else {
                 let newPostObj = {id: 6, message: valueTextarea, likeCounter: 0, counterDislike: 0}
                 return {
-                    ...state, posts: [...state.posts, newPostObj], newPostText: ''
+                    ...state, posts: [newPostObj, ...state.posts], newPostText: ''
                 }
             }
         case 'UPDATE-NEW-POST-TEXT':

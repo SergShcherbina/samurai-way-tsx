@@ -28,3 +28,8 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.selectedPage {
+    font-weight: bold;
+    font-size: 18px;
+    padding: 3px;
+}

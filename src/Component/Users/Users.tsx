@@ -6,6 +6,8 @@ import avaUser from '../assets/img/avatarUser.png'
 
 type UsersComponentType = {
     users: UsersType[],
+    pageSize: number,
+    totalUsersCount: number,
     follow: (userId: number) => void,
     unFollow: (userId: number) => void,
     setUsers: (users: UsersType[]) => void
@@ -15,7 +17,7 @@ export const Users = (props: UsersComponentType) => {
 
     let getUsers = () => {
         if(props.users.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users")   //делаем запрос на сервер
+            axios.get("https://social-network.samuraijs.com/api/1.0/users")       //делаем запрос на сервер
                 .then(response => {
                     props.setUsers(response.data.items)                           //сетаем в state.users
                 });
