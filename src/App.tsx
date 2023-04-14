@@ -10,7 +10,7 @@ import {News} from "./Component/News/News";
 import {Music} from "./Component/Music/Music";
 import {Setting} from "./Component/Setting/Setting";
 import {DialogsContainer} from "./Component/Dialogs/DialogsContainer";
-import {UsersContainer} from "./Component/Users/UsersContainer";
+import {UsersConnect} from "./Component/Users/UsersContainer";
 
 
 
@@ -62,7 +62,7 @@ function App() {
                         <DialogsContainer/>
                     )}/>
                     <Route path={"/users"} render={() => (
-                        <UsersContainer/>
+                        <UsersConnect/>
                     )}/>
                     <Route path={"/news"} component={News}/>
                     <Route path={"/music"} component={Music}/>
