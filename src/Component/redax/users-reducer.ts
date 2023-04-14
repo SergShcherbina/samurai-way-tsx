@@ -1,12 +1,13 @@
 import {v1} from "uuid";
 
 export type usersState = {
-    users: UsersType[]
+    users: UserType[]
     pageSize: number,
     totalUsersCount: number,
     currentPage: number,
+    isFething: boolean,
 }
-export type UsersType = {
+export type UserType = {
     name: string,
     id: number,
     photos: PhotoType,
@@ -22,17 +23,18 @@ export type PhotoType = {
 const initialState : usersState = {
     users: [],
     pageSize: 10,
-    totalUsersCount: 101,
+    totalUsersCount: 0,
     currentPage: 1,
+    isFething: false,
     }
 
 type FollowAT = ReturnType<typeof followAC>
 type UnFollowAT = ReturnType<typeof unFollowAC>
 type SetUsersAT = ReturnType<typeof setUsersAC>
 type setCurentPageAT = ReturnType<typeof setCurrentPageAC>
-type setTotalUsersCount = ReturnType<typeof setTotalUsersCountAC>
-
-type ActionType = FollowAT | SetUsersAT |  UnFollowAT | setCurentPageAT | setTotalUsersCount;
+type setTotalUsersCountAT = ReturnType<typeof setTotalUsersCountAC>
+type setFethingAT = ReturnType<typeof setFethingAC>
+type ActionType = FollowAT | SetUsersAT |  UnFollowAT | setCurentPageAT | setTotalUsersCountAT | setFethingAT;
 
 export const usersReducer = (state: usersState = initialState, action: ActionType): usersState => {
     switch (action.type) {
@@ -56,6 +58,10 @@ export const usersReducer = (state: usersState = initialState, action: ActionTyp
             return {
                 ...state, totalUsersCount: action.totalUsersCount
             }
+        case "SET-FETHING": 
+            return {
+                ...state, isFething: action.loading
+            } 
         default:
             return state;
     }
@@ -73,7 +79,7 @@ export const unFollowAC = (userId: number) => {
         userId,
     } as const
 }
-export const  setUsersAC = (users: UsersType[]) => {
+export const  setUsersAC = (users: UserType[]) => {
     return {
         type: "SET-USERS",
         users,
@@ -89,5 +95,11 @@ export const  setTotalUsersCountAC = (totalUsersCount: number) => {
     return {
         type: "SET-TOTAL-USERS-COUNT",
         totalUsersCount: totalUsersCount,
+    } as const
+}
+export const  setFethingAC = (loading: boolean) => {
+    return {
+        type: "SET-FETHING",
+        loading,
     } as const
 }
