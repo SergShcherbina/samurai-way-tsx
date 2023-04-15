@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../redax/redux-store";
-import {followAC, setUsersAC, unFollowAC, UserType,setCurrentPageAC, setTotalUsersCountAC, setFethingAC} from "../redax/users-reducer";
+import {follow, setUsers, unFollow, UserType,setCurrentPage, setTotalUsersCount, setFething} from "../redax/users-reducer";
 import axios from "axios";
 import { Users } from './Users';
 
@@ -81,28 +81,14 @@ const mapStateToProps = (state: AppStateType) => {
         isFething: state.usersPage.isFething
         }
 }
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-        follow: (userId: number) => {
-            dispatch(followAC(userId))
-        },
-        unFollow: (userId: number) => {
-            dispatch(unFollowAC(userId))
-        },
-        setUsers: (users: UserType[]) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (pageNumber: number) => {
-            dispatch(setCurrentPageAC(pageNumber))
-        },
-        setTotalUsersCount: (totalUsersCount: number) => {
-            dispatch(setTotalUsersCountAC(totalUsersCount))
-        },
-        setFething: (loading: boolean) => {
-            dispatch(setFethingAC(loading))
-        }
-    }
-}
 
-export const UsersConnect = connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+//передали вторым параметром вместо mapDispatchToProps обьект с AC
+export const UsersConnect = connect(mapStateToProps, {
+    follow,
+    unFollow,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    setFething,
+})(UsersContainer)
 

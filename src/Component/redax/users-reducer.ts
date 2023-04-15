@@ -28,12 +28,12 @@ const initialState : usersState = {
     isFething: false,
     }
 
-type FollowAT = ReturnType<typeof followAC>
-type UnFollowAT = ReturnType<typeof unFollowAC>
-type SetUsersAT = ReturnType<typeof setUsersAC>
-type setCurentPageAT = ReturnType<typeof setCurrentPageAC>
-type setTotalUsersCountAT = ReturnType<typeof setTotalUsersCountAC>
-type setFethingAT = ReturnType<typeof setFethingAC>
+type FollowAT = ReturnType<typeof follow>
+type UnFollowAT = ReturnType<typeof unFollow>
+type SetUsersAT = ReturnType<typeof setUsers>
+type setCurentPageAT = ReturnType<typeof setCurrentPage>
+type setTotalUsersCountAT = ReturnType<typeof setTotalUsersCount>
+type setFethingAT = ReturnType<typeof setFething>
 type ActionType = FollowAT | SetUsersAT |  UnFollowAT | setCurentPageAT | setTotalUsersCountAT | setFethingAT;
 
 export const usersReducer = (state: usersState = initialState, action: ActionType): usersState => {
@@ -67,37 +67,37 @@ export const usersReducer = (state: usersState = initialState, action: ActionTyp
     }
 }
 
-export const followAC = (userId: number) => {
+export const follow = (userId: number) => {
     return {
         type: "FOLLOW",
         userId,
     } as const
 }
-export const unFollowAC = (userId: number) => {
+export const unFollow = (userId: number) => {
     return {
         type: "UNFOLLOW",
         userId,
     } as const
 }
-export const  setUsersAC = (users: UserType[]) => {
+export const  setUsers = (users: UserType[]) => {
     return {
         type: "SET-USERS",
         users,
     } as const
 }
-export const  setCurrentPageAC = (pageNumber: number) => {
+export const  setCurrentPage = (pageNumber: number) => {
     return {
         type: "SET-CURRENT-PAGE",
         currentPage: pageNumber,
     } as const
 }
-export const  setTotalUsersCountAC = (totalUsersCount: number) => {
+export const  setTotalUsersCount = (totalUsersCount: number) => {
     return {
         type: "SET-TOTAL-USERS-COUNT",
         totalUsersCount: totalUsersCount,
     } as const
 }
-export const  setFethingAC = (loading: boolean) => {
+export const  setFething = (loading: boolean) => {
     return {
         type: "SET-FETHING",
         loading,
