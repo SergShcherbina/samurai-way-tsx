@@ -1,4 +1,5 @@
 import {v1} from "uuid";
+import { ProfileType } from "../Profile/ProfileContainer ";
 
 export type usersState = {
     users: UserType[]
@@ -26,7 +27,7 @@ const initialState : usersState = {
     totalUsersCount: 0,
     currentPage: 1,
     isFething: false,
-    }
+   }
 
 type FollowAT = ReturnType<typeof follow>
 type UnFollowAT = ReturnType<typeof unFollow>
@@ -61,7 +62,7 @@ export const usersReducer = (state: usersState = initialState, action: ActionTyp
         case "SET-FETHING": 
             return {
                 ...state, isFething: action.loading
-            } 
+            }         
         default:
             return state;
     }

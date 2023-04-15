@@ -3,6 +3,7 @@ import s from './users.module.css'
 import avaUser from '../assets/img/avatarUser.png'
 import { UserType } from '../redax/users-reducer';
 import { Spinner } from '../assets/spinner/Spinner';
+import { NavLink } from 'react-router-dom';
 
 type UsersType = {
     users: UserType[],
@@ -60,7 +61,9 @@ export const Users = (props: UsersType) => {
                 props.users.map(user => <div key={user.id} className={s.userItem}>
                         <div className={s.userIcon}>
                             <div>
-                                <img style={{ width: '40px' }} src={user.photos.small ? user.photos.small : avaUser} />
+                                <NavLink to={`/profile/${user.id}`} >
+                                    <img style={{ width: '40px' }} src={user.photos.small ? user.photos.small : avaUser} />
+                                </NavLink>
                             </div>
                             <div>
                                 {user.followed

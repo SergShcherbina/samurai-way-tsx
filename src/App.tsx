@@ -4,13 +4,14 @@ import {Header} from "./Component/Header/Header";
 import {Footer} from "./Component/Footer/Footer";
 import {Navbar} from "./Component/Navbar/Navbar";
 import {Profile} from "./Component/Profile/Profile";
-import {Dialogs, DialogsType} from "./Component/Dialogs/Dialogs";
+import {DialogsType} from "./Component/Dialogs/Dialogs";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import {News} from "./Component/News/News";
 import {Music} from "./Component/Music/Music";
 import {Setting} from "./Component/Setting/Setting";
 import {DialogsContainer} from "./Component/Dialogs/DialogsContainer";
 import {UsersConnect} from "./Component/Users/UsersContainer";
+import { ConnectProlileContainer } from './Component/Profile/ProfileContainer ';
 
 
 
@@ -33,6 +34,7 @@ export type SidebarType = {
 export type ProfilePageType = {
     posts: PostsType[]
     newPostText: string
+    profile: any
 }
 export type DialogsDataType = {
     id: number
@@ -55,8 +57,8 @@ function App() {
                 <Header/>
                 <Navbar />
                 <div className="app-wrapper-content">
-                    <Route exact path={"/"} render={() => (
-                        <Profile/>
+                    <Route exact path={"/profile"} render={() => (
+                        <ConnectProlileContainer/>
                     )}/>
                     <Route path={"/message"} render={() => (
                         <DialogsContainer/>

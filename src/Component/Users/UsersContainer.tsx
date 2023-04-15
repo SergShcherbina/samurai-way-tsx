@@ -91,4 +91,3 @@ export const UsersConnect = connect(mapStateToProps, {
     setTotalUsersCount,
     setFething,
 })(UsersContainer)
-
