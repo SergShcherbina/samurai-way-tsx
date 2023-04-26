@@ -6,7 +6,7 @@ import {useParams} from "react-router-dom";
 
 export const ProfileInfo = (props: any) => {
     let pathAva = "https://st.depositphotos.com/2218212/2938/i/450/depositphotos_29387653-stock-photo-facebook-profile.jpg"
-    if(props.profile.photos.large!== null) pathAva = props.profile.photos.large
+    // if(props.profile.photos.large!== null) pathAva = props.profile.photos.large
 
     return (
         < >

@@ -12,6 +12,7 @@ import {Setting} from "./Component/Setting/Setting";
 import {DialogsContainer} from "./Component/Dialogs/DialogsContainer";
 import {UsersConnect} from "./Component/Users/UsersContainer";
 import { ConnectProfileContainer } from './Component/Profile/ProfileContainer ';
+import {ConnectHeaderContainer, HeaderContainer} from "./Component/Header/HeaderContainer";
 
 
 
@@ -53,7 +54,7 @@ function App() {
     return (
         <Router>
             <div className="app-wrapper">
-                <Header/>
+                <ConnectHeaderContainer/>
                 <Navbar />
                 <div className="app-wrapper-content">
                     <Route exact path={"/profile/:userId?"} render={() => (

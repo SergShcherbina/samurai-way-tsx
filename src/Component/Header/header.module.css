@@ -6,3 +6,10 @@
     height: 80px;
     margin-left: 20px;
 }
+.loginBlock {
+    padding: 16px 20px;
+    float: right;
+}
+.loginBlock a {
+    color: #fff;
+}
