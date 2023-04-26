@@ -5,7 +5,7 @@ import { AppStateType } from '../redax/redux-store';
 import {connect} from "react-redux";
 import axios from 'axios';
 import { setUserProfile } from '../redax/profile-reducer';
-// import {AppStateType} from "../redax/redux-store";
+import { withRouter } from "react-router-dom";
 
 export type ProfileType = {
     posts: PostsType[]
@@ -17,7 +17,9 @@ export class ProfileContainer extends React.Component<any, any> {
     
     componentDidMount() {
         // this.props.setFething(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
+        let userId = this.props.match.params.userId;                     //получили за счет withRouter
+        if(!userId) userId = 2;
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
             .then(response => {
                 this.props.setUserProfile(response.data)
             })
@@ -41,6 +43,9 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
-export const ConnectProlileContainer = connect(mapStateToProps, {
+//hoc который берет данные из url и добавляет в компоненту
+const WithUrlDataProfileComponent = withRouter(ProfileContainer)
+
+export const ConnectProfileContainer = connect(mapStateToProps, {
     setUserProfile,
-})(ProfileContainer)
+})(WithUrlDataProfileComponent)

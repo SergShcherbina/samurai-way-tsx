@@ -1,9 +1,13 @@
 import classes from "./ProfileInfo.module.css"
 import "../../../index.css"
 import { Spinner } from "../../assets/spinner/Spinner"
+import {useParams} from "react-router-dom";
 
 
 export const ProfileInfo = (props: any) => {
+    let pathAva = "https://st.depositphotos.com/2218212/2938/i/450/depositphotos_29387653-stock-photo-facebook-profile.jpg"
+    if(props.profile.photos.large!== null) pathAva = props.profile.photos.large
+
     return (
         < >
             <div>
@@ -16,7 +20,7 @@ export const ProfileInfo = (props: any) => {
             <div className={classes.profileInfo}>
                 <div className="boxShadowEl">
                     <img className={classes.avatar}
-                        src={props.profile.photos.large}                 
+                        src={pathAva}
                     />
                 </div>
                 <div className={classes.profileDescr + ' ' + 'boxShadowEl'} >

@@ -5,6 +5,8 @@
 }
 .avatar {
     height: 155px;
+    width: 155px;
+    object-fit: cover;
 }
 
 .profileInfo {

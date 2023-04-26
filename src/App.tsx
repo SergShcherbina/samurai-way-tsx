@@ -11,8 +11,7 @@ import {Music} from "./Component/Music/Music";
 import {Setting} from "./Component/Setting/Setting";
 import {DialogsContainer} from "./Component/Dialogs/DialogsContainer";
 import {UsersConnect} from "./Component/Users/UsersContainer";
-import { ConnectProlileContainer } from './Component/Profile/ProfileContainer ';
-
+import { ConnectProfileContainer } from './Component/Profile/ProfileContainer ';
 
 
 
@@ -57,8 +56,8 @@ function App() {
                 <Header/>
                 <Navbar />
                 <div className="app-wrapper-content">
-                    <Route exact path={"/profile"} render={() => (
-                        <ConnectProlileContainer/>
+                    <Route exact path={"/profile/:userId?"} render={() => (
+                        <ConnectProfileContainer/>
                     )}/>
                     <Route path={"/message"} render={() => (
                         <DialogsContainer/>
