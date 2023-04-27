@@ -4,6 +4,7 @@ import avaUser from '../assets/img/avatarUser.png'
 import { UserType } from '../redax/users-reducer';
 import { Spinner } from '../assets/spinner/Spinner';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
 type UsersType = {
     users: UserType[],
@@ -14,7 +15,7 @@ type UsersType = {
     follow: (userId: number) => void,
     unFollow: (userId: number) => void,
     changeCurrentPage: (pageNumber: number) => void,
-    setFething: (loading: boolean)=> void
+    setFething: (loading: boolean) => void
 }
 
 export const Users = (props: UsersType) => {
@@ -31,7 +32,7 @@ export const Users = (props: UsersType) => {
     }
 
     let pagePagination = pagination(props.currentPage)
-    
+
     return (
         <div className={s.wrapperUsers}>
             <div>
@@ -49,40 +50,73 @@ export const Users = (props: UsersType) => {
                 </span>)}
                 <button
                     //дизейблим если активная страница совпадает с последней страницей 
-                    disabled = {props.currentPage >= pagesCount }
+                    disabled={props.currentPage >= pagesCount}
                     onClick={() => props.changeCurrentPage(pagePagination[0] + 1)} > +1
                 </button>
             </div >
 
 
             {props.isFething
-                ?  <Spinner/>
+                ? <Spinner />
                 :
                 props.users.map(user => <div key={user.id} className={s.userItem}>
-                        <div className={s.userIcon}>
-                            <div>
-                                <NavLink to={`/profile/${user.id}`} >
-                                    <img style={{ width: '40px' }} src={user.photos.small ? user.photos.small : avaUser} />
-                                </NavLink>
-                            </div>
-                            <div>
-                                {user.followed
-                                    ? <button onClick={() => { props.follow(user.id) }}>Unfollow</button>
-                                    : <button onClick={() => { props.unFollow(user.id) }}> Follow  </button>}
-                            </div>
+                    <div className={s.userIcon}>
+                        <div>
+                            <NavLink to={`/profile/${user.id}`} >
+                                <img style={{ width: '40px' }} src={user.photos.small ? user.photos.small : avaUser} />
+                            </NavLink>
                         </div>
-                        <div className={s.userContent}>
+                        <div>
+                            {user.followed
+                                ? <button onClick={() => {
+                                    axios.delete(`https://social-network.samuraijs.com/api/1.0//follow/${user.id}`,
+                                    {
+                                        withCredentials: true,
+                                        headers: {
+                                            'API-KEY': '2c9579b3-006a-4fe2-ae79-36894f3fae6b'
+                                        }
+                                    })
+                                        .then(response => {
+                                            if(response.data.resultCode === 0){
+                                                props.follow(user.id) 
+                                            }
+                                        })
+                                        .catch((err) => {
+                                            console.log('ОШИБКА FOLLOW')
+                                        })
+                                }}>Unfollow</button>
+                                : <button onClick={() => {
+                                    axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${user.id}`, {}, 
+                                    {
+                                        withCredentials: true,
+                                        headers: {
+                                            'API-KEY': '2c9579b3-006a-4fe2-ae79-36894f3fae6b'
+                                        }
+                                    })
+                                        .then(response => {
+                                            if(response.data.resultCode === 0){
+                                                props.unFollow(user.id)
+                                            }
+                                        })
+                                        .catch((err) => {
+                                            console.log('ОШИБКА UNFOLLOW')
+                                        })
+                                    
+                                }}> Follow  </button>}
+                        </div>
+                    </div>
+                    <div className={s.userContent}>
+                        <div className={s.userNameWrapper}>
+                            <div>{user.name}
+                                <div>{user.status}</div>
+                            </div>
                             <div className={s.userNameWrapper}>
-                                <div>{user.name}
-                                    <div>{user.status}</div>
-                                </div>
-                                <div className={s.userNameWrapper}>
-                                    <div>{'user.location.country'}</div>
-                                    <div>{'user.location.city'}</div>
-                                </div>
+                                <div>{'user.location.country'}</div>
+                                <div>{'user.location.city'}</div>
                             </div>
                         </div>
-                    </div>)
+                    </div>
+                </div>)
             }
         </div>
 

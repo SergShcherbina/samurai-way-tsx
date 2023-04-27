@@ -1,7 +1,7 @@
 import React from 'react';
-import {connect} from "react-redux";
-import {AppStateType} from "../redax/redux-store";
-import {follow, setUsers, unFollow, UserType,setCurrentPage, setTotalUsersCount, setFething} from "../redax/users-reducer";
+import { connect } from "react-redux";
+import { AppStateType } from "../redax/redux-store";
+import { follow, setUsers, unFollow, UserType, setCurrentPage, setTotalUsersCount, setFething } from "../redax/users-reducer";
 import axios from "axios";
 import { Users } from './Users';
 
@@ -26,22 +26,28 @@ export class UsersContainer extends React.Component<UsersContainerType>{
 
     componentDidMount() {
         this.props.setFething(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, 
+        {
+            withCredentials: true
+        })
             .then(response => {
                 this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)                
+                this.props.setTotalUsersCount(response.data.totalCount)
             })
             .catch((err) => {
                 console.log('ОШИБКА')
             })
-            .finally(()=> {
+            .finally(() => {
                 this.props.setFething(false)
             });
     }
     changeCurrentPage = (pageNumber: number) => {
         this.props.setFething(true)
         this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
+            {
+                withCredentials: true
+            })
             .then(response => {
                 this.props.setUsers(response.data.items)
                 this.props.setFething(false)
@@ -49,7 +55,7 @@ export class UsersContainer extends React.Component<UsersContainerType>{
             .catch((err) => {
                 console.log('ОШИБКА')
             })
-            .finally(()=> {
+            .finally(() => {
                 this.props.setFething(false)
             });
     }
@@ -74,12 +80,12 @@ export class UsersContainer extends React.Component<UsersContainerType>{
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        users: state.usersPage.users, 
+        users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFething: state.usersPage.isFething
-        }
+    }
 }
 
 //передали вторым параметром вместо mapDispatchToProps обьект с AC
