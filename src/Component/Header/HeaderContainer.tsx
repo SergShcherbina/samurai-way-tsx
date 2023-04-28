@@ -5,20 +5,19 @@ import {Header} from "./Header";
 import {connect} from "react-redux";
 import {AppStateType} from "../redax/redux-store";
 import {setAuthUserData} from "../redax/auth-reducer";
+import { getAPI } from '../api/api';
 
 export class HeaderContainer extends React.Component<any, any> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            withCredentials: true
-        })
+        getAPI.getAuthMe()
             .then(response => {
-                if(response.data.resultCode === 0){
-                    const {id, email, login} = response.data.data
+                if(response.resultCode === 0){
+                    const {id, email, login} = response.data
                     this.props.setAuthUserData(id, email, login)
                 }
             })
             .catch(() => {
-                console.log('error')
+                console.log('error getAuthMe')
             })
     }
 

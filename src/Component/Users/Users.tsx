@@ -5,6 +5,7 @@ import { UserType } from '../redax/users-reducer';
 import { Spinner } from '../assets/spinner/Spinner';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+import { getAPI } from '../api/api';
 
 type UsersType = {
     users: UserType[],
@@ -69,15 +70,9 @@ export const Users = (props: UsersType) => {
                         <div>
                             {user.followed
                                 ? <button onClick={() => {
-                                    axios.delete(`https://social-network.samuraijs.com/api/1.0//follow/${user.id}`,
-                                    {
-                                        withCredentials: true,
-                                        headers: {
-                                            'API-KEY': '2c9579b3-006a-4fe2-ae79-36894f3fae6b'
-                                        }
-                                    })
+                                    getAPI.followUser(user.id)
                                         .then(response => {
-                                            if(response.data.resultCode === 0){
+                                            if(response.resultCode === 0){
                                                 props.follow(user.id) 
                                             }
                                         })
@@ -86,15 +81,9 @@ export const Users = (props: UsersType) => {
                                         })
                                 }}>Unfollow</button>
                                 : <button onClick={() => {
-                                    axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${user.id}`, {}, 
-                                    {
-                                        withCredentials: true,
-                                        headers: {
-                                            'API-KEY': '2c9579b3-006a-4fe2-ae79-36894f3fae6b'
-                                        }
-                                    })
+                                    getAPI.unFollowUser(user.id)                 
                                         .then(response => {
-                                            if(response.data.resultCode === 0){
+                                            if(response.resultCode === 0){
                                                 props.unFollow(user.id)
                                             }
                                         })

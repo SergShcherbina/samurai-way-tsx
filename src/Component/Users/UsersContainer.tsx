@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from "react-redux";
 import { AppStateType } from "../redax/redux-store";
 import { follow, setUsers, unFollow, UserType, setCurrentPage, setTotalUsersCount, setFething } from "../redax/users-reducer";
-import axios from "axios";
 import { Users } from './Users';
+import { getAPI } from '../api/api';
 
 
 type UsersContainerType = {
@@ -19,6 +19,8 @@ type UsersContainerType = {
     setTotalUsersCount: (totalUsersCount: number) => void,
     setFething: (loading: boolean) => void
 }
+
+
 export class UsersContainer extends React.Component<UsersContainerType>{
     constructor(props: UsersContainerType) {
         super(props);
@@ -26,16 +28,13 @@ export class UsersContainer extends React.Component<UsersContainerType>{
 
     componentDidMount() {
         this.props.setFething(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, 
-        {
-            withCredentials: true
-        })
+        getAPI.getUsers(this.props.currentPage, this.props.pageSize)
             .then(response => {
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setUsers(response.items)
+                this.props.setTotalUsersCount(response.totalCount)
             })
             .catch((err) => {
-                console.log('ОШИБКА')
+                console.log('ОШИБКА getUsers')
             })
             .finally(() => {
                 this.props.setFething(false)
@@ -44,16 +43,13 @@ export class UsersContainer extends React.Component<UsersContainerType>{
     changeCurrentPage = (pageNumber: number) => {
         this.props.setFething(true)
         this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
-            {
-                withCredentials: true
-            })
+        getAPI.getCurrentPage(pageNumber, this.props.pageSize)
             .then(response => {
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(response.items)
                 this.props.setFething(false)
             })
             .catch((err) => {
-                console.log('ОШИБКА')
+                console.log('ОШИБКА CurrentPage')
             })
             .finally(() => {
                 this.props.setFething(false)

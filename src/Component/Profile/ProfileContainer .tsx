@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import axios from 'axios';
 import { setUserProfile } from '../redax/profile-reducer';
 import { withRouter } from "react-router-dom";
+import { getAPI } from '../api/api';
 
 export type ProfileType = {
     posts: PostsType[]
@@ -19,12 +20,9 @@ export class ProfileContainer extends React.Component<any, any> {
         // this.props.setFething(true)
         let userId = this.props.match.params.userId;                     //получили за счет withRouter
         if(!userId) userId = 2;
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`,
-        {
-            withCredentials: true
-        })
+        getAPI.getUser(userId)
             .then(response => {
-                this.props.setUserProfile(response.data)
+                this.props.setUserProfile(response)
             })
             .catch((err) => {
                 console.log('ОШИБКА')
