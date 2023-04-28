@@ -1,7 +1,16 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { AppStateType } from "../redax/redux-store";
-import { follow, setUsers, unFollow, UserType, setCurrentPage, setTotalUsersCount, setFething } from "../redax/users-reducer";
+import {
+    follow,
+    setUsers,
+    unFollow,
+    UserType,
+    setCurrentPage,
+    setTotalUsersCount,
+    setFething,
+    toggleDisableBtnFollow,
+} from "../redax/users-reducer";
 import { Users } from './Users';
 import { getAPI } from '../api/api';
 
@@ -12,20 +21,20 @@ type UsersContainerType = {
     totalUsersCount: number,
     currentPage: number,
     isFething: boolean,
+    disableBtnFollow: number[]
     follow: (userId: number) => void,
     unFollow: (userId: number) => void,
     setUsers: (users: UserType[]) => void,
     setCurrentPage: (pageNumber: number) => void,
     setTotalUsersCount: (totalUsersCount: number) => void,
     setFething: (loading: boolean) => void
+    toggleDisableBtnFollow: (loading: boolean, userId: number) => void
 }
-
 
 export class UsersContainer extends React.Component<UsersContainerType>{
     constructor(props: UsersContainerType) {
         super(props);
     }
-
     componentDidMount() {
         this.props.setFething(true)
         getAPI.getUsers(this.props.currentPage, this.props.pageSize)
@@ -55,7 +64,6 @@ export class UsersContainer extends React.Component<UsersContainerType>{
                 this.props.setFething(false)
             });
     }
-
     render() {
         return (
             <Users
@@ -68,9 +76,10 @@ export class UsersContainer extends React.Component<UsersContainerType>{
                 unFollow={this.props.unFollow}
                 isFething={this.props.isFething}
                 setFething={this.props.setFething}
+                toggleDisableBtnFollow={this.props.toggleDisableBtnFollow}
+                disableBtnFollow={this.props.disableBtnFollow}
             />
         )
-
     }
 }
 
@@ -80,7 +89,8 @@ const mapStateToProps = (state: AppStateType) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFething: state.usersPage.isFething
+        isFething: state.usersPage.isFething,
+        disableBtnFollow: state.usersPage.disableBtnFollow,
     }
 }
 
@@ -92,4 +102,5 @@ export const UsersConnect = connect(mapStateToProps, {
     setCurrentPage,
     setTotalUsersCount,
     setFething,
+    toggleDisableBtnFollow,
 })(UsersContainer)

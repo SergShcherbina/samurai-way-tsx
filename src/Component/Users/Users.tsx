@@ -1,7 +1,7 @@
 import React, { MouseEvent } from 'react';
 import s from './users.module.css'
 import avaUser from '../assets/img/avatarUser.png'
-import { UserType } from '../redax/users-reducer';
+import {toggleDisableBtnFollow, UserType} from '../redax/users-reducer';
 import { Spinner } from '../assets/spinner/Spinner';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
@@ -13,10 +13,12 @@ type UsersType = {
     totalUsersCount: number,
     currentPage: number,
     isFething: boolean,
+    disableBtnFollow: number[],
     follow: (userId: number) => void,
     unFollow: (userId: number) => void,
     changeCurrentPage: (pageNumber: number) => void,
     setFething: (loading: boolean) => void
+    toggleDisableBtnFollow: (loading: boolean, userId: number) => void
 }
 
 export const Users = (props: UsersType) => {
@@ -33,7 +35,7 @@ export const Users = (props: UsersType) => {
     }
 
     let pagePagination = pagination(props.currentPage)
-
+    console.log(props.disableBtnFollow)
     return (
         <div className={s.wrapperUsers}>
             <div>
@@ -69,28 +71,40 @@ export const Users = (props: UsersType) => {
                         </div>
                         <div>
                             {user.followed
-                                ? <button onClick={() => {
-                                    getAPI.followUser(user.id)
-                                        .then(response => {
-                                            if(response.resultCode === 0){
-                                                props.follow(user.id) 
-                                            }
+                                ? <button
+                                    //дизейблим кнопку если в полученном массиве id совпадает с текущим
+                                    disabled={props.disableBtnFollow.some(id => id === user.id)}
+                                    onClick={() => {
+                                        //диспатчим loading:true и userId для добавления в disableBtnFollow
+                                        props.toggleDisableBtnFollow(true, user.id)
+                                        getAPI.followUser(user.id)
+                                            .then(response => {
+                                                if(response.resultCode === 0){
+                                                    props.follow(user.id)
+                                                }
+                                            })
+                                            .catch((err) => {
+                                                console.log('ОШИБКА FOLLOW')
+                                            }).finally(()=> {
+                                            //диспатчим loading:false и userId для удаления в disableBtnFollow
+                                            props.toggleDisableBtnFollow(false, user.id)
                                         })
-                                        .catch((err) => {
-                                            console.log('ОШИБКА FOLLOW')
-                                        })
-                                }}>Unfollow</button>
-                                : <button onClick={() => {
-                                    getAPI.unFollowUser(user.id)                 
-                                        .then(response => {
-                                            if(response.resultCode === 0){
-                                                props.unFollow(user.id)
-                                            }
-                                        })
-                                        .catch((err) => {
-                                            console.log('ОШИБКА UNFOLLOW')
-                                        })
-                                    
+                                    }}>Unfollow</button>
+                                : <button
+                                    disabled={props.disableBtnFollow.some(el=>el === user.id)}
+                                    onClick={() => {
+                                        props.toggleDisableBtnFollow(true, user.id)
+                                        getAPI.unFollowUser(user.id)
+                                            .then(response => {
+                                                if(response.resultCode === 0){
+                                                    props.unFollow(user.id)
+                                                }
+                                            })
+                                            .catch((err) => {
+                                                console.log('ОШИБКА UNFOLLOW')
+                                            }).finally(()=> {
+                                            props.toggleDisableBtnFollow(false, user.id)
+                                    })
                                 }}> Follow  </button>}
                         </div>
                     </div>

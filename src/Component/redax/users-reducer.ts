@@ -7,6 +7,7 @@ export type usersState = {
     totalUsersCount: number,
     currentPage: number,
     isFething: boolean,
+    disableBtnFollow: number[]
 }
 export type UserType = {
     name: string,
@@ -16,18 +17,17 @@ export type UserType = {
     followed: boolean,
 }
 export type PhotoType = {
-    small: any,
-    large: any,
+    small: string,
+    large: string,
 }
-
-
 const initialState : usersState = {
     users: [],
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
     isFething: false,
-   }
+    disableBtnFollow: [],
+}
 
 type FollowAT = ReturnType<typeof follow>
 type UnFollowAT = ReturnType<typeof unFollow>
@@ -35,7 +35,8 @@ type SetUsersAT = ReturnType<typeof setUsers>
 type setCurentPageAT = ReturnType<typeof setCurrentPage>
 type setTotalUsersCountAT = ReturnType<typeof setTotalUsersCount>
 type setFethingAT = ReturnType<typeof setFething>
-type ActionType = FollowAT | SetUsersAT |  UnFollowAT | setCurentPageAT | setTotalUsersCountAT | setFethingAT;
+type toggleDisableBtnFollowType = ReturnType<typeof toggleDisableBtnFollow>
+type ActionType = FollowAT | SetUsersAT |  UnFollowAT | setCurentPageAT | setTotalUsersCountAT | setFethingAT | toggleDisableBtnFollowType;
 
 export const usersReducer = (state: usersState = initialState, action: ActionType): usersState => {
     switch (action.type) {
@@ -62,7 +63,13 @@ export const usersReducer = (state: usersState = initialState, action: ActionTyp
         case "SET-FETHING": 
             return {
                 ...state, isFething: action.loading
-            }         
+            }
+        case "DISABLE-BTN-FOLLOW":
+            return {
+                ...state, disableBtnFollow: action.loading
+                    ? [...state.disableBtnFollow, action.userId]
+                    : state.disableBtnFollow.filter(el=> el !== action.userId)
+            }
         default:
             return state;
     }
@@ -101,6 +108,13 @@ export const  setTotalUsersCount = (totalUsersCount: number) => {
 export const  setFething = (loading: boolean) => {
     return {
         type: "SET-FETHING",
+        loading,
+    } as const
+}
+export const  toggleDisableBtnFollow = (loading: boolean, userId: number) => {
+    return {
+        type: "DISABLE-BTN-FOLLOW",
+        userId,
         loading,
     } as const
 }
