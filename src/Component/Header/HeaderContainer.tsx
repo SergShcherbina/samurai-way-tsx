@@ -1,24 +1,23 @@
 import './header.module.css';
 import React from 'react'
-import axios from "axios";
 import {Header} from "./Header";
 import {connect} from "react-redux";
 import {AppStateType} from "../redax/redux-store";
-import {setAuthUserData} from "../redax/auth-reducer";
-import { getAPI } from '../api/api';
+import {authUser} from "../redax/auth-reducer";
 
-export class HeaderContainer extends React.Component<any, any> {
+type MapStateToPropsType = {
+    isAuth: boolean,
+    login: string
+}
+type HeaderContainerType = {
+    isAuth: boolean,
+    login: string,
+    authUser: () => void
+
+}
+export class HeaderContainer extends React.Component<HeaderContainerType> {
     componentDidMount() {
-        getAPI.getAuthMe()
-            .then(response => {
-                if(response.resultCode === 0){
-                    const {id, email, login} = response.data
-                    this.props.setAuthUserData(id, email, login)
-                }
-            })
-            .catch(() => {
-                console.log('error getAuthMe')
-            })
+        this.props.authUser()
     }
 
     render () {
@@ -27,9 +26,10 @@ export class HeaderContainer extends React.Component<any, any> {
         )
     }
 }
-const mapStateToProps = (state: AppStateType) => ({
+
+const mapStateToProps = (state: AppStateType):MapStateToPropsType => ({
     isAuth: state.auth.isAuth,
     login: state.auth.login
 })
 
-export const ConnectHeaderContainer =  connect(mapStateToProps, {setAuthUserData})(HeaderContainer)
+export const ConnectHeaderContainer =  connect(mapStateToProps, {authUser})(HeaderContainer)

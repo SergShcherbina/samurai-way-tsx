@@ -1,4 +1,7 @@
 import { ProfilePageType } from "../../App";
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
+import {GetProfileType} from "../Profile/ProfileInfo/ProfileInfo";
 
 
 type UpdateNewPostTextAT = {
@@ -13,10 +16,7 @@ type setUserProfileAT = ReturnType<typeof setUserProfile>
 type ActionType = AddPostAT | UpdateNewPostTextAT | setUserProfileAT;
 
 const initialState = {
-    posts: [
-        // {id: 1, message: 'Hi, how are you?', likeCounter: 12, counterDislike: 2},
-        // {id: 2, message: 'It\'s my first post', likeCounter: 11, counterDislike: 2},
-    ],
+    posts: [],
     newPostText: '',
     profile: {},
 };
@@ -64,4 +64,16 @@ export const setUserProfile = (profile: any) => {
         type: "SET-USER-PROFILE",
         profile,
     } as const
+}
+
+export const setUser = (userId: number) => {
+    return (dispatch: Dispatch)=> {
+        usersAPI.getUser(userId)
+            .then(response => {
+                dispatch(setUserProfile(response))
+            })
+            .catch((err) => {
+                console.log('ОШИБКА')
+            })
+    }
 }

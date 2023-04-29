@@ -1,18 +1,11 @@
 import React from 'react'
 import classes from './profile.module.css';
 import {MyPostContainer} from "./MyPosts/MyPostsContainer";
-import { ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {PostsType} from "../../App";
+import {ProfileInfo, ProfileInfoType} from "./ProfileInfo/ProfileInfo";
 
 
-type ProfileType = {
-    posts: PostsType[]
-    newPostText: string
-    dispatch: (action: {type: string}) => void
-}
-
-export const Profile = (props: any) => {
-    return (           
+export const Profile  = (props: ProfileInfoType) => {
+    return (
         <div className={classes.content}>
             <div>
                 <ProfileInfo profile={props.profile}/>

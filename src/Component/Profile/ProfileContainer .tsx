@@ -1,35 +1,32 @@
 import React from 'react'
-import {PostsType} from "../../App";
 import { Profile } from './Profile';
 import { AppStateType } from '../redax/redux-store';
 import {connect} from "react-redux";
-import axios from 'axios';
-import { setUserProfile } from '../redax/profile-reducer';
+import {setUser} from '../redax/profile-reducer';
 import { withRouter } from "react-router-dom";
-import { getAPI } from '../api/api';
+import { RouteComponentProps} from "react-router-dom";
+import {GetProfileType} from "./ProfileInfo/ProfileInfo";
 
-export type ProfileType = {
-    posts: PostsType[]
-    newPostText: string
-    dispatch: (action: {type: string}) => void
+//типизация withRouter
+type PropsProfileContainerType = RouteComponentProps<PatchParamsType> & ProfileContainerType
+type ProfileContainerType =  MapStateToPropsType & MapDispatchToProps
+type PatchParamsType = {
+    userId: string
+}
+type MapStateToPropsType = {
+    profile: GetProfileType
+}
+type MapDispatchToProps = {
+    setUser: any
 }
 
-export class ProfileContainer extends React.Component<any, any> {
+
+export class ProfileContainer extends React.Component<PropsProfileContainerType> {
     
     componentDidMount() {
-        // this.props.setFething(true)
         let userId = this.props.match.params.userId;                     //получили за счет withRouter
-        if(!userId) userId = 2;
-        getAPI.getUser(userId)
-            .then(response => {
-                this.props.setUserProfile(response)
-            })
-            .catch((err) => {
-                console.log('ОШИБКА')
-            })
-            .finally(()=> {
-                // this.props.setFething(false)
-            });
+        if(!userId) userId = '2';
+        this.props.setUser(userId)                                       //колбек санки
     }
     render() {
         return (
@@ -38,7 +35,7 @@ export class ProfileContainer extends React.Component<any, any> {
     }
 }
 
-const mapStateToProps = (state: AppStateType) => {
+const mapStateToProps = (state: AppStateType):MapStateToPropsType => {
     return {
         profile: state.profilePage.profile
     }
@@ -48,5 +45,5 @@ const mapStateToProps = (state: AppStateType) => {
 const WithUrlDataProfileComponent = withRouter(ProfileContainer)
 
 export const ConnectProfileContainer = connect(mapStateToProps, {
-    setUserProfile,
+    setUser,
 })(WithUrlDataProfileComponent)

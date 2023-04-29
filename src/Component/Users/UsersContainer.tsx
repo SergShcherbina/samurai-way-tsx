@@ -2,17 +2,11 @@ import React from 'react';
 import { connect } from "react-redux";
 import { AppStateType } from "../redax/redux-store";
 import {
-    follow,
-    setUsers,
-    unFollow,
     UserType,
-    setCurrentPage,
-    setTotalUsersCount,
-    setFething,
     toggleDisableBtnFollow,
+    getUsersThunkCreater, follow, unFollow,
 } from "../redax/users-reducer";
 import { Users } from './Users';
-import { getAPI } from '../api/api';
 
 
 type UsersContainerType = {
@@ -22,13 +16,9 @@ type UsersContainerType = {
     currentPage: number,
     isFething: boolean,
     disableBtnFollow: number[]
+    getUsers: (currentPage: number, pageSize: number) => void
     follow: (userId: number) => void,
     unFollow: (userId: number) => void,
-    setUsers: (users: UserType[]) => void,
-    setCurrentPage: (pageNumber: number) => void,
-    setTotalUsersCount: (totalUsersCount: number) => void,
-    setFething: (loading: boolean) => void
-    toggleDisableBtnFollow: (loading: boolean, userId: number) => void
 }
 
 export class UsersContainer extends React.Component<UsersContainerType>{
@@ -36,33 +26,11 @@ export class UsersContainer extends React.Component<UsersContainerType>{
         super(props);
     }
     componentDidMount() {
-        this.props.setFething(true)
-        getAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(response => {
-                this.props.setUsers(response.items)
-                this.props.setTotalUsersCount(response.totalCount)
-            })
-            .catch((err) => {
-                console.log('ОШИБКА getUsers')
-            })
-            .finally(() => {
-                this.props.setFething(false)
-            });
+        //вызываем колбек санки и передаем аргументы
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
     changeCurrentPage = (pageNumber: number) => {
-        this.props.setFething(true)
-        this.props.setCurrentPage(pageNumber)
-        getAPI.getCurrentPage(pageNumber, this.props.pageSize)
-            .then(response => {
-                this.props.setUsers(response.items)
-                this.props.setFething(false)
-            })
-            .catch((err) => {
-                console.log('ОШИБКА CurrentPage')
-            })
-            .finally(() => {
-                this.props.setFething(false)
-            });
+        this.props.getUsers(pageNumber, this.props.pageSize)
     }
     render() {
         return (
@@ -72,12 +40,10 @@ export class UsersContainer extends React.Component<UsersContainerType>{
                 pageSize={this.props.pageSize}
                 currentPage={this.props.currentPage}
                 users={this.props.users}
+                isFething={this.props.isFething}
+                disableBtnFollow={this.props.disableBtnFollow}
                 follow={this.props.follow}
                 unFollow={this.props.unFollow}
-                isFething={this.props.isFething}
-                setFething={this.props.setFething}
-                toggleDisableBtnFollow={this.props.toggleDisableBtnFollow}
-                disableBtnFollow={this.props.disableBtnFollow}
             />
         )
     }
@@ -96,11 +62,8 @@ const mapStateToProps = (state: AppStateType) => {
 
 //передали вторым параметром вместо mapDispatchToProps обьект с AC
 export const UsersConnect = connect(mapStateToProps, {
+    //здесь получаем callback thunk
+    getUsers: getUsersThunkCreater,
     follow,
-    unFollow,
-    setUsers,
-    setCurrentPage,
-    setTotalUsersCount,
-    setFething,
-    toggleDisableBtnFollow,
+    unFollow
 })(UsersContainer)

@@ -1,11 +1,12 @@
 import classes from "./ProfileInfo.module.css"
 import "../../../index.css"
 import { Spinner } from "../../assets/spinner/Spinner"
+import {PostsType} from "../../../App";
 
-type ProfileInfoType = {
-    profile: ProfileGetType
+export type ProfileInfoType = {
+    profile: GetProfileType
 }
-type ProfileGetType = {
+export type GetProfileType = {
     aboutMe: string
     contacts: ProfileContactsType
     fullName: string

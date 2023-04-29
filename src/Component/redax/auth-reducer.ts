@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
+
 export type InitialAuthType = {
     id: number,
     email: string,
@@ -36,4 +39,20 @@ export const setAuthUserData = (userId: string, email: string, login: string) =>
             userId, email, login
         }
     } as const
+}
+
+export const authUser = () => {
+
+    return (dispatch: Dispatch) => {
+        usersAPI.getAuthMe().then(response => {
+            if(response.resultCode === 0){
+                const {id, email, login} = response.data
+                dispatch(setAuthUserData(id, email, login))
+            }
+        })
+            .catch(() => {
+                console.log('error getAuthMe')
+            })
+    }
+
 }
