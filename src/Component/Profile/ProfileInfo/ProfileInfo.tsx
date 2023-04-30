@@ -25,6 +25,7 @@ type ProfileContactsType = {
 
 
 export const ProfileInfo = (props: ProfileInfoType) => {
+    console.log(props)
     let pathAva;
     if (Object.keys(props.profile).length === 0 || props.profile.photos.large === null) {
         pathAva = "https://st.depositphotos.com/2218212/2938/i/450/depositphotos_29387653-stock-photo-facebook-profile.jpg"

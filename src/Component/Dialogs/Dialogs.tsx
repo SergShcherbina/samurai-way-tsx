@@ -3,6 +3,7 @@ import {Message} from "./Message/Message";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {DialogsDataType, MessageDataType} from "../../App";
 import {ChangeEvent} from "react";
+import {Redirect} from "react-router-dom";
 
 export type DialogsType = {
     dialogsData: DialogsDataType[]
@@ -10,6 +11,7 @@ export type DialogsType = {
     onChangeHandler: (value: string) => void
     onClickHandler: () => void
     messageText: string
+    auth: boolean
 }
 
 export const Dialogs = (props: DialogsType) => {
@@ -26,6 +28,9 @@ export const Dialogs = (props: DialogsType) => {
     const onClickHandler = () => {
         props.onClickHandler()
     }
+
+    //если не залогинены, то делаем перенаправление на стр login
+    if(!props.auth) return <Redirect to={'/login'}/>
 
     return (
         <div className={classes.dialogs}>

@@ -3,7 +3,7 @@ import { Profile } from './Profile';
 import { AppStateType } from '../redax/redux-store';
 import {connect} from "react-redux";
 import {setUser} from '../redax/profile-reducer';
-import { withRouter } from "react-router-dom";
+import {Redirect, withRouter} from "react-router-dom";
 import { RouteComponentProps} from "react-router-dom";
 import {GetProfileType} from "./ProfileInfo/ProfileInfo";
 
@@ -15,11 +15,11 @@ type PatchParamsType = {
 }
 type MapStateToPropsType = {
     profile: GetProfileType
+    auth: boolean
 }
 type MapDispatchToProps = {
     setUser: any
 }
-
 
 export class ProfileContainer extends React.Component<PropsProfileContainerType> {
     
@@ -29,6 +29,9 @@ export class ProfileContainer extends React.Component<PropsProfileContainerType>
         this.props.setUser(userId)                                       //колбек санки
     }
     render() {
+        //перенаправление если не авторизован
+        if(!this.props.auth) return <Redirect to={'/login'}/>
+
         return (
             <Profile {...this.props} profile={this.props.profile}/> 
         )
@@ -37,7 +40,8 @@ export class ProfileContainer extends React.Component<PropsProfileContainerType>
 
 const mapStateToProps = (state: AppStateType):MapStateToPropsType => {
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        auth: state.auth.isAuth,
     }
 }
 

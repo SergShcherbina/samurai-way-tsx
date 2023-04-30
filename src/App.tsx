@@ -1,9 +1,7 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./Component/Header/Header";
 import {Footer} from "./Component/Footer/Footer";
 import {Navbar} from "./Component/Navbar/Navbar";
-import {Profile} from "./Component/Profile/Profile";
 import {DialogsType} from "./Component/Dialogs/Dialogs";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import {News} from "./Component/News/News";
@@ -12,14 +10,15 @@ import {Setting} from "./Component/Setting/Setting";
 import {DialogsContainer} from "./Component/Dialogs/DialogsContainer";
 import {UsersConnect} from "./Component/Users/UsersContainer";
 import { ConnectProfileContainer } from './Component/Profile/ProfileContainer ';
-import {ConnectHeaderContainer, HeaderContainer} from "./Component/Header/HeaderContainer";
+import {ConnectHeaderContainer} from "./Component/Header/HeaderContainer";
+import {Login} from "./Component/Login/Login";
 
 
-
-export type RedaxType = {
-    dataState: StateType
-    dispatch: (action: {type: string, text?: string}) => void
-}
+//
+// export type RedaxType = {
+//     dataState: StateType
+//     dispatch: (action: {type: string, text?: string}) => void
+// }
 export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsType
@@ -69,6 +68,7 @@ function App() {
                     <Route path={"/news"} component={News}/>
                     <Route path={"/music"} component={Music}/>
                     <Route path={"/setting"} component={Setting}/>
+                    <Route path={"/login"} component={Login}/>
                 </div>
             </div>
             <Footer/>
