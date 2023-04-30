@@ -1,6 +1,6 @@
 import classes from "./ProfileInfo.module.css"
 import "../../../index.css"
-import { Spinner } from "../../assets/spinner/Spinner"
+import { Spinner } from "../../../assets/spinner/Spinner"
 import {PostsType} from "../../../App";
 
 export type ProfileInfoType = {

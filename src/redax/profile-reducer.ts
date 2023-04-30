@@ -1,7 +1,7 @@
-import { ProfilePageType } from "../../App";
+import { ProfilePageType } from "../App";
 import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
-import {GetProfileType} from "../Profile/ProfileInfo/ProfileInfo";
+import {GetProfileType} from "../Component/Profile/ProfileInfo/ProfileInfo";
 
 
 type UpdateNewPostTextAT = {

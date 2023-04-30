@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { AppStateType } from "../redax/redux-store";
+import { AppStateType } from "../../redax/redux-store";
 import {
     UserType,
     toggleDisableBtnFollow,
     getUsersThunkCreater, follow, unFollow,
-} from "../redax/users-reducer";
+} from "../../redax/users-reducer";
 import { Users } from './Users';
 
 

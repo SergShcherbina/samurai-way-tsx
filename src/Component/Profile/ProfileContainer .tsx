@@ -1,21 +1,21 @@
 import React from 'react'
 import { Profile } from './Profile';
-import { AppStateType } from '../redax/redux-store';
+import { AppStateType } from '../../redax/redux-store';
 import {connect} from "react-redux";
-import {setUser} from '../redax/profile-reducer';
+import {setUser} from '../../redax/profile-reducer';
 import {Redirect, withRouter} from "react-router-dom";
 import { RouteComponentProps} from "react-router-dom";
 import {GetProfileType} from "./ProfileInfo/ProfileInfo";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 //типизация withRouter
-type PropsProfileContainerType = RouteComponentProps<PatchParamsType> & ProfileContainerType
+export type PropsProfileContainerType = RouteComponentProps<PatchParamsType> & ProfileContainerType
 type ProfileContainerType =  MapStateToPropsType & MapDispatchToProps
 type PatchParamsType = {
     userId: string
 }
 type MapStateToPropsType = {
     profile: GetProfileType
-    auth: boolean
 }
 type MapDispatchToProps = {
     setUser: any
@@ -29,9 +29,6 @@ export class ProfileContainer extends React.Component<PropsProfileContainerType>
         this.props.setUser(userId)                                       //колбек санки
     }
     render() {
-        //перенаправление если не авторизован
-        if(!this.props.auth) return <Redirect to={'/login'}/>
-
         return (
             <Profile {...this.props} profile={this.props.profile}/> 
         )
@@ -41,12 +38,14 @@ export class ProfileContainer extends React.Component<PropsProfileContainerType>
 const mapStateToProps = (state: AppStateType):MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
-        auth: state.auth.isAuth,
     }
 }
 
+//HOC которая делает редирект при отсутствии авторизации
+const AuthRedirectComponent = withAuthRedirect(ProfileContainer)
+
 //hoc который берет данные из url и добавляет в компоненту
-const WithUrlDataProfileComponent = withRouter(ProfileContainer)
+const WithUrlDataProfileComponent = withRouter(AuthRedirectComponent)
 
 export const ConnectProfileContainer = connect(mapStateToProps, {
     setUser,

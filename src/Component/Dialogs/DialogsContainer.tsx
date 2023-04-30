@@ -1,7 +1,10 @@
-import {addNewMessageBodyCreator, updateNewMessageBodyCreator} from "../redax/dialogs-reducer";
+import {addNewMessageBodyCreator, updateNewMessageBodyCreator} from "../../redax/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
-import {AppStateType} from "../redax/redux-store";
+import {AppStateType} from "../../redax/redux-store";
+import React from "react";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {Dispatch} from "redux";
 
 
 let mapStateToProps = (state: AppStateType) => {
@@ -9,10 +12,9 @@ let mapStateToProps = (state: AppStateType) => {
         messageText: state.dialogsPage.messageText,
         messageData: state.dialogsPage.messageData,
         dialogsData: state.dialogsPage.dialogsData,
-        auth: state.auth.isAuth
     }
 }
-let mapDispatchToProps = (dispatch: any) => {
+let mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         onChangeHandler: (value: string) => {
             dispatch(updateNewMessageBodyCreator(value))
@@ -23,4 +25,7 @@ let mapDispatchToProps = (dispatch: any) => {
     }
 }
 
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+//HOC которая делает редирект при отсутствии авторизации
+const AuthRedirectComponent = withAuthRedirect(Dialogs)
+
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)

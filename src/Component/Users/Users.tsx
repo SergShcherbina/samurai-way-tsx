@@ -1,11 +1,11 @@
 import React, {MouseEvent} from 'react';
 import s from './users.module.css'
-import avaUser from '../assets/img/avatarUser.png'
-import {toggleDisableBtnFollow, UserType} from '../redax/users-reducer';
-import {Spinner} from '../assets/spinner/Spinner';
+import avaUser from '../../assets/img/avatarUser.png'
+import {toggleDisableBtnFollow, UserType} from '../../redax/users-reducer';
+import {Spinner} from '../../assets/spinner/Spinner';
 import {NavLink} from 'react-router-dom';
 import axios from 'axios';
-import {usersAPI} from '../api/api';
+import {usersAPI} from '../../api/api';
 
 type UsersType = {
     users: UserType[],

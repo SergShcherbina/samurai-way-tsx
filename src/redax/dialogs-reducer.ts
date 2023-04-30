@@ -1,4 +1,4 @@
-import {DialogsDataType, MessageDataType} from "../../App";
+import {DialogsDataType, MessageDataType} from "../App";
 
 export type DialogsReducerType = {
     dialogsData: DialogsDataType[],

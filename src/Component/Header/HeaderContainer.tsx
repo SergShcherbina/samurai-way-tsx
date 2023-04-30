@@ -2,8 +2,8 @@ import './header.module.css';
 import React from 'react'
 import {Header} from "./Header";
 import {connect} from "react-redux";
-import {AppStateType} from "../redax/redux-store";
-import {authUser} from "../redax/auth-reducer";
+import {AppStateType} from "../../redax/redux-store";
+import {authUser} from "../../redax/auth-reducer";
 
 type MapStateToPropsType = {
     isAuth: boolean,
