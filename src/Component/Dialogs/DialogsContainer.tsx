@@ -2,9 +2,9 @@ import {addNewMessageBodyCreator, updateNewMessageBodyCreator} from "../../redax
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redax/redux-store";
-import React from "react";
+import React, {ComponentType} from "react";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 
 
 let mapStateToProps = (state: AppStateType) => {
@@ -25,7 +25,11 @@ let mapDispatchToProps = (dispatch: Dispatch) => {
     }
 }
 
-//HOC которая делает редирект при отсутствии авторизации
-const AuthRedirectComponent = withAuthRedirect(Dialogs)
+// //HOC которая делает редирект при отсутствии авторизации
+// const AuthRedirectComponent = withAuthRedirect(Dialogs)
+// export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
 
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
+export const DialogsContainer = compose<ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(Dialogs)

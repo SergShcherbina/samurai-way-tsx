@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ComponentType} from 'react'
 import { Profile } from './Profile';
 import { AppStateType } from '../../redax/redux-store';
 import {connect} from "react-redux";
@@ -7,6 +7,7 @@ import {Redirect, withRouter} from "react-router-dom";
 import { RouteComponentProps} from "react-router-dom";
 import {GetProfileType} from "./ProfileInfo/ProfileInfo";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 //типизация withRouter
 export type PropsProfileContainerType = RouteComponentProps<PatchParamsType> & ProfileContainerType
@@ -41,12 +42,9 @@ const mapStateToProps = (state: AppStateType):MapStateToPropsType => {
     }
 }
 
-//HOC которая делает редирект при отсутствии авторизации
-const AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-
-//hoc который берет данные из url и добавляет в компоненту
-const WithUrlDataProfileComponent = withRouter(AuthRedirectComponent)
-
-export const ConnectProfileContainer = connect(mapStateToProps, {
-    setUser,
-})(WithUrlDataProfileComponent)
+//compose комбинирует HOC, простая типизация<ComponentType>
+export const ConnectProfileContainer = compose<ComponentType>(
+    connect(mapStateToProps, { setUser }),
+    withRouter,
+    withAuthRedirect,
+)(ProfileContainer)

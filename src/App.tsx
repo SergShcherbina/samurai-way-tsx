@@ -9,7 +9,7 @@ import {Music} from "./Component/Music/Music";
 import {Setting} from "./Component/Setting/Setting";
 import {DialogsContainer} from "./Component/Dialogs/DialogsContainer";
 import {UsersConnect} from "./Component/Users/UsersContainer";
-import { ConnectProfileContainer } from './Component/Profile/ProfileContainer ';
+import {ConnectProfileContainer}  from './Component/Profile/ProfileContainer ';
 import {ConnectHeaderContainer} from "./Component/Header/HeaderContainer";
 import {Login} from "./Component/Login/Login";
 
