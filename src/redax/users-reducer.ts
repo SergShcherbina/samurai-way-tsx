@@ -1,4 +1,4 @@
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 import {Dispatch} from "redux";
 
 export type usersState = {
@@ -13,7 +13,7 @@ export type UserType = {
     name: string,
     id: number,
     photos: PhotoType,
-    status: any,
+    status: string,
     followed: boolean,
 }
 export type PhotoType = {
@@ -128,7 +128,6 @@ export const toggleDisableBtnFollow = (loading: boolean, userId: number) => {
     } as const
 }
 
-
 //создаем сан-крейтер, передаем нужные аргументы и возвращаем санку с dispatch
 export const getUsersThunkCreater = (currentPage: number, pageSize: number) => {
 
@@ -184,3 +183,15 @@ export const unFollow = (userId: number) => {
         })
     }
 }
+// export const setUserStatus = (userId: number, status: string) => {
+//     return (dispatch: Dispatch) => {
+//         profileAPI.getStatus(2)
+//             .then(response => {
+//                 if(response.resultCode === 0){
+//                     console.log(response)
+//                     // dispatch(setUserStatusAC(userId, status))
+//                 }
+//             })
+//
+//     }
+// }

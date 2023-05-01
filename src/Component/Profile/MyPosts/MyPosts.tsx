@@ -3,7 +3,6 @@ import {Post} from "./Post/Post";
 import React, {ChangeEvent} from 'react'
 import {useAutoAnimate} from "@formkit/auto-animate/react";
 import {PostsType} from "../../../App";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redax/profile-reducer";
 
 export type MyPostType = {
     addPost: () => void

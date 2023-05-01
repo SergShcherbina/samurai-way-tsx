@@ -9,7 +9,6 @@ type HeaderType = {
 }
 
 export const Header = (props: HeaderType) => {
-    console.log(props.isAuth)
     return (
         <header className={s.header}>
             <a href="#" ><img src="https://pngicon.ru/file/uploads/google.png"/></a>

@@ -12,6 +12,7 @@ import {UsersConnect} from "./Component/Users/UsersContainer";
 import {ConnectProfileContainer}  from './Component/Profile/ProfileContainer ';
 import {ConnectHeaderContainer} from "./Component/Header/HeaderContainer";
 import {Login} from "./Component/Login/Login";
+import {ProfilePageType} from "./redax/profile-reducer";
 
 
 //
@@ -19,22 +20,18 @@ import {Login} from "./Component/Login/Login";
 //     dataState: StateType
 //     dispatch: (action: {type: string, text?: string}) => void
 // }
-export type StateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogsType
-    sidebar: SidebarType[]
-
-}
+// export type StateType = {
+//     profilePage: ProfilePageType
+//     dialogsPage: DialogsType
+//     sidebar: SidebarType[]
+//
+// }
 export type SidebarType = {
     id: number
     name: string
     src: string
 }
-export type ProfilePageType = {
-    posts: PostsType[]
-    newPostText: string
-    profile: any
-}
+
 export type DialogsDataType = {
     id: number
     name: string
