@@ -1,4 +1,5 @@
 import React, {ChangeEvent} from 'react';
+import {AppStateType} from "../../../redax/redux-store";
 
 type ProfileStatusType = {
     status: string
@@ -6,26 +7,34 @@ type ProfileStatusType = {
 }
 
 export class ProfileStatus extends React.Component<ProfileStatusType> {
-
     state = {
         editMode: true,
         status: this.props.status
     }
+    componentDidUpdate(prevProps: ProfileStatusType, prevState: AppStateType) {
+        //setState внутри componentDidUpdate делать только при условии сравнения, иначе зациклим
+
+        //если статус пришел и не равен предыдущему
+        if(prevProps.status !== this.props.status){
+            this.setState({
+                status: this.props.status
+            })
+        }
+    }
 
     onEditableSpan = () => {
         this.setState({
-            editMode: false
+            editMode: false,
         })
     }
     ofEditMode = () => {
         this.setState({
-            editMode: true
+            editMode: true,
         })
         this.props.updateStatus(this.state.status)
     }
     onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({
-                editMode: false,
                 status: e.currentTarget.value
             })
 
