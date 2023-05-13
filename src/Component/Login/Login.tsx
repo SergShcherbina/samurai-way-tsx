@@ -15,8 +15,8 @@ export const Login = () => {
 };
 const LoginForm = (props: any) => {
     return (
-        //добавляем onSubmit
-        <form onSubmit={props.onSubmit}>
+        //добавляем onSubmit обязательно props.handleSubmit именно с таким названием
+        <form onSubmit={props.handleSubmit}>
             <div><Field placeholder={'login'} name={"login"}  component={'input'}/></div>
             <div><Field placeholder={'pasword'} name={"password"}  component={'input'}/></div>
             <div><Field type={"checkbox"} name={"rememberMe"} component={'input'}/> remember me</div>
