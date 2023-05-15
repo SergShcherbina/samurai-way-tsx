@@ -11,6 +11,7 @@ type UpdateNewMessageBodyCreatorType = {
 }
 type AddNewMessageBodyCreatorType = {
     type: 'ADD-NEW-MESSAGE'
+    dataForm: string
 }
 
 const  initialState : DialogsReducerType = {
@@ -39,12 +40,12 @@ export const dialogsReducer = (state: DialogsReducerType = initialState, action:
         case 'UPDATE-NEW-MESSAGE':
             return {...state, messageText: action.valueInput};
         case 'ADD-NEW-MESSAGE':
-            if (state.messageText.trim() === '') {
+            if (action.dataForm.trim() === '') {
                 break;
             } else {
-                const message = {id: +state.messageText + 11, messageD: state.messageText}
+                const message = {id: +action.dataForm + 11, messageD: action.dataForm}
                 return {
-                    ...state, messageData : [...state.messageData, message] , messageText : ''
+                    ...state, messageData : [...state.messageData, message]
                 }
             } default:
                 return state
@@ -58,8 +59,9 @@ export const updateNewMessageBodyCreator = (value: string) => {
         valueInput: value
     }
 }
-export const addNewMessageBodyCreator = () => {
+export const addNewMessageBodyCreator = (dataForm: string) => {
     return {
-        type: 'ADD-NEW-MESSAGE'
+        type: 'ADD-NEW-MESSAGE',
+        dataForm
     }
 }

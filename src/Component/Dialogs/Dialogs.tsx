@@ -3,12 +3,15 @@ import {Message} from "./Message/Message";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {DialogsDataType, MessageDataType} from "../../App";
 import {ChangeEvent} from "react";
-
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
+type DialogReduxFormType = {
+    dialogMessage: string
+}
 export type DialogsType = {
     dialogsData: DialogsDataType[]
     messageData: MessageDataType[]
     onChangeHandler: (value: string) => void
-    onClickHandler: () => void
+    onClickHandler: (data: string) => void
     messageText: string
     auth: boolean
 }
@@ -21,12 +24,13 @@ export const Dialogs = (props: DialogsType) => {
          .map((el, i) => <DialogItem key={i + el.id} name={el.name} id={el.id}/>
          )
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        props.onChangeHandler(e.currentTarget.value)
+    const onSubmit = (formData: DialogReduxFormType) => {
+        props.onClickHandler(formData.dialogMessage)
     }
-    const onClickHandler = () => {
-        props.onClickHandler()
-    }
+    // const onClickHandler = () => {
+    //     props.onClickHandler()
+    // }
+
 
     return (
         <div className={classes.dialogs}>
@@ -35,12 +39,25 @@ export const Dialogs = (props: DialogsType) => {
             </div>
             <div>
                 {messageElement}
-                <input
-                    value={props.messageText}
-                    onChange={onChangeHandler}
-                />
-                <button onClick={onClickHandler} >+</button>
+                <DialogReduxForm onSubmit={onSubmit}/>
             </div>
         </div>
     )
 }
+
+const DialogsForm: React.FC <InjectedFormProps<DialogReduxFormType>> = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field
+                component={'input'}
+                name={'dialogMessage'}
+                placeholder={'message'}
+                // value={props.messageText}
+                // onChange={onChangeHandler}
+            />
+            <button>+</button>
+        </form>
+    )
+}
+
+const DialogReduxForm = reduxForm<DialogReduxFormType>({form: 'dialogsForm'})(DialogsForm)

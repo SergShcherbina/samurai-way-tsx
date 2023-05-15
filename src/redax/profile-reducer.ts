@@ -2,6 +2,7 @@ import {PostsType} from "../App";
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
 import { ProfileInfoType} from "../Component/Profile/ProfileInfo/ProfileInfo";
+// import {AddPostFormDataType} from "../Component/Profile/MyPosts/MyPosts";
 
 
 export type ProfilePageType = {
@@ -16,11 +17,12 @@ type UpdateNewPostTextAT = {
 }
 type AddPostAT = {
     type: "ADD-POST"
+    values: string
 }
-type setUserProfileAT = ReturnType<typeof setProfile>
-type setStatusAT = ReturnType<typeof setStatus>
+type SetUserProfileAT = ReturnType<typeof setProfile>
+type SetStatusAT = ReturnType<typeof setStatus>
 
-type ActionType = AddPostAT | UpdateNewPostTextAT | setUserProfileAT | setStatusAT;
+type ActionType = AddPostAT | UpdateNewPostTextAT | SetUserProfileAT | SetStatusAT;
 
 const initialState = {
     posts: [],
@@ -33,7 +35,7 @@ const initialState = {
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
     switch (action.type) {
         case 'ADD-POST':
-            const valueTextarea: string = state.newPostText
+            const valueTextarea: string = action.values
             if (valueTextarea === '') {
                 return state;
             } else {
@@ -43,8 +45,8 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 }
             }
         case 'UPDATE-NEW-POST-TEXT':
-            return { 
-                ...state, newPostText: action.newPostText 
+            return {
+                ...state, newPostText: action.newPostText
             }
         case "SET-PROFILE": {
             return {
@@ -60,9 +62,10 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
     }
 }
 
-export const addPostActionCreator = () => {
+export const addPostActionCreator = (values: string) => {
     return {
-        type: "ADD-POST"
+        type: "ADD-POST",
+        values
     }
 }
 export const updateNewPostTextActionCreator = (value: string) => {

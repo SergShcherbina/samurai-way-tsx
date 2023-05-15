@@ -19,8 +19,8 @@ let mapDispatchToProps = (dispatch: Dispatch) => {
         onChangeHandler: (value: string) => {
             dispatch(updateNewMessageBodyCreator(value))
         },
-        onClickHandler: () => {
-            dispatch(addNewMessageBodyCreator())
+        onClickHandler: (dataForm: string) => {
+            dispatch(addNewMessageBodyCreator(dataForm))
         },
     }
 }

@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import {Footer} from "./Component/Footer/Footer";
 import {Navbar} from "./Component/Navbar/Navbar";
-import {DialogsType} from "./Component/Dialogs/Dialogs";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import {News} from "./Component/News/News";
 import {Music} from "./Component/Music/Music";
@@ -12,7 +11,6 @@ import {UsersConnect} from "./Component/Users/UsersContainer";
 import {ConnectProfileContainer}  from './Component/Profile/ProfileContainer ';
 import {ConnectHeaderContainer} from "./Component/Header/HeaderContainer";
 import {Login} from "./Component/Login/Login";
-import {ProfilePageType} from "./redax/profile-reducer";
 
 
 //

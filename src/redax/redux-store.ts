@@ -14,7 +14,7 @@ let rootReducer = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    form: formReducer                                          //комбайним в стор
+    form: formReducer                                               //комбайним в стор
 });
 export type AppStateType = ReturnType <typeof rootReducer>;         //типизпция state
 
