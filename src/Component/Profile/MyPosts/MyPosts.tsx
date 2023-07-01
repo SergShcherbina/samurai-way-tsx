@@ -4,11 +4,12 @@ import React from 'react'
 import {useAutoAnimate} from "@formkit/auto-animate/react";
 import {PostsType} from "../../../App";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {Textarea} from "../../FormControls/Textarea";
+import {requiredField} from "../../../utils/validators/validators";
 
 
 export type MyPostType = {
     addPost: (values: string) => void
-    updateNewPostText: (text: string) => void
     posts: PostsType[]
     newPostText: string
 }
@@ -61,8 +62,9 @@ const AddPostForm: React.FC<InjectedFormProps<AddPostFormDataType>> = (props) =>
         <form onSubmit={props.handleSubmit} >
             <div>
                 <Field
-                    component={'textarea'}
+                    component={Textarea}
                     name='addPostProfile'
+                    validate={[requiredField]}
                     placeholder="Введите текст"/>
             </div>
             <button className={classes.button}> Send </button>

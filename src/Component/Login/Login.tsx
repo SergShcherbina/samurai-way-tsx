@@ -1,5 +1,7 @@
 import React from 'react';
 import {reduxForm, Field, InjectedFormProps} from 'redux-form';
+import {Input} from "../FormControls/Input";
+import {requiredField} from "../../utils/validators/validators";
 
 //создаем уточняющую типизацию возвращаемого объекта form по именам input/Field
 type LoginReduxFormType = {
@@ -25,9 +27,19 @@ const LoginForm = (props: InjectedFormProps<LoginReduxFormType>) => {
     return (
         //добавляем onSubmit обязательно props.handleSubmit именно с таким названием
         <form onSubmit={props.handleSubmit}>
-            <div><Field placeholder={'login'} name={"login"} component={'input'}/></div>
-            <div><Field placeholder={'password'} name={"password"} component={'input'}/></div>
-            <div><Field type={"checkbox"} name={"rememberMe"} component={'input'}/> remember me</div>
+            <div><Field
+                placeholder={'login'}                              //импортируем сюда свою компоненту вместо "input"
+                name={"login"}
+                component={Input}
+                validate={[requiredField]}                         //ф-и в validate вызывается самим redux-form
+            /></div>
+            <div><Field
+                placeholder={'password'}
+                name={"password"}
+                component={Input}
+                validate={[requiredField]}
+            /></div>
+            <div><Field type={"checkbox"} name={"rememberMe"} component={Input}/> remember me</div>
             <button>submit</button>
         </form>
     )

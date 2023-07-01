@@ -1,0 +1,11 @@
+
+.errorMessage {
+    color: #ff7070;
+    font-size: 13px;
+    padding: 2px;
+    margin: 2px 5px;
+    border-radius: 5px;
+}
+.errorBorder {
+    background-color: rgba(255, 112, 112, 0.22);
+}

@@ -11,11 +11,12 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
         editMode: true,
         status: this.props.status
     }
+
     componentDidUpdate(prevProps: ProfileStatusType, prevState: AppStateType) {
         //setState внутри componentDidUpdate делать только при условии сравнения, иначе зациклим
 
         //если статус пришел и не равен предыдущему
-        if(prevProps.status !== this.props.status){
+        if (prevProps.status !== this.props.status) {
             this.setState({
                 status: this.props.status
             })
@@ -35,8 +36,8 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
     }
     onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({
-                status: e.currentTarget.value
-            })
+            status: e.currentTarget.value
+        })
 
     }
 

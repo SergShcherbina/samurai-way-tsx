@@ -2,7 +2,6 @@ import {PostsType} from "../App";
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
 import { ProfileInfoType} from "../Component/Profile/ProfileInfo/ProfileInfo";
-// import {AddPostFormDataType} from "../Component/Profile/MyPosts/MyPosts";
 
 
 export type ProfilePageType = {
@@ -11,10 +10,6 @@ export type ProfilePageType = {
     profile: any
     status: string
 }
-type UpdateNewPostTextAT = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newPostText: string
-}
 type AddPostAT = {
     type: "ADD-POST"
     values: string
@@ -22,7 +17,7 @@ type AddPostAT = {
 type SetUserProfileAT = ReturnType<typeof setProfile>
 type SetStatusAT = ReturnType<typeof setStatus>
 
-type ActionType = AddPostAT | UpdateNewPostTextAT | SetUserProfileAT | SetStatusAT;
+type ActionType = AddPostAT | SetUserProfileAT | SetStatusAT;
 
 const initialState = {
     posts: [],
@@ -44,10 +39,6 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                     ...state, posts: [newPostObj, ...state.posts], newPostText: ''
                 }
             }
-        case 'UPDATE-NEW-POST-TEXT':
-            return {
-                ...state, newPostText: action.newPostText
-            }
         case "SET-PROFILE": {
             return {
                 ...state, profile: action.profile
@@ -66,12 +57,6 @@ export const addPostActionCreator = (values: string) => {
     return {
         type: "ADD-POST",
         values
-    }
-}
-export const updateNewPostTextActionCreator = (value: string) => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT' as const,
-        newPostText: value,
     }
 }
 export const setProfile = (profile: ProfileInfoType) => {

@@ -1,8 +1,6 @@
 import './header.module.css';
 import s from "./header.module.css"
 import {NavLink} from "react-router-dom";
-import {InitialAuthType} from "../../redax/auth-reducer";
-import {ReactNode} from "react";
 type HeaderType = {
     isAuth: boolean,
     login: string,

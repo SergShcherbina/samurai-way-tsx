@@ -2,8 +2,9 @@ import classes from './Dialogs.module.css'
 import {Message} from "./Message/Message";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {DialogsDataType, MessageDataType} from "../../App";
-import {ChangeEvent} from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {fieldMaxLengthCreator, requiredField} from "../../utils/validators/validators";
+import {Input} from "../FormControls/Input";
 type DialogReduxFormType = {
     dialogMessage: string
 }
@@ -27,10 +28,6 @@ export const Dialogs = (props: DialogsType) => {
     const onSubmit = (formData: DialogReduxFormType) => {
         props.onClickHandler(formData.dialogMessage)
     }
-    // const onClickHandler = () => {
-    //     props.onClickHandler()
-    // }
-
 
     return (
         <div className={classes.dialogs}>
@@ -45,15 +42,17 @@ export const Dialogs = (props: DialogsType) => {
     )
 }
 
+//creator для валидации длинны выносим за пределы формы и сохр-й результат передаем в validate !!!!!
+const maxLength = fieldMaxLengthCreator(10)
+
 const DialogsForm: React.FC <InjectedFormProps<DialogReduxFormType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <Field
-                component={'input'}
+                component={Input}                               //импортируем сюда свою компоненту вместо "input"
                 name={'dialogMessage'}
                 placeholder={'message'}
-                // value={props.messageText}
-                // onChange={onChangeHandler}
+                validate={[requiredField, maxLength]}           //ф-и в validate вызывается самим redux-form
             />
             <button>+</button>
         </form>

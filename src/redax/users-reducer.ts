@@ -6,7 +6,7 @@ export type usersState = {
     pageSize: number,
     totalUsersCount: number,
     currentPage: number,
-    isFething: boolean,
+    isFetching: boolean,
     disableBtnFollow: number[]
 }
 export type UserType = {
@@ -25,24 +25,26 @@ const initialState: usersState = {
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
-    isFething: false,
+    isFetching: false,
     disableBtnFollow: [],
+
 }
 
 type FollowAT = ReturnType<typeof followSuccess>
 type UnFollowAT = ReturnType<typeof unFollowSuccess>
 type SetUsersAT = ReturnType<typeof setUsers>
-type setCurentPageAT = ReturnType<typeof setCurrentPage>
+type setCurrentPageAT = ReturnType<typeof setCurrentPage>
 type setTotalUsersCountAT = ReturnType<typeof setTotalUsersCount>
-type setFethingAT = ReturnType<typeof setFething>
+type setFetchingAT = ReturnType<typeof setFetching>
 type toggleDisableBtnFollowType = ReturnType<typeof toggleDisableBtnFollow>
+
 type ActionType =
     FollowAT
     | SetUsersAT
     | UnFollowAT
-    | setCurentPageAT
+    | setCurrentPageAT
     | setTotalUsersCountAT
-    | setFethingAT
+    | setFetchingAT
     | toggleDisableBtnFollowType;
 
 export const usersReducer = (state: usersState = initialState, action: ActionType): usersState => {
@@ -69,9 +71,9 @@ export const usersReducer = (state: usersState = initialState, action: ActionTyp
             return {
                 ...state, totalUsersCount: action.totalUsersCount
             }
-        case "SET-FETHING":
+        case "SET-FETCHING":
             return {
-                ...state, isFething: action.loading
+                ...state, isFetching: action.loading
             }
         case "DISABLE-BTN-FOLLOW":
             return {
@@ -114,9 +116,9 @@ export const setTotalUsersCount = (totalUsersCount: number) => {
         totalUsersCount: totalUsersCount,
     } as const
 }
-export const setFething = (loading: boolean) => {
+export const setFetching = (loading: boolean) => {
     return {
-        type: "SET-FETHING",
+        type: "SET-FETCHING",
         loading,
     } as const
 }
@@ -132,7 +134,7 @@ export const toggleDisableBtnFollow = (loading: boolean, userId: number) => {
 export const getUsersThunkCreater = (currentPage: number, pageSize: number) => {
 
     return (dispatch: Dispatch) => {
-        dispatch(setFething(true))
+        dispatch(setFetching(true))
         dispatch(setCurrentPage(currentPage))
         usersAPI.getUsers(currentPage, pageSize)
             .then(response => {
@@ -143,7 +145,7 @@ export const getUsersThunkCreater = (currentPage: number, pageSize: number) => {
                 console.log('ОШИБКА getUsers')
             })
             .finally(() => {
-                dispatch(setFething(false))
+                dispatch(setFetching(false))
             });
     }
 }

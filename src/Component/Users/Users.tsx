@@ -1,18 +1,16 @@
-import React, {MouseEvent} from 'react';
+import React from 'react';
 import s from './users.module.css'
 import avaUser from '../../assets/img/avatarUser.png'
-import {toggleDisableBtnFollow, UserType} from '../../redax/users-reducer';
+import {UserType} from '../../redax/users-reducer';
 import {Spinner} from '../../assets/spinner/Spinner';
 import {NavLink} from 'react-router-dom';
-import axios from 'axios';
-import {usersAPI} from '../../api/api';
 
 type UsersType = {
     users: UserType[],
     pageSize: number,
     totalUsersCount: number,
     currentPage: number,
-    isFething: boolean,
+    isFetching: boolean,
     disableBtnFollow: number[],
     changeCurrentPage: (pageNumber: number) => void,
     follow: (userId: number) => void,
@@ -57,7 +55,7 @@ export const Users = (props: UsersType) => {
             </div>
 
 
-            {props.isFething
+            {props.isFetching
                 ? <Spinner/>
                 :
                 props.users.map(user => <div key={user.id} className={s.userItem}>

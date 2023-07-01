@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import {Footer} from "./Component/Footer/Footer";
 import {Navbar} from "./Component/Navbar/Navbar";
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter , Route} from "react-router-dom";
 import {News} from "./Component/News/News";
 import {Music} from "./Component/Music/Music";
 import {Setting} from "./Component/Setting/Setting";
@@ -13,23 +13,11 @@ import {ConnectHeaderContainer} from "./Component/Header/HeaderContainer";
 import {Login} from "./Component/Login/Login";
 
 
-//
-// export type RedaxType = {
-//     dataState: StateType
-//     dispatch: (action: {type: string, text?: string}) => void
-// }
-// export type StateType = {
-//     profilePage: ProfilePageType
-//     dialogsPage: DialogsType
-//     sidebar: SidebarType[]
-//
-// }
 export type SidebarType = {
     id: number
     name: string
     src: string
 }
-
 export type DialogsDataType = {
     id: number
     name: string
@@ -46,7 +34,7 @@ export type PostsType = {
 }
 function App() {
     return (
-        <Router>
+        <BrowserRouter>
             <div className="app-wrapper">
                 <ConnectHeaderContainer/>
                 <Navbar />
@@ -67,7 +55,7 @@ function App() {
                 </div>
             </div>
             <Footer/>
-        </Router>
+        </BrowserRouter>
     );
 }
 

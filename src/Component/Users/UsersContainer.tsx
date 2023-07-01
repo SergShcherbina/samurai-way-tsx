@@ -13,7 +13,7 @@ type UsersContainerType = {
     pageSize: number,
     totalUsersCount: number,
     currentPage: number,
-    isFething: boolean,
+    isFetching: boolean,
     disableBtnFollow: number[]
     getUsers: (currentPage: number, pageSize: number) => void
     follow: (userId: number) => void,
@@ -39,7 +39,7 @@ export class UsersContainer extends React.Component<UsersContainerType>{
                 pageSize={this.props.pageSize}
                 currentPage={this.props.currentPage}
                 users={this.props.users}
-                isFething={this.props.isFething}
+                isFetching={this.props.isFetching}
                 disableBtnFollow={this.props.disableBtnFollow}
                 follow={this.props.follow}
                 unFollow={this.props.unFollow}
@@ -54,7 +54,7 @@ const mapStateToProps = (state: AppStateType) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFething: state.usersPage.isFething,
+        isFetching: state.usersPage.isFetching,
         disableBtnFollow: state.usersPage.disableBtnFollow,
     }
 }
