@@ -5,10 +5,12 @@ import {sidebarReducer} from "./sidebar-reducer";
 import {usersReducer} from "./users-reducer";
 import {authReducer} from "./auth-reducer";
 import thunkMiddleware from 'redux-thunk';
-import { reducer as formReducer} from 'redux-form'             //импортируем инкапсурированный редюсер и переиминовываем в formReducer
+import { reducer as formReducer} from 'redux-form'
+import {appReducer} from "./app-reducer";             //импортируем инкапсурированный редюсер и переиминовываем в formReducer
 
 
 let rootReducer = combineReducers({
+    app: appReducer,
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,

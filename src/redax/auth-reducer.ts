@@ -15,6 +15,7 @@ const initialState = {
     email: '',
     login: '',
     isAuth: false,
+    initAuth: false,
 }
 
 type SetUserDataAT = ReturnType<typeof setAuthUserData>
@@ -56,7 +57,7 @@ export const setAuth = (auth: boolean) => {
 export const authUser = () => {
 
     return (dispatch: Dispatch) => {
-        authAPI.getAuthMe().then(res => {
+        return authAPI.getAuthMe().then(res => {                       //делаем return, чтобы получить promise в месте вызова(для app-reducer)
                 dispatch(setFetching(true))
                 if (res.data.resultCode === 0) {
                     const {id, email, login} = res.data.data

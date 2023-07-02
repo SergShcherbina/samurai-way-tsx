@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import {store} from "./redax/redux-store";
-import App from "./App";
+import {AppConnect} from "./App";
 import {Provider} from "react-redux";
 
 
 export const rerenderEntireTree = () => {
     ReactDOM.render(
         <Provider store={store}>
-            <App/>,
+            <AppConnect/>,
         </Provider>,
 
         document.getElementById('root')
