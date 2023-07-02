@@ -2,15 +2,15 @@ import React from 'react';
 import './App.css';
 import {Footer} from "./Component/Footer/Footer";
 import {Navbar} from "./Component/Navbar/Navbar";
-import {BrowserRouter , Route} from "react-router-dom";
+import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./Component/News/News";
 import {Music} from "./Component/Music/Music";
 import {Setting} from "./Component/Setting/Setting";
 import {DialogsContainer} from "./Component/Dialogs/DialogsContainer";
 import {UsersConnect} from "./Component/Users/UsersContainer";
-import {ConnectProfileContainer}  from './Component/Profile/ProfileContainer ';
+import {ConnectProfileContainer} from './Component/Profile/ProfileContainer ';
 import {ConnectHeaderContainer} from "./Component/Header/HeaderContainer";
-import {Login} from "./Component/Login/Login";
+import {LoginConnect} from "./Component/Login/LoginConnect";
 
 
 export type SidebarType = {
@@ -32,12 +32,14 @@ export type PostsType = {
     likeCounter: number
     counterDislike: number
 }
-function App() {
+
+
+const App = () => {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
                 <ConnectHeaderContainer/>
-                <Navbar />
+                <Navbar/>
                 <div className="app-wrapper-content">
                     <Route exact path={"/profile/:userId?"} render={() => (
                         <ConnectProfileContainer/>
@@ -51,7 +53,7 @@ function App() {
                     <Route path={"/news"} component={News}/>
                     <Route path={"/music"} component={Music}/>
                     <Route path={"/setting"} component={Setting}/>
-                    <Route path={"/login"} component={Login}/>
+                    <Route path={"/login"} component={LoginConnect}/>
                 </div>
             </div>
             <Footer/>

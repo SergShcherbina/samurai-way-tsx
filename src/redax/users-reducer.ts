@@ -27,7 +27,6 @@ const initialState: usersState = {
     currentPage: 1,
     isFetching: false,
     disableBtnFollow: [],
-
 }
 
 type FollowAT = ReturnType<typeof followSuccess>
@@ -130,8 +129,8 @@ export const toggleDisableBtnFollow = (loading: boolean, userId: number) => {
     } as const
 }
 
-//создаем сан-крейтер, передаем нужные аргументы и возвращаем санку с dispatch
-export const getUsersThunkCreater = (currentPage: number, pageSize: number) => {
+//создаем сан-крейтoр
+export const getUsersTC = (currentPage: number, pageSize: number) => {
 
     return (dispatch: Dispatch) => {
         dispatch(setFetching(true))
@@ -156,13 +155,13 @@ export const follow = (userId: number) => {
         dispatch(toggleDisableBtnFollow(true, userId))
         usersAPI.followUser(userId)
             .then(response => {
-                if(response.resultCode === 0){
+                if (response.resultCode === 0) {
                     dispatch(followSuccess(userId))
                 }
             })
             .catch((err) => {
                 console.log('ОШИБКА FOLLOW')
-            }).finally(()=> {
+            }).finally(() => {
             //диспатчим loading:false и userId для удаления в disableBtnFollow
             dispatch(toggleDisableBtnFollow(false, userId))
         })
@@ -174,13 +173,13 @@ export const unFollow = (userId: number) => {
         dispatch(toggleDisableBtnFollow(true, userId))
         usersAPI.unFollowUser(userId)
             .then(response => {
-                if(response.resultCode === 0){
+                if (response.resultCode === 0) {
                     dispatch(unFollowSuccess(userId))
                 }
             })
             .catch((err) => {
                 console.log('ОШИБКА UNFOLLOW')
-            }).finally(()=> {
+            }).finally(() => {
             dispatch(toggleDisableBtnFollow(false, userId))
         })
     }

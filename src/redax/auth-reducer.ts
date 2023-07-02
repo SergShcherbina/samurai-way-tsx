@@ -1,21 +1,24 @@
 import {Dispatch} from "redux";
-import {authAPI, usersAPI} from "../api/api";
+import {authAPI} from "../api/api";
+import {LoginReduxFormType} from "../Component/Login/LoginForm";
+import {setFetching} from "./users-reducer";
 
 export type InitialAuthType = {
-    id: number,
+    userId: string,
     email: string,
     login: string,
-    isAuth: boolean
+    isAuth: boolean,
 }
 const initialState = {
-    id: 0,
+    userId: '0',
     email: '' ,
     login: '',
     isAuth: false,
 }
 
 type SetUserDataAT = ReturnType<typeof setAuthUserData>
-type ActionType = SetUserDataAT
+type SetAuthLogin = ReturnType<typeof setAuth>
+type ActionType = SetUserDataAT | SetAuthLogin
 
 export const authReducer = (state: InitialAuthType = initialState, action: ActionType): InitialAuthType => {
     switch (action.type) {
@@ -23,21 +26,29 @@ export const authReducer = (state: InitialAuthType = initialState, action: Actio
             return {
                 ...state,
                 ...action.data,
-                isAuth: true
             };
-
-            default:
+        case "SET-AUTH-LOGIN":
+            return {
+                ...state, isAuth: action.auth
+            }
+        default:
                 return state
     }
-    return state
 }
 
-export const setAuthUserData = (userId: string, email: string, login: string) => {
+export const setAuthUserData = (userId: string, email: string, login: string, isAuth: boolean) => {
     return {
         type: 'SET-AUTH-USER-DATA',
         data: {
-            userId, email, login
+            userId, email, login, isAuth
         }
+    } as const
+}
+
+export const setAuth = (auth: boolean) => {
+    return {
+        type: 'SET-AUTH-LOGIN',
+        auth
     } as const
 }
 
@@ -45,14 +56,52 @@ export const authUser = () => {
 
     return (dispatch: Dispatch) => {
         authAPI.getAuthMe().then(response => {
-            if(response.resultCode === 0){
-                const {id, email, login} = response.data
-                dispatch(setAuthUserData(id, email, login))
+            dispatch(setFetching(true))
+            if(response.data.resultCode === 0){
+                const {id, email, login} = response.data.data
+                dispatch(setAuthUserData(id, email, login, true))
+            } else {
+                console.log(response.data.fieldsErrors[0])
             }
         })
-            .catch(() => {
-                console.log('error getAuthMe')
+            .catch((err) => {
+                console.log('error getAuthMe:', err )
+            })
+            .finally(()=> {
+                dispatch(setFetching(false))
             })
     }
+}
+export const loginTC = (dataForm: LoginReduxFormType) => {
+    const {login, password, rememberMe} = dataForm
+    return (dispatch: Dispatch) => {
+        dispatch(setFetching(true))
+        authAPI.setLogin({email: login, password, rememberMe}).then(res => {
+            if(res.data.resultCode === 0){
+                // @ts-ignore
+                dispatch(authUser())
+            } else {
+                alert(`'loginTC:' ${res.data.messages[0]}`)
+            }
+        }).catch(() => {
+            console.log('error getAuthMe')
+        })
+    }
+}
 
+export const logoutTC = () => {
+
+    return (dispatch: Dispatch) => {
+        authAPI.setLogout().then(res => {
+            if(res.data.resultCode === 0){
+                dispatch(setAuth(false))
+                dispatch(setAuthUserData('', '', '', false))
+            } else {
+
+            }
+        })
+        .catch(() => {
+                console.log('error logoutTC')
+            })
+    }
 }

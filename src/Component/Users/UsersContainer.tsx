@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { AppStateType } from "../../redax/redux-store";
 import {
     UserType,
-    getUsersThunkCreater, follow, unFollow,
+    getUsersTC, follow, unFollow,
 } from "../../redax/users-reducer";
 import { Users } from './Users';
 
@@ -19,6 +19,7 @@ type UsersContainerType = {
     follow: (userId: number) => void,
     unFollow: (userId: number) => void,
 }
+
 
 export class UsersContainer extends React.Component<UsersContainerType>{
     constructor(props: UsersContainerType) {
@@ -59,10 +60,10 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
-//передали вторым параметром вместо mapDispatchToProps обьект с AC
+//передали вторым параметром вместо mapDispatchToProps обьект с AC или thunk
 export const UsersConnect = connect(mapStateToProps, {
     //здесь получаем callback thunk
-    getUsers: getUsersThunkCreater,
+    getUsers: getUsersTC,
     follow,
     unFollow
 })(UsersContainer)

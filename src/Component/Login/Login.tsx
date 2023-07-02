@@ -1,21 +1,22 @@
 import React from 'react';
-import {reduxForm, Field, InjectedFormProps} from 'redux-form';
-import {Input} from "../FormControls/Input";
-import {requiredField} from "../../utils/validators/validators";
+import {LoginReduxForm} from "./LoginForm";
+import {Redirect} from "react-router-dom";
 
-//создаем уточняющую типизацию возвращаемого объекта form по именам input/Field
-type LoginReduxFormType = {
+export type LoginReduxFormType = {
     login: string
     password: string
     rememberMe: boolean
 }
+type LoginProps = {
+    loginTC: ({}: LoginReduxFormType) => void
+    isAuth: boolean
+}
 
-export const Login = () => {
-
+export const Login = (props: LoginProps) => {
     const onSubmit = (dataForm: LoginReduxFormType) => {
-        console.log(dataForm, dataForm.rememberMe)
+        props.loginTC(dataForm)                                          //отправляем данные для логинизации
     }
-
+    if (props.isAuth) return <Redirect to={'/profile'}/>                 //если не залогинен, то редиректим на 'profole'
     return (
         <div>
             <h1>Login</h1>
@@ -23,30 +24,4 @@ export const Login = () => {
         </div>
     );
 };
-const LoginForm = (props: InjectedFormProps<LoginReduxFormType>) => {
-    return (
-        //добавляем onSubmit обязательно props.handleSubmit именно с таким названием
-        <form onSubmit={props.handleSubmit}>
-            <div><Field
-                placeholder={'login'}                              //импортируем сюда свою компоненту вместо "input"
-                name={"login"}
-                component={Input}
-                validate={[requiredField]}                         //ф-и в validate вызывается самим redux-form
-            /></div>
-            <div><Field
-                placeholder={'password'}
-                name={"password"}
-                component={Input}
-                validate={[requiredField]}
-            /></div>
-            <div><Field type={"checkbox"} name={"rememberMe"} component={Input}/> remember me</div>
-            <button>submit</button>
-        </form>
-    )
-}
-
-//оборачиваем компоненту в reduxForm и даем имя форме 'login'
-const LoginReduxForm = reduxForm<LoginReduxFormType>({form: 'login'})(LoginForm);
-
-
 

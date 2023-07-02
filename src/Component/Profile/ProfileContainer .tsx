@@ -16,10 +16,7 @@ type ProfileContainerType =  MapStateToPropsType & MapDispatchToProps
 type PatchParamsType = {
     userId: string
 }
-type MapStateToPropsType = {
-    profile: GetProfileType
-    status: string
-}
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 type MapDispatchToProps = {
     setUserProfile: any
     getStatus: any
@@ -29,9 +26,10 @@ type MapDispatchToProps = {
 export class ProfileContainer extends React.Component<PropsProfileContainerType> {
     
     componentDidMount() {
-        let userId = this.props.match.params.userId;                     //получили за счет withRouter
-        if(!userId) userId = '28520';
-        this.props.setUserProfile(userId)                                //колбек санки
+        // let userId = this.props.match.params.userId;                     //получили за счет withRouter
+        // if(!userId) userId = '28520';
+        let userId = this.props.userIdAuth                                  //получаем userId с сервера
+        this.props.setUserProfile(userId)                                   //колбек санки
         this.props.getStatus(userId)
     }
     render() {
@@ -41,14 +39,16 @@ export class ProfileContainer extends React.Component<PropsProfileContainerType>
     }
 }
 
-const mapStateToProps = (state: AppStateType):MapStateToPropsType => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
+        userIdAuth: state.auth.userId
     }
 }
 
 //compose комбинирует HOC, простая типизация<ComponentType>
+//вместо mapDispatchToProps возвращаем {thunk1, thunk2}
 export const ConnectProfileContainer = compose<ComponentType>(
     connect(mapStateToProps, { setUserProfile, getStatus, updateStatus}),
     withRouter,

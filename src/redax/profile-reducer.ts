@@ -80,7 +80,7 @@ export const setUserProfile = (userId: number) => {
                 dispatch(setProfile(response))
             })
             .catch((err) => {
-                console.log('ОШИБКА setUserProfile')
+                console.log('ОШИБКА setUserProfile:', err)
             })
     }
 }
