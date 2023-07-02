@@ -5,7 +5,6 @@ import {connect} from "react-redux";
 import {getStatus, setUserProfile, updateStatus} from '../../redax/profile-reducer';
 import {withRouter} from "react-router-dom";
 import { RouteComponentProps} from "react-router-dom";
-import {GetProfileType} from "./ProfileInfo/ProfileInfo";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
@@ -26,10 +25,9 @@ type MapDispatchToProps = {
 export class ProfileContainer extends React.Component<PropsProfileContainerType> {
     
     componentDidMount() {
-        // let userId = this.props.match.params.userId;                     //получили за счет withRouter
-        // if(!userId) userId = '28520';
-        let userId = this.props.userIdAuth                                  //получаем userId с сервера
-        this.props.setUserProfile(userId)                                   //колбек санки
+        let userId = this.props.match.params.userId;                     //получили за счет withRouter с query параметров url
+        if(!userId) userId = this.props.authUserId;                      //подставляю свой userId с сервера для начальной стр
+        this.props.setUserProfile(userId)                                //передаем id в thunk для запроса
         this.props.getStatus(userId)
     }
     render() {
@@ -43,7 +41,7 @@ const mapStateToProps = (state: AppStateType) => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
-        userIdAuth: state.auth.userId
+        authUserId: state.auth.userId
     }
 }
 

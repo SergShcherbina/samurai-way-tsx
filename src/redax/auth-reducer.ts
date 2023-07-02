@@ -2,6 +2,7 @@ import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
 import {LoginReduxFormType} from "../Component/Login/LoginForm";
 import {setFetching} from "./users-reducer";
+import {stopSubmit} from "redux-form";
 
 export type InitialAuthType = {
     userId: string,
@@ -11,7 +12,7 @@ export type InitialAuthType = {
 }
 const initialState = {
     userId: '0',
-    email: '' ,
+    email: '',
     login: '',
     isAuth: false,
 }
@@ -32,7 +33,7 @@ export const authReducer = (state: InitialAuthType = initialState, action: Actio
                 ...state, isAuth: action.auth
             }
         default:
-                return state
+            return state
     }
 }
 
@@ -55,19 +56,23 @@ export const setAuth = (auth: boolean) => {
 export const authUser = () => {
 
     return (dispatch: Dispatch) => {
-        authAPI.getAuthMe().then(response => {
-            dispatch(setFetching(true))
-            if(response.data.resultCode === 0){
-                const {id, email, login} = response.data.data
-                dispatch(setAuthUserData(id, email, login, true))
-            } else {
-                console.log(response.data.fieldsErrors[0])
-            }
-        })
-            .catch((err) => {
-                console.log('error getAuthMe:', err )
+        authAPI.getAuthMe().then(res => {
+                dispatch(setFetching(true))
+                if (res.data.resultCode === 0) {
+                    const {id, email, login} = res.data.data
+                    dispatch(setAuthUserData(id, email, login, true))
+                } else {
+                    if (res.data.messages.length > 0) {
+                        console.log(res.data.fieldsErrors[0])
+                    } else {
+                        console.log("authUser: some error")
+                    }
+                }
             })
-            .finally(()=> {
+            .catch((err) => {
+                console.log('error authUser:', err)
+            })
+            .finally(() => {
                 dispatch(setFetching(false))
             })
     }
@@ -77,14 +82,18 @@ export const loginTC = (dataForm: LoginReduxFormType) => {
     return (dispatch: Dispatch) => {
         dispatch(setFetching(true))
         authAPI.setLogin({email: login, password, rememberMe}).then(res => {
-            if(res.data.resultCode === 0){
+            if (res.data.resultCode === 0) {
                 // @ts-ignore
                 dispatch(authUser())
             } else {
-                alert(`'loginTC:' ${res.data.messages[0]}`)
+                if (res.data.messages.length > 0) {
+                    dispatch(stopSubmit('login', {_error: res.data.messages[0]}))  //спец action из redux-form)
+                } else {
+                    console.log("loginTC: Some error")
+                }
             }
-        }).catch(() => {
-            console.log('error getAuthMe')
+        }).catch((e) => {
+            console.log('loginTC:', e)
         })
     }
 }
@@ -93,15 +102,15 @@ export const logoutTC = () => {
 
     return (dispatch: Dispatch) => {
         authAPI.setLogout().then(res => {
-            if(res.data.resultCode === 0){
-                dispatch(setAuth(false))
-                dispatch(setAuthUserData('', '', '', false))
-            } else {
-
-            }
-        })
-        .catch(() => {
-                console.log('error logoutTC')
+                if (res.data.resultCode === 0) {
+                    dispatch(setAuth(false))
+                    dispatch(setAuthUserData('', '', '', false))
+                } else {
+                    console.log(`"logoutTC:" ${res.data.messages[0]}`)
+                }
+            })
+            .catch((e) => {
+                console.log('logoutTC:', e)
             })
     }
 }

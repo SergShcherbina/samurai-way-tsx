@@ -45,7 +45,7 @@ export const ProfileInfo = (props: ProfileInfoType) => {
                 !props.profile.photos ? <Spinner /> :
 
                     <div className={classes.profileInfo}>
-                        <div className="boxShadowEl">
+                        <div className={` boxShadowEl  ${classes.wrapperAvatar}`}>
                             <img className={classes.avatar}
                                 src={pathAva}
                             />
