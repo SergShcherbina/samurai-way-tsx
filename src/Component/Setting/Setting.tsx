@@ -1,6 +1,3 @@
-
 export const Setting = () => {
-    return (
-        <div> Setting </div>
-    )
-}
+  return <div> Setting </div>;
+};

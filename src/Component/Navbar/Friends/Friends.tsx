@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
-import {EveryFriend} from "./EveryFriend/EveryFriend";
+import { EveryFriend } from "./EveryFriend/EveryFriend";
 
 type SidebarType = {
-    sidebar: Array<{name: string, id: string, src: string}>
+  sidebar: Array<{ name: string; id: string; src: string }>;
 };
 
 // export const Friends = (props: any) => {
@@ -24,8 +24,8 @@ type SidebarType = {
 //     );
 // };
 
-const BlockFriends = styled.div `
+const BlockFriends = styled.div`
   margin-top: 10px;
   display: flex;
-  justify-content: space-between;  
-`
+  justify-content: space-between;
+`;
