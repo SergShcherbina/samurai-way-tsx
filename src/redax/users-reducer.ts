@@ -1,4 +1,4 @@
-import { profileAPI, usersAPI } from "../api/api";
+import { usersAPI } from "../api/api";
 import { Dispatch } from "redux";
 
 export type usersState = {

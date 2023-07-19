@@ -1,4 +1,4 @@
-import { addPostActionCreator, AddPostAT, ProfilePageType, profileReducer } from "./profile-reducer";
+import {addPostAC, AddPostAT, ProfilePageType, profileReducer} from "./profile-reducer";
 
 const state: ProfilePageType = {
   posts: [],
@@ -7,8 +7,9 @@ const state: ProfilePageType = {
   status: "",
 };
 
+
 it("new post should be added", () => {
-  const action: AddPostAT = addPostActionCreator("postText");
+  const action: AddPostAT = addPostAC("postText");
 
   let newState: ProfilePageType = profileReducer(state, action);
 

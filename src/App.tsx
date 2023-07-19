@@ -8,13 +8,13 @@ import { Music } from "./Component/Music/Music";
 import { Setting } from "./Component/Setting/Setting";
 import { DialogsContainer } from "./Component/Dialogs/DialogsContainer";
 import { UsersConnect } from "./Component/Users/UsersContainer";
-import { ConnectProfileContainer } from "./Component/Profile/ProfileContainer ";
 import { ConnectHeaderContainer } from "./Component/Header/HeaderContainer";
 import { LoginConnect } from "./Component/Login/LoginConnect";
 import { connect } from "react-redux";
 import { AppStateType } from "./redax/store";
 import { initAppTC } from "./redax/app-reducer";
 import { Spinner } from "./assets/spinner/Spinner";
+import {ConnectProfileContainer} from "./Component/Profile/ui/ProfileContainer ";
 
 export type SidebarType = {
   id: number;
@@ -29,12 +29,7 @@ export type MessageDataType = {
   id: number;
   messageD: string;
 };
-export type PostsType = {
-  id: number;
-  message: string;
-  likeCounter: number;
-  counterDislike: number;
-};
+
 
 type AppType = {
   initialized: boolean;
@@ -50,6 +45,7 @@ class App extends Component<AppType> {
     if (!this.props.initialized) {
       return <Spinner />;
     }
+
     return (
       <BrowserRouter>
         <div className="app-wrapper">
@@ -64,8 +60,8 @@ class App extends Component<AppType> {
             <Route path={"/setting"} component={Setting} />
             <Route path={"/login"} component={LoginConnect} />
           </div>
+          <Footer />
         </div>
-        <Footer />
       </BrowserRouter>
     );
   }

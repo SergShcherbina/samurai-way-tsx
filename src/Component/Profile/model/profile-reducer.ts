@@ -1,24 +1,8 @@
-import { PostsType } from "../App";
 import { Dispatch } from "redux";
-import { profileAPI } from "../api/api";
-import { ProfileInfoType } from "../Component/Profile/ProfileInfo/ProfileInfo";
+import {profileAPI, ProfileResponseType} from "../api/profile-api";
 
-export type ProfilePageType = {
-  posts: PostsType[];
-  newPostText: string;
-  profile: any;
-  status: string;
-};
-export type AddPostAT = {
-  type: "ADD-POST";
-  values: string;
-};
-type SetUserProfileAT = ReturnType<typeof setProfile>;
-type SetStatusAT = ReturnType<typeof setStatus>;
 
-export type ActionType = AddPostAT | SetUserProfileAT | SetStatusAT;
-
-const initialState = {
+const initialState: ProfilePageType = {
   posts: [],
   newPostText: "",
   profile: {},
@@ -28,11 +12,10 @@ const initialState = {
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
   switch (action.type) {
     case "ADD-POST":
-      const valueTextarea: string = action.values;
-      if (valueTextarea === "") {
+      if (action.values === "") {
         return state;
       } else {
-        let newPostObj = { id: 6, message: valueTextarea, likeCounter: 0, counterDislike: 0 };
+        let newPostObj = { id: 6, message: action.values, likeCounter: 0, counterDislike: 0 };
         return {
           ...state,
           posts: [newPostObj, ...state.posts],
@@ -55,55 +38,73 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
   }
 };
 
-export const addPostActionCreator = (values: string): AddPostAT => {
+export const addPostAC = (values: string) => {
   return {
     type: "ADD-POST",
     values,
-  };
+  } as const
 };
-export const setProfile = (profile: ProfileInfoType) => {
+export const setProfileAC = (profile: ProfileResponseType) => {
   return {
     type: "SET-PROFILE",
     profile,
   } as const;
 };
-export const setStatus = (status: string) => {
+export const setStatusAC = (status: string) => {
   return {
     type: "SET-STATUS",
     status,
   } as const;
 };
 
-export const setUserProfile = (userId: number) => {
+export const setUserProfileTC = (userId: number) => {
   return (dispatch: Dispatch) => {
     profileAPI
       .getProfile(userId)
       .then((response) => {
-        dispatch(setProfile(response));
+        dispatch(setProfileAC(response));
       })
       .catch((err) => {
         console.log("ОШИБКА setUserProfile:", err);
       });
   };
 };
-export const getStatus = (userId: number) => {
+
+export const getStatusTC = (userId: number) => {
   return (dispatch: Dispatch) => {
     profileAPI
       .getStatus(userId)
       .then((response) => {
-        dispatch(setStatus(response.data));
+        dispatch(setStatusAC(response.data));
       })
       .catch((err) => {
         console.log("ОШИБКА getStatus");
       });
   };
 };
-export const updateStatus = (status: string) => {
+
+export const updateStatusTC = (status: string) => {
   return (dispatch: Dispatch) => {
     profileAPI.updateStatus(status).then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(setStatus(status));
-      }
+         dispatch(setStatusAC(status));
     });
   };
 };
+
+export type ProfilePageType = {
+  posts: PostsType[];
+  newPostText: string;
+  profile: any;
+  status: string;
+};
+export type PostsType = {
+  id: number;
+  message: string;
+  likeCounter: number;
+  counterDislike: number;
+};
+export type AddPostAT = ReturnType<typeof addPostAC>
+type SetUserProfileAT = ReturnType<typeof setProfileAC>;
+type SetStatusAT = ReturnType<typeof setStatusAC>;
+
+export type ActionType = AddPostAT | SetUserProfileAT | SetStatusAT;

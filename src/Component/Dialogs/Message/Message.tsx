@@ -1,6 +1,8 @@
-type MessageType = {
-  message: string;
+import React from "react";
+
+type Props = {
+  message: string
 };
-export const Message = (props: MessageType) => {
-  return <div>{props.message}</div>;
+export const Message: React.FC<Props> = ({message}) => {
+  return <div>{message}</div>;
 };
