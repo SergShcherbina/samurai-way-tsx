@@ -1,7 +1,7 @@
 import { Redirect } from "react-router-dom";
 import React, { ComponentType } from "react";
 import { connect } from "react-redux";
-import { AppStateType } from "../app/model/store";
+import { AppStateType } from "../../app/model/store";
 
 type MapStateToPropsType = ReturnType<typeof mapStateToProps>;
 const mapStateToProps = (state: AppStateType) => {
@@ -18,7 +18,5 @@ export function withAuthRedirect<T>(Component: ComponentType<T>) {
     return <Component {...(restProps as T)} />;
   }
 
-  //коннектим чтобы вытянуть isAuth
-  const  ConnectAuthRedirectComponent = connect(mapStateToProps)(RedirectComponent);
-  return ConnectAuthRedirectComponent;
+  return connect(mapStateToProps)(RedirectComponent); //коннектим чтобы вытянуть isAuth
 }

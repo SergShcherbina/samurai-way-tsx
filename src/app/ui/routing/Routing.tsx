@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route} from "react-router-dom";
-import {DialogsContainer} from "../../../Component/Dialogs/DialogsContainer";
+import {DialogsContainer} from "../../../Component/dialogs/ui/DialogsContainer";
 import {UsersConnect} from "../../../Component/Users/UsersContainer";
 import {News} from "../../../Component/News/News";
 import {Music} from "../../../Component/Music/Music";

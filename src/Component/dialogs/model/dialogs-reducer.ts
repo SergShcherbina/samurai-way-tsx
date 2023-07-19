@@ -1,27 +1,6 @@
 
-export type DialogsReducerType = {
-  dialogsData: DialogsDataType[];
-  messageData: MessageDataType[];
-  messageText: any;
-};
-export type DialogsDataType = {
-  id: number;
-  name: string;
-};
-export type MessageDataType = {
-  id: number;
-  messageD: string;
-};
-type UpdateNewMessageBodyCreatorType = {
-  type: "UPDATE-NEW-MESSAGE";
-  valueInput: string;
-};
-type AddNewMessageBodyCreatorType = {
-  type: "ADD-NEW-MESSAGE";
-  dataForm: string;
-};
 
-const initialState: DialogsReducerType = {
+const initialState: DialogsStateType = {
   dialogsData: [
     { id: 1, name: "Sacha" },
     { id: 2, name: "Petya" },
@@ -40,9 +19,7 @@ const initialState: DialogsReducerType = {
   messageText: "",
 };
 
-type ActionType = UpdateNewMessageBodyCreatorType | AddNewMessageBodyCreatorType;
-
-export const dialogsReducer = (state: DialogsReducerType = initialState, action: ActionType): DialogsReducerType => {
+export const dialogsReducer = (state: DialogsStateType = initialState, action: ActionType): DialogsStateType => {
   switch (action.type) {
     case "UPDATE-NEW-MESSAGE":
       return { ...state, messageText: action.valueInput };
@@ -62,15 +39,39 @@ export const dialogsReducer = (state: DialogsReducerType = initialState, action:
   return state;
 };
 
-export const updateNewMessageBodyCreator = (value: string) => {
+export const updateNewMessageAC = (value: string) => {
   return {
     type: "UPDATE-NEW-MESSAGE",
     valueInput: value,
   };
 };
-export const addNewMessageBodyCreator = (dataForm: string) => {
+export const addNewMessageAC = (dataForm: string) => {
   return {
     type: "ADD-NEW-MESSAGE",
     dataForm,
   };
 };
+
+type ActionType = UpdateNewMessageAT | AddNewMessageAT;
+export type DialogsStateType = {
+  dialogsData: DialogsDataType[];
+  messageData: MessageDataType[];
+  messageText: any;
+};
+export type DialogsDataType = {
+  id: number;
+  name: string;
+};
+export type MessageDataType = {
+  id: number;
+  messageD: string;
+};
+type UpdateNewMessageAT = {
+  type: "UPDATE-NEW-MESSAGE";
+  valueInput: string;
+};
+type AddNewMessageAT = {
+  type: "ADD-NEW-MESSAGE";
+  dataForm: string;
+};
+

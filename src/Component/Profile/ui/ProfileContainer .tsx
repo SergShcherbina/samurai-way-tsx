@@ -4,7 +4,7 @@ import {AppStateType} from "../../../app/model/store";
 import {connect} from "react-redux";
 import {getStatusTC, setUserProfileTC, updateStatusTC} from "../model/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
+import {withAuthRedirect} from "../../../common/hoc/withAuthRedirect";
 import {compose} from "redux";
 
 //типизация withRouter

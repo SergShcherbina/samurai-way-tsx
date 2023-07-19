@@ -1,10 +1,13 @@
-import { addNewMessageBodyCreator, updateNewMessageBodyCreator } from "../../redax/dialogs-reducer";
+import {addNewMessageAC, updateNewMessageAC} from "../model/dialogs-reducer";
 import { Dialogs } from "./Dialogs";
 import { connect } from "react-redux";
-import { AppStateType } from "../../app/model/store";
+import { AppStateType } from "../../../app/model/store";
 import React, { ComponentType } from "react";
-import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { withAuthRedirect } from "../../../common/hoc/withAuthRedirect";
 import { compose, Dispatch } from "redux";
+
+export type MapStateToPropsDialogType = ReturnType<typeof mapStateToProps>
+export type MapDispatchToPropsDialogType = ReturnType<typeof mapDispatchToProps>
 
 let mapStateToProps = (state: AppStateType) => {
   return {
@@ -16,18 +19,17 @@ let mapStateToProps = (state: AppStateType) => {
 let mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     onChangeHandler: (value: string) => {
-      dispatch(updateNewMessageBodyCreator(value));
+      dispatch(updateNewMessageAC(value));
     },
     onClickHandler: (dataForm: string) => {
-      dispatch(addNewMessageBodyCreator(dataForm));
+      dispatch(addNewMessageAC(dataForm));
     },
   };
 };
 
 // //HOC которая делает редирект при отсутствии авторизации
-// const AuthRedirectComponent = withAuthRedirect(Dialogs)
+// const AuthRedirectComponent = withAuthRedirect(dialogs)
 // export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
-
 export const DialogsContainer = compose<ComponentType>(
   connect(mapStateToProps, mapDispatchToProps),
   withAuthRedirect,

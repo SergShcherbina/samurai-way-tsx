@@ -1,6 +1,6 @@
 import {AnyAction, applyMiddleware, combineReducers, createStore} from "redux";
 import { profileReducer } from "../../Component/Profile/model/profile-reducer";
-import { dialogsReducer } from "../../redax/dialogs-reducer";
+import { dialogsReducer } from "../../Component/dialogs/model/dialogs-reducer";
 import { sidebarReducer } from "../../redax/sidebar-reducer";
 import { usersReducer } from "../../redax/users-reducer";
 import { authReducer } from "../../redax/auth-reducer";
