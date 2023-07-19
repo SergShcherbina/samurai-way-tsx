@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from "react";
-import { AppStateType } from "../../../../redax/store";
+import { AppStateType } from "../../../../app/model/store";
 
 type ProfileStatusType = {
   status: string;

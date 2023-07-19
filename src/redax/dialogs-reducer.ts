@@ -1,9 +1,16 @@
-import { DialogsDataType, MessageDataType } from "../App";
 
 export type DialogsReducerType = {
   dialogsData: DialogsDataType[];
   messageData: MessageDataType[];
   messageText: any;
+};
+export type DialogsDataType = {
+  id: number;
+  name: string;
+};
+export type MessageDataType = {
+  id: number;
+  messageD: string;
 };
 type UpdateNewMessageBodyCreatorType = {
   type: "UPDATE-NEW-MESSAGE";

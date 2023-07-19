@@ -1,7 +1,7 @@
 import { addNewMessageBodyCreator, updateNewMessageBodyCreator } from "../../redax/dialogs-reducer";
 import { Dialogs } from "./Dialogs";
 import { connect } from "react-redux";
-import { AppStateType } from "../../redax/store";
+import { AppStateType } from "../../app/model/store";
 import React, { ComponentType } from "react";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose, Dispatch } from "redux";

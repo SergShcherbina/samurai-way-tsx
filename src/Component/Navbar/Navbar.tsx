@@ -1,11 +1,5 @@
 import classes from "./navbar.module.css";
-import { NavLink } from "react-router-dom";
-// import {Friends} from "./Friends/Friends";
-import { SidebarType } from "../../App";
-
-export type NavbarType = {
-  store: SidebarType[];
-};
+import {NavLink} from "react-router-dom";
 
 export const Navbar = () => {
   return (

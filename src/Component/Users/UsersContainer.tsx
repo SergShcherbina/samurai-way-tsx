@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { AppStateType } from "../../redax/store";
+import { AppStateType } from "../../app/model/store";
 import { UserType, getUsersTC, follow, unFollow } from "../../redax/users-reducer";
 import { Users } from "./Users";
 

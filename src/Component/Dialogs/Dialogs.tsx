@@ -1,10 +1,10 @@
 import classes from "./Dialogs.module.css";
 import {Message} from "./Message/Message";
 import {DialogItem} from "./DialogItem/DialogItem";
-import {DialogsDataType, MessageDataType} from "../../App";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {fieldMaxLengthCreator, requiredField} from "../../utils/validators/validators";
 import {Input} from "../FormControls/Input";
+import {DialogsDataType, MessageDataType} from "../../redax/dialogs-reducer";
 
 type DialogReduxFormType = {
     dialogMessage: string;
@@ -17,6 +17,7 @@ export type DialogsType = {
     messageText: string;
     auth: boolean;
 };
+
 
 export const Dialogs = (props: DialogsType) => {
 

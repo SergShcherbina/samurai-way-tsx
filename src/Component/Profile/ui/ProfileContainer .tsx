@@ -1,6 +1,6 @@
 import React, {ComponentType} from "react";
 import {Profile} from "./Profile";
-import {AppStateType} from "../../../redax/store";
+import {AppStateType} from "../../../app/model/store";
 import {connect} from "react-redux";
 import {getStatusTC, setUserProfileTC, updateStatusTC} from "../model/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";

@@ -1,12 +1,12 @@
-import { Dispatch } from "redux";
-import { authUser } from "./auth-reducer";
+import {authUser} from "../../redax/auth-reducer";
+import {AppDispatchType} from "./store";
 
 const initialState = {
   initialized: false,
 };
+
 type InitialStateType = typeof initialState;
-type InitAppAC = ReturnType<typeof initAppAC>;
-type AppActionType = InitAppAC;
+type AppActionType = ReturnType<typeof initAppAC>;
 
 export const appReducer = (state: InitialStateType = initialState, action: AppActionType) => {
   switch (action.type) {
@@ -17,14 +17,12 @@ export const appReducer = (state: InitialStateType = initialState, action: AppAc
   }
 };
 
-const initAppAC = (init: boolean) =>
-  ({
+const initAppAC = (init: boolean) =>({
     type: "APP-INIT",
     init,
   }) as const;
 
-export const initAppTC = () => (dispatch: Dispatch) => {
-  // @ts-ignore
+export const initAppTC = () => (dispatch: AppDispatchType) => {
   const promiseAuthUser = dispatch(authUser()); //из санки authUser возвращаем promise
   Promise.all([promiseAuthUser]).then(() => {
     //и только после его выполнения dispatch init true в state

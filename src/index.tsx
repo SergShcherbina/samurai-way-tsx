@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import { store } from "./redax/store";
-import { AppConnect } from "./App";
+import { store } from "./app/model/store";
 import { Provider } from "react-redux";
+import {ConnectApp} from "./app/ui/ConnectApp";
 
 export const rerenderEntireTree = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <AppConnect />
+      <ConnectApp />
     </Provider>,
 
     document.getElementById("root"),

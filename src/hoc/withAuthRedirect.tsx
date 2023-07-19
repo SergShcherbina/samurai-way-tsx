@@ -1,7 +1,7 @@
 import { Redirect } from "react-router-dom";
 import React, { ComponentType } from "react";
 import { connect } from "react-redux";
-import { AppStateType } from "../redax/store";
+import { AppStateType } from "../app/model/store";
 
 type MapStateToPropsType = ReturnType<typeof mapStateToProps>;
 const mapStateToProps = (state: AppStateType) => {
