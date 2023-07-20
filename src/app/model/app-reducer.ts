@@ -1,4 +1,4 @@
-import {authUser} from "../../redax/auth-reducer";
+import {authUser} from "../../Component/login/auth-reducer";
 import {AppDispatchType} from "./store";
 
 const initialState = {

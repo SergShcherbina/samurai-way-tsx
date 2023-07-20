@@ -11,7 +11,7 @@ export type DialogReduxFormType = {
 };
 
 export const Dialogs = (props: DialogsType) => {
-     const messageElements = props.messageData
+    const messageElements = props.messageData
         .map((el, i) => (
             <Message message={el.messageD} key={i}/>)
         );

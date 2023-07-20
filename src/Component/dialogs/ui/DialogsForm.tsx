@@ -1,7 +1,7 @@
 import React from 'react';
 import {fieldMaxLengthCreator, requiredField} from "../../../utils/validators/validators";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Input} from "../../FormControls/Input";
+import {Input} from "../../../common/form-controls/Input";
 import {DialogReduxFormType} from "./Dialogs";
 
 //creator для валидации длинны выносим за пределы формы и сохр-й результат передаем в validate !!!!!

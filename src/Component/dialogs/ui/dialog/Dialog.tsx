@@ -8,7 +8,7 @@ export const Dialog: React.FC<DialogType> = ({name, id}) => {
     return (
         <div>
             <NavLink className={classes.link} to={"/dialog/" + id}>
-                {" "}{name}{" "}
+                {name}
             </NavLink>
         </div>
     );

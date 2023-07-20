@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import "./App.css";
-import {Footer} from "../../Component/Footer/Footer";
-import {Navbar} from "../../Component/Navbar/Navbar";
+import {Footer} from "../../Component/footer/ui/Footer";
+import {Navbar} from "../../Component/navbar/ui/Navbar";
 import {BrowserRouter} from "react-router-dom";
-import {ConnectHeaderContainer} from "../../Component/Header/HeaderContainer";
+import {ConnectHeaderContainer} from "../../Component/header/ui/HeaderContainer";
 import {Spinner} from "../../assets/spinner/Spinner";
 import {Routing} from "./routing/Routing";
 
