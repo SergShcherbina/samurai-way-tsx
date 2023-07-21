@@ -1,10 +1,16 @@
-import axios from "axios";
 import {instance} from "../common/common-api/common-api";
-import {ResultCode} from "../common/enums/emuns";
+import {UserType} from "../Component/users/model/users-reducer";
 
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
+        return instance.get<UsersResponseType>(`users?page=${currentPage}&count=${pageSize}`)
+            .then((res) => {
+                return res.data
+            });
+    },
+    //todo
+    getAllUsers() {
+        return instance.get<UsersResponseType>(`users?count=100`)
             .then((res) => {
                 return res.data
             });
@@ -36,10 +42,9 @@ export type LoginType = {
 };
 
 type UsersResponseType = {
-    data: AuthType
-    messages: string[],
-    fieldsErrors: string[],
-    resultCode: number
+    error: null | string
+    items: UserType[]
+    totalCount: number
 }
 
 type AuthType = {

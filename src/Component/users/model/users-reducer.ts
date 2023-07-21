@@ -1,25 +1,7 @@
 import { usersAPI } from "../../../api/api";
 import { Dispatch } from "redux";
+import {AppDispatchType} from "../../../app/model/store";
 
-export type usersState = {
-  users: UserType[];
-  pageSize: number;
-  totalItemsCount: number;
-  currentPage: number;
-  isFetching: boolean;
-  disableBtnFollow: number[];
-};
-export type UserType = {
-  name: string;
-  id: number;
-  photos: PhotoType;
-  status: string;
-  followed: boolean;
-};
-export type PhotoType = {
-  small: string;
-  large: string;
-};
 const initialState: usersState = {
   users: [],
   pageSize: 10,
@@ -27,24 +9,8 @@ const initialState: usersState = {
   currentPage: 1,
   isFetching: false,
   disableBtnFollow: [],
+  friends: []
 };
-
-type FollowAT = ReturnType<typeof followSuccess>;
-type UnFollowAT = ReturnType<typeof unFollowSuccess>;
-type SetUsersAT = ReturnType<typeof setUsers>;
-type SetCurrentPageAT = ReturnType<typeof setCurrentPage>;
-type SetTotalItemsCountAT = ReturnType<typeof settotalItemsCout>;
-type SetFetchingAT = ReturnType<typeof setFetching>;
-type ToggleDisableBtnFollowType = ReturnType<typeof toggleDisableBtnFollow>;
-
-type ActionType =
-  | FollowAT
-  | SetUsersAT
-  | UnFollowAT
-  | SetCurrentPageAT
-  | SetTotalItemsCountAT
-  | SetFetchingAT
-  | ToggleDisableBtnFollowType;
 
 export const usersReducer = (state: usersState = initialState, action: ActionType): usersState => {
   switch (action.type) {
@@ -85,6 +51,10 @@ export const usersReducer = (state: usersState = initialState, action: ActionTyp
           ? [...state.disableBtnFollow, action.userId]
           : state.disableBtnFollow.filter((el) => el !== action.userId),
       };
+    case "SET-FRIENDS" :
+      return {
+        ...state, friends: action.users.filter(el=> el.followed)
+      }
     default:
       return state;
   }
@@ -134,6 +104,13 @@ export const toggleDisableBtnFollow = (loading: boolean, userId: number) => {
   } as const;
 };
 
+const setFriendsAC = (users: UserType[]) => {
+  return {
+    type: "SET-FRIENDS",
+    users
+  } as const
+}
+
 //создаем сан-крейтoр
 export const getUsersTC = (currentPage: number, pageSize: number) => {
   return (dispatch: Dispatch) => {
@@ -154,7 +131,7 @@ export const getUsersTC = (currentPage: number, pageSize: number) => {
   };
 };
 export const follow = (userId: number) => {
-  return (dispatch: Dispatch) => {
+  return (dispatch: AppDispatchType) => {
     //диспатчим loading:true и userId для добавления в disableBtnFollow
     dispatch(toggleDisableBtnFollow(true, userId));
     usersAPI
@@ -162,6 +139,7 @@ export const follow = (userId: number) => {
       .then((response) => {
         if (response.resultCode === 0) {
           dispatch(followSuccess(userId));
+          dispatch(getMyFriendsTC())
         }
       })
       .catch((err) => {
@@ -174,13 +152,14 @@ export const follow = (userId: number) => {
   };
 };
 export const unFollow = (userId: number) => {
-  return (dispatch: Dispatch) => {
+  return (dispatch: AppDispatchType) => {
     dispatch(toggleDisableBtnFollow(true, userId));
     usersAPI
       .unFollowUser(userId)
       .then((response) => {
         if (response.resultCode === 0) {
           dispatch(unFollowSuccess(userId));
+          dispatch(getMyFriendsTC())
         }
       })
       .catch((err) => {
@@ -191,3 +170,54 @@ export const unFollow = (userId: number) => {
       });
   };
 };
+
+export const getMyFriendsTC = () => {
+  return (dispatch: Dispatch) => {
+    usersAPI.getAllUsers()
+        .then(res => {
+          dispatch(setFriendsAC(res.items))
+        })
+        .catch(err=> {
+          alert('getMyFriendsTC:')
+        })
+  }
+}
+export type usersState = {
+  users: UserType[];
+  pageSize: number;
+  totalItemsCount: number;
+  currentPage: number;
+  isFetching: boolean;
+  disableBtnFollow: number[];
+  friends: UserType[]
+};
+export type UserType = {
+  name: string;
+  id: number;
+  photos: PhotoType;
+  status: string;
+  followed: boolean;
+};
+export type PhotoType = {
+  small: string;
+  large: string;
+};
+
+type FollowAT = ReturnType<typeof followSuccess>;
+type UnFollowAT = ReturnType<typeof unFollowSuccess>;
+type SetUsersAT = ReturnType<typeof setUsers>;
+type SetCurrentPageAT = ReturnType<typeof setCurrentPage>;
+type SetTotalItemsCountAT = ReturnType<typeof settotalItemsCout>;
+type SetFetchingAT = ReturnType<typeof setFetching>;
+type ToggleDisableBtnFollowType = ReturnType<typeof toggleDisableBtnFollow>;
+type SetFriendsAT = ReturnType<typeof setFriendsAC>
+
+type ActionType =
+    | FollowAT
+    | SetUsersAT
+    | UnFollowAT
+    | SetCurrentPageAT
+    | SetTotalItemsCountAT
+    | SetFetchingAT
+    | ToggleDisableBtnFollowType
+    | SetFriendsAT;

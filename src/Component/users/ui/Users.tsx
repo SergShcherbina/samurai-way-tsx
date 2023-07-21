@@ -28,54 +28,52 @@ export const Users = (props: UsersType) => {
                 totalItemsCount={props.totalItemsCout}
                 pageSize={props.pageSize}
             />
-            {props.isFetching ? <Spinner/> : (
-                props.users.map((user) => (
-                    <div key={user.id} className={s.userItem}>
-                        <div className={s.userIcon}>
-                            <div>
-                                <NavLink to={`/profile/${user.id}`}>
-                                    <img style={{width: "40px"}} src={user.photos.small ? user.photos.small : avaUser}/>
-                                </NavLink>
-                            </div>
-                            <div>
-                                {user.followed ? (
-                                    <button
-                                        //дизейблим кнопку если, в полученном массиве id совпадает с текущим
-                                        disabled={props.disableBtnFollow.some((id) => id === user.id)}
-                                        //вызываем колбек санки и передаем аргументы
-                                        onClick={() => {
-                                            props.follow(user.id);
-                                        }}
-                                    >
-                                        Unfollow
-                                    </button>
-                                ) : (
-                                    <button
-                                        disabled={props.disableBtnFollow.some((el) => el === user.id)}
-                                        onClick={() => {
-                                            props.unFollow(user.id);
-                                        }}
-                                    >
-                                        Follow
-                                    </button>
-                                )}
-                            </div>
-                        </div>
-                        <div className={s.userContent}>
-                            <div className={s.userNameWrapper}>
+            {props.isFetching
+                ? <Spinner/> : (
+                    props.users.map((user) => (
+                        <div key={user.id} className={s.userItem}>
+                            <div className={s.userIcon}>
                                 <div>
-                                    {user.name}
-                                    <div>{user.status}</div>
+                                    <NavLink to={`/profile/${user.id}`}>
+                                        <img style={{width: "40px"}}
+                                             src={user.photos.small ? user.photos.small : avaUser}/>
+                                    </NavLink>
                                 </div>
+                                <div>
+                                    {user.followed
+                                        ? (
+                                            <button
+                                                disabled={props.disableBtnFollow.some((id) => id === user.id)}
+                                                onClick={() => {
+                                                    props.follow(user.id);
+                                                }}
+                                            >
+                                                Unfollow
+                                            </button>
+                                        ) : (
+                                            <button
+                                                disabled={props.disableBtnFollow.some((el) => el === user.id)}
+                                                onClick={() => {
+                                                    props.unFollow(user.id);
+                                                }}
+                                            >
+                                                Follow
+                                            </button>
+                                        )}
+                                </div>
+                            </div>
+                            <div className={s.userContent}>
                                 <div className={s.userNameWrapper}>
-                                    <div>{"user.location.country"}</div>
-                                    <div>{"user.location.city"}</div>
+                                    <div>
+                                        Name:
+                                        <span style={{fontSize: '16px'}}> {user.name}</span>
+                                    </div>
+                                    {user.status &&  <div>Status: {user.status}</div> }
                                 </div>
                             </div>
                         </div>
-                    </div>
-                ))
-            )}
+                    ))
+                )}
         </div>
     );
 };
