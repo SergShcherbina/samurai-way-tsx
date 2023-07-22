@@ -8,7 +8,7 @@ export const Friends = (props: MapStateToPropsFriendsType) => {
     const friends = props.friends.map(friend => {
         if (friend.followed) {
             return (
-                <Friend friend={friend}/>
+                <Friend key={friend.id} friend={friend}/>
             )
         }
     })

@@ -19,4 +19,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     };
 };
 
-export const MyPostContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
+export const ConnectMyPost = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
+

@@ -1,16 +1,17 @@
 import classes from "./ProfileInfo.module.css";
 import "../../../../index.css";
-import {Spinner} from "../../../../assets/spinner/Spinner";
 import {ProfileStatus} from "./ProfileStatus";
 import {ProfileType} from "../Profile";
-
+import {ProfileAvatar} from "./ProfileAvatar";
+import {ChangeEvent} from "react";
 
 export const ProfileInfo = (props: ProfileType) => {
-    let pathAva;
-    if (Object.keys(props.profile).length === 0 || props.profile.photos.large === null) {
-        pathAva = "https://st.depositphotos.com/2218212/2938/i/450/depositphotos_29387653-stock-photo-facebook-profile.jpg";
-    } else {
-        pathAva = props.profile.photos.large;
+    const {status, isMyPage, ...restProps} = props
+
+    const onReplaceAvatar = (e: ChangeEvent<HTMLInputElement>) => {
+        if(e.target.files){
+            props.replaceAvatar(e.target.files[0])
+        }
     }
 
     return (
@@ -21,18 +22,14 @@ export const ProfileInfo = (props: ProfileType) => {
                 />
             </div>
             <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
-            {!props.profile.photos ? (
-                <Spinner/>
-            ) : (
-                <div className={classes.profileInfo}>
-                    <div className={` boxShadowEl  ${classes.wrapperAvatar}`}>
-                        <img className={classes.avatar} src={pathAva}/>
-                    </div>
-                    <div className={classes.profileDescr + " " + "boxShadowEl"}>
-                        <span style={{fontSize: 26, fontWeight: "bold"}}> {props.profile.boutMe} </span>
-                    </div>
-                </div>
-            )}
+            <ProfileAvatar profile={restProps.profile} isMyPage={isMyPage}/>
+            <div>
+                {props.isMyPage
+                    ? <input
+                        type='file'
+                        onChange={onReplaceAvatar}
+                    /> : null}
+            </div>
         </>
     );
 };
