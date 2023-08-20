@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route} from "react-router-dom";
+import {Redirect, Route} from "react-router-dom";
 import {DialogsContainer} from "../../../Component/dialogs/ui/DialogsContainer";
 import {News} from "../../../Component/news/ui/News";
 import {Music} from "../../../Component/music/ui/Music";
@@ -12,6 +12,7 @@ export const Routing = () => {
     return (
         <>
             <Route exact path={"/profile/:userId?"} render={() => <ConnectProfileContainer/>}/>
+            <Route exact path={'/'} render={() => <Redirect to={'/profile'}/>}/>
             <Route path={"/message"} render={() => <DialogsContainer/>}/>
             <Route path={"/users"} render={() => <ConnectUsers/>}/>
             <Route path={"/news"} component={News}/>

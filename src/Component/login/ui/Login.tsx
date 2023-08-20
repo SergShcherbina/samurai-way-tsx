@@ -1,6 +1,6 @@
 import React from "react";
-import {Redirect} from "react-router-dom";
 import {LoginReduxForm} from "./LoginReduxForm";
+import {Redirect} from "react-router-dom";
 
 type LoginReduxFormType = {
     login: string;
