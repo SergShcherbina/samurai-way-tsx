@@ -24,4 +24,3 @@ export const ConnectUsers = connect(mapStateToProps, {
     follow,
     unFollow,
 })(UsersContainer);
-

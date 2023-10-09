@@ -20,7 +20,8 @@ export class App extends Component<AppType> {
     if (!this.props.initialized)  return <Spinner />;
 
     return (
-      <BrowserRouter>
+      // для размещения на gh-pages и корректной работы путей добавить basename={process.env.PUBLIC_URL}
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <div className="app-wrapper">
           <ConnectHeaderContainer />
           <Navbar />
