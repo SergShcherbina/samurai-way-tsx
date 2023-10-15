@@ -1,8 +1,8 @@
-import classes from "./myPosts.module.css";
 import {Post} from "./Post/Post";
 import React from "react";
 import {PostsType} from "../../model/profile-reducer";
 import {AddPostReduxForm} from "./addPostForm/AddPostForm";
+import styled from "styled-components";
 
 export type MyPostType = {
     addPost: (values: string) => void;
@@ -24,12 +24,19 @@ export const MyPosts: React.FC<MyPostType> = ({addPost, posts}) => {
     ));
 
     return (
-        <div>
-            <h3>My Post</h3>
-            <div className={classes.textAreaBlock}>
+        <>
+            <h3>My Posts</h3>
+            <PostStyle>
                 <AddPostReduxForm onSubmit={onSubmit}/>
-            </div>
+            </PostStyle>
             <div>{postElement}</div>
-        </div>
+        </>
     );
 };
+
+const PostStyle = styled.div`
+  background-color: var(--color-bloks);
+  border-radius: 10px;
+  padding: 10px;
+`
+

@@ -1,11 +1,12 @@
 import classes from "./navbar.module.css";
 import {NavLink} from "react-router-dom";
 import {ConnectFriends} from "../../friends/ui/FriendsContainer";
+import styled from "styled-components";
 
 
 export const Navbar = () => {
     return (
-        <nav className={classes.nav}>
+        <Nav >
             <div>
                 <NavLink exact activeClassName={classes.active} to="/profile">Profile</NavLink>
             </div>
@@ -27,6 +28,14 @@ export const Navbar = () => {
             <div>
                 <ConnectFriends/>
             </div>
-        </nav>
+        </Nav>
     );
 };
+
+const Nav = styled.div `
+  background-color: var(--color-bloks);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 24px;
+`

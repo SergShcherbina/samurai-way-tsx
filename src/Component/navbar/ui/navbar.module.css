@@ -1,10 +1,10 @@
-.nav {
-  grid-area: nav;
-  background-color: #75a514;
-  padding: 10px 20px;
-  font-size: 24px;
-  gap: 10px;
-}
+/*.nav {*/
+/*  grid-area: nav;*/
+/*  background-color: #75a514;*/
+/*  padding: 10px 20px;*/
+/*  font-size: 24px;*/
+/*  gap: 10px;*/
+/*}*/
 
 .nav a {
   color: aliceblue;

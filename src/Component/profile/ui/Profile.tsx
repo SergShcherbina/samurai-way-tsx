@@ -1,5 +1,4 @@
 import React from "react";
-import classes from "./profile.module.css";
 import {ResponseProfileType} from "../api/profile-api";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ConnectMyPost} from "./MyPosts/MyPostsContainer";
@@ -14,13 +13,9 @@ export type ProfileType = {
 
 export const Profile = (props: ProfileType) => {
     return (
-        <div className={classes.content}>
-            <div>
-                <ProfileInfo {...props} />
-            </div>
-            <div>
-                <ConnectMyPost/>
-            </div>
-        </div>
+        <>
+            <ProfileInfo {...props} />
+            <ConnectMyPost/>
+        </>
     );
 };

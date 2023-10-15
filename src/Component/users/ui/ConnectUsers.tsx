@@ -1,4 +1,3 @@
-import React from 'react';
 import {AppStateType} from "../../../app/model/store";
 import {connect} from "react-redux";
 import {follow, getUsersTC, unFollow} from "../model/users-reducer";
