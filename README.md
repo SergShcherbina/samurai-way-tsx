@@ -1,4 +1,4 @@
-### https://sergshcherbina.github.io/samurai-way-tsx/profile
+### https://sergshcherbina.github.io/samurai-way-tsx/
 <hr>
 
 После git clone 'link' установите все зависимости из package.json:
