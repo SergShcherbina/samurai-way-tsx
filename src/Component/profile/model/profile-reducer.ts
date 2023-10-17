@@ -6,7 +6,26 @@ import {ResultCode} from "../../../common/enums/emuns";
 const initialState: ProfilePageType = {
     posts: [],
     newPostText: "",
-    profile: {},
+    profile: {
+        boutMe: '',
+        contacts: {
+            facebook: '',
+            website: '',
+            vk: '',
+            twitter: '',
+            instagram: '',
+            youtube: '',
+            github: ''
+        },
+        fullName: '',
+        lookingForAJob: false,
+        lookingForAJobDescription: null,
+        photos: {
+            large: '',
+            small: '',
+        },
+        userId: 0,
+    },
     status: "",
 };
 
@@ -122,7 +141,7 @@ export const replaceAvatarTC = (file: File) => {
 export type ProfilePageType = {
     posts: PostsType[];
     newPostText: string;
-    profile: any;
+    profile: ResponseProfileType;
     status: string;
 };
 export type PostsType = {
@@ -131,8 +150,9 @@ export type PostsType = {
     likeCounter: number;
     counterDislike: number;
 };
+
 export type AddPostAT = ReturnType<typeof addPostAC>
-type SetUserProfileAT = ReturnType<typeof setProfileAC>;
+export type SetUserProfileAT = ReturnType<typeof setProfileAC>;
 type SetStatusAT = ReturnType<typeof setStatusAC>;
 type ReplaceAvatarAT = ReturnType<typeof replaceAvatarAC>
 

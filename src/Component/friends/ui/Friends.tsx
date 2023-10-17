@@ -1,7 +1,7 @@
 import React from "react";
-import s from './friends.module.css'
 import {MapStateToPropsFriendsType} from "./FriendsContainer";
 import {Friend} from "./friend/Friend";
+import styled from "styled-components";
 
 export const Friends = (props: MapStateToPropsFriendsType) => {
 
@@ -14,11 +14,16 @@ export const Friends = (props: MapStateToPropsFriendsType) => {
     })
 
     return (
-        <div>
-            <div className={s.friends}>Friends</div>
-            <div>
-                {friends}
-            </div>
-        </div>
+        <FriendsStyle>
+            <h4>Friends</h4>
+            {friends}
+        </FriendsStyle>
     );
 };
+
+const FriendsStyle = styled.div`
+  background-color: var(--color-bloks);
+  padding: var(--padding-blocks);
+  border-radius: 5px;
+  box-shadow: var(--box-shadow-blocks);
+`

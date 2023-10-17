@@ -3,7 +3,26 @@ import {addPostAC, AddPostAT, ProfilePageType, profileReducer} from "./profile-r
 const state: ProfilePageType = {
   posts: [],
   newPostText: "",
-  profile: {},
+  profile: {
+    boutMe: '',
+    contacts: {
+      facebook: '',
+      website: '',
+      vk: '',
+      twitter: '',
+      instagram: '',
+      youtube: '',
+      github: ''
+    },
+    fullName: '',
+    lookingForAJob: false,
+    lookingForAJobDescription: null,
+    photos: {
+      large: '',
+      small: '',
+    },
+    userId: 0,
+  },
   status: "",
 };
 

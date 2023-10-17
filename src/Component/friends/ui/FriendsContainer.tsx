@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {AppStateType} from "../../../app/model/store";
 import {connect} from "react-redux";
 import {getMyFriendsTC} from "../../users/model/users-reducer";

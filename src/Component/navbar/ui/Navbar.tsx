@@ -25,16 +25,13 @@ export const Navbar = () => {
             <div>
                 <NavLink activeClassName={classes.active} to="/users">Users</NavLink>
             </div>
-            <div>
-                <ConnectFriends/>
-            </div>
         </Nav>
     );
 };
 
 const Nav = styled.div `
   background-color: var(--color-bloks);
-  border: 1px solid var(--border-color);
+  box-shadow: var(--box-shadow-blocks);
   border-radius: 10px;
   padding: 20px;
   font-size: 24px;

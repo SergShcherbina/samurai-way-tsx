@@ -11,13 +11,19 @@ type HeaderContainerType = MapStateToPropsHeaderType & {
 
 export class HeaderContainer extends React.Component<HeaderContainerType> {
     render() {
-        return <Header isAuth={this.props.isAuth} login={this.props.login} logoutTC={this.props.logoutTC}/>;
+        return <Header
+            isAuth={this.props.isAuth}
+            userName={this.props.login}
+            logoutTC={this.props.logoutTC}
+            profile={this.props.profile}
+        />;
     }
 }
 
 const mapStateToProps = (state: AppStateType) => ({
     isAuth: state.auth.isAuth,
     login: state.auth.login,
+    profile: state.profilePage.profile
 });
 
 export const ConnectHeaderContainer = connect(mapStateToProps, {logoutTC})(HeaderContainer);

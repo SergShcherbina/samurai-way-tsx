@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@300;500;700;900&display=swap');
 
-*{
+* {
   font-family: 'M PLUS 1p', sans-serif;
 }
 
@@ -21,13 +21,9 @@ a {
   color: #325db7
 }
 
-.boxShadowEl {
-  /*общий стиль для блоков с тенями */
-  box-shadow: #00000014 0 4px 19px;
-  border-radius: 10px;
-}
-
 :root{
-  --border-color: rgba(179, 180, 182, 0.46);
+  --box-shadow-blocks: 0 0 5px rgba(179, 180, 182, 0.46);
   --color-bloks: #fff;
+  --padding-blocks: 20px;
+  --main-color: #2196f3;
 }

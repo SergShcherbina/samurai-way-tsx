@@ -8,9 +8,9 @@ export const Footer = () => {
 const FooterStyle = styled.div `
   font-size: 32px;
   text-align: center;
-  grid-column: 1 / 3;
-  background-color: #ffffff;
-  border: 2px solid #ececec;
+  grid-column: 1 / 4;
+  background-color: var(--color-bloks);
+  box-shadow: var(--box-shadow-blocks);
   border-radius: 10px;
   padding: 20px;
 `
