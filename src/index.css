@@ -2,6 +2,7 @@
 
 * {
   font-family: 'M PLUS 1p', sans-serif;
+  color: #545454;
 }
 
 body {
@@ -18,7 +19,7 @@ code {
 }
 a {
   text-decoration: none;
-  color: #325db7
+  color: #545454
 }
 
 :root{

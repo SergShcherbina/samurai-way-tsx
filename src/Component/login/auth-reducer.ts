@@ -3,7 +3,6 @@ import {authAPI} from "../../api/api";
 import {LoginReduxFormType} from "./ui/LoginReduxForm";
 import {setFetching} from "../users/model/users-reducer";
 import {stopSubmit} from "redux-form";
-import {SetUserProfileAT} from "../profile/model/profile-reducer";
 
 export type InitialAuthType = {
     userId: string;

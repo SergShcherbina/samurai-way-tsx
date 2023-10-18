@@ -11,11 +11,11 @@ export const Friends = (props: MapStateToPropsFriendsType) => {
                 <Friend key={friend.id} friend={friend}/>
             )
         }
-    })
+    });
 
     return (
         <FriendsStyle>
-            <h4>Friends</h4>
+            <span>Friends</span>
             {friends}
         </FriendsStyle>
     );
@@ -24,6 +24,20 @@ export const Friends = (props: MapStateToPropsFriendsType) => {
 const FriendsStyle = styled.div`
   background-color: var(--color-bloks);
   padding: var(--padding-blocks);
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: var(--box-shadow-blocks);
+  & > span {
+    font-size: 1.3rem;
+    position: relative;
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      border-radius: 30%;
+      background: var(--main-color)
+    }
+  }
 `
