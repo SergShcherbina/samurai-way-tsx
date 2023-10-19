@@ -25,17 +25,14 @@ export const MyPosts: React.FC<MyPostType> = ({addPost, posts}) => {
 
     return (
         <>
-            <PostStyle>
-                <AddPostReduxForm onSubmit={onSubmit}/>
-            </PostStyle>
-            <div>{postElement}</div>
+            <AddPostReduxForm onSubmit={onSubmit}/>
+            <Posts>{postElement}</Posts>
         </>
     );
 };
 
-const PostStyle = styled.div`
-  background-color: var(--color-bloks);
-  border-radius: 10px;
-  padding: 10px;
+const Posts = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px
 `
-

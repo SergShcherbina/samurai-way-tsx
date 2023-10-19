@@ -1,4 +1,10 @@
-import s from "./post.module.css";
+import photo from '../../../../../assets/img/avatarUser.png'
+import styled from "styled-components";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {
+    faEye,
+    faHeart, faHeartCrack,
+} from '@fortawesome/free-solid-svg-icons'
 
 type TypeProps = {
     message?: string;
@@ -9,23 +15,77 @@ type TypeProps = {
 
 export const Post = (props: TypeProps) => {
     return (
-        <div className={s.wrapperItem}>
-            <div>
-                <div>
-                    <p className={s.title}>post1</p>
-                    <img className={s.imgItem} src="https://www.perunica.ru/uploads/posts/2019-03/1552932077_1.jpg" alt={"img"}/>
-                </div>
-                <div className={s.likeWrapper}>
-                    <img className={s.icon} src="https://imgpng.ru/d/like_PNG14.png" alt={"img"}/> {props.counterLike}
-                    <img
-                        className={s.icon}
-                        src="https://w7.pngwing.com/pngs/403/351/png-transparent-dislike-button-thumb-signal-smiley-thumbs-down-s-text-computer-presentation-thumbnail.png"
-                        alt={"img"}
-                    />
-                    {props.counterDislike}
-                </div>
-            </div>
-            <div className={s.description}>{props.message}</div>
-        </div>
+        <StylePost>
+            <NameWrapper>
+                <Avatar>
+                    <img src={photo} alt={"img"}/>
+                </Avatar>
+                <Name>
+                    <span><b>UserName</b></span>
+                    <br/>
+                    <span>Published: 10.03.2023, 19:09:18</span>
+                </Name>
+            </NameWrapper>
+
+            <Content>{props.message}</Content>
+
+            <Icons>
+                <span><FontAwesomeIcon icon={faHeart} size={"sm"} /> {props.counterLike}</span>
+                <span><FontAwesomeIcon icon={faHeartCrack} size={"sm"}/> {props.counterDislike}</span>
+                <span><FontAwesomeIcon icon={faEye} size={"sm"}/> {props.counterDislike}</span>
+            </Icons>
+        </StylePost>
     );
 };
+
+const StylePost = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 10px;
+  background-color: var(--color-bloks);
+  padding: 20px;
+`
+const NameWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+`
+const Content = styled.div`
+  font-size: 0.9rem;
+  padding-left: 60px;
+  border-left: 2px solid #e8e8e8;
+`
+const Avatar = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`
+const Name = styled.div`
+  
+  & span:last-child{
+    color: var(--main-color);
+    font-size: .8rem;
+  }
+`
+
+const Icons = styled.div`
+  display: flex;
+  gap: 10px;
+  align-self: end;
+
+  & span {
+    transition: 0.3s all;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+`
