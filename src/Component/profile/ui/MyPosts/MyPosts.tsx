@@ -25,7 +25,6 @@ export const MyPosts: React.FC<MyPostType> = ({addPost, posts}) => {
 
     return (
         <>
-            <h3>My Posts</h3>
             <PostStyle>
                 <AddPostReduxForm onSubmit={onSubmit}/>
             </PostStyle>

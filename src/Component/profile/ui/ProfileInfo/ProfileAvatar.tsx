@@ -1,6 +1,5 @@
 import React from 'react';
 import {Spinner} from "../../../../assets/spinner/Spinner";
-import classes from "./ProfileInfo.module.css";
 import {ResponseProfileType} from "../../api/profile-api";
 import styled from "styled-components";
 
@@ -21,7 +20,7 @@ export const ProfileAvatar = (props: Props) => {
         <>
             {!props.profile.photos ? <Spinner/> :
                 <AvatarWrapper>
-                    <img className={classes.avatar} src={pathAva} alt={'avatar'}/>
+                    <img src={pathAva} alt={'avatar'}/>
                 </AvatarWrapper>
             }
         </>
@@ -31,7 +30,7 @@ export const ProfileAvatar = (props: Props) => {
 const AvatarWrapper = styled.div`
   width: 200px;
   height: 200px;
-  border-radius: 100%;
+  border-radius: 20px 80px;
   overflow: hidden;
 
   & img {

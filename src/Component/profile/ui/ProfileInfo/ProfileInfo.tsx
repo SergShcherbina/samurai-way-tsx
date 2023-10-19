@@ -22,7 +22,7 @@ export const ProfileInfo = (props: ProfileType) => {
                     src="https://cdn-images-1.medium.com/max/900/1*HSisLuifMO6KbLfPOKtLow.jpeg"
                 />
             </WrapperBanner>
-            <MyProfileWrapper>
+            <WrapperMyProfile>
                 <div style={{maxWidth: '250px'}}>
                     <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
                     <ProfileAvatar profile={restProps.profile} isMyPage={isMyPage}/>
@@ -61,7 +61,7 @@ export const ProfileInfo = (props: ProfileType) => {
                         <b>vk:</b> {restProps.profile.contacts.vk || 'vc.com'}
                     </span>
                 </Info>
-            </MyProfileWrapper>
+            </WrapperMyProfile>
         </WrapperProfile>
     );
 };
@@ -86,7 +86,7 @@ const ImgBanner = styled.img`
   justify-content: center;
 `
 
-const MyProfileWrapper = styled.div`
+const WrapperMyProfile = styled.div`
   padding: 20px;
   background-color: var(--color-bloks);
   border-radius: 10px;
@@ -99,6 +99,7 @@ const EditPhoto = styled.label`
   display: block;
   margin: 10px 0 0 50px;
   cursor: pointer;
+  
   & input {
     opacity: 0;
     visibility: hidden;

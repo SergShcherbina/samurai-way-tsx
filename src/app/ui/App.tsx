@@ -40,7 +40,7 @@ export class App extends Component<AppType> {
 const AppStyle = styled.div `
   min-height: calc(100vh - 20px) ;
   display: grid;
-  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-columns: 1fr 3fr 1fr;
   grid-template-rows: auto 1fr auto;
   gap: 10px;
   max-width: 1140px;
@@ -48,5 +48,8 @@ const AppStyle = styled.div `
 `
 
 const ContentBlock = styled.div `
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   border-radius: 10px;
 `
