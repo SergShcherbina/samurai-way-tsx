@@ -42,10 +42,11 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
     };
 
     render() {
+        const status = this.state.status.length > 59 ? this.state.status.slice(0, 59) + '...' : this.state.status
         return (
             <div>
                 {this.state.editMode ? (
-                    <Status onDoubleClick={this.onEditableSpan}>{this.props.status || "...😶"}</Status>
+                    <><Status onDoubleClick={this.onEditableSpan}>{status || "...😶"}</Status> <hr/></>
                 ) : (
                     <StatusField
                         onChange={this.onChangeStatusHandler}
@@ -60,10 +61,15 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
 }
 
 const Status = styled.div`
-  //border-bottom: 2px solid #22b9f6;
+  cursor: pointer;
+  font-size: 0.9rem;
 `
 
 const StatusField = styled.input`
-  outline : 1px solid red;
-  min-width: 300px;
+  outline : 1px solid var(--main-color);
+  padding: 3px;
+  width: 200px;
+  border-radius: 5px;
+  min-width: 250px;
+  margin-bottom: 5px;
 `

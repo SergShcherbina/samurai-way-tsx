@@ -15,7 +15,7 @@ export const Friend: React.FC<Props> = ({friend}) => {
                  alt={'photo friends'}
                  src={friend.photos.small ??
                      'https://w7.pngwing.com/pngs/328/501/png-transparent-monkey-runner-computer-icons-monkey-mammal-animals-vertebrate.png'}/>
-            <span className={s.name}>{lengthName}</span>
+            <span>{lengthName}</span>
         </StyleFriend>
     );
 };
@@ -32,5 +32,8 @@ const StyleFriend = styled.div `
     width: 40px;
     border: 2px solid var(--main-color);
   }
-
+  
+  & span {
+    font-size: 0.9rem;
+  }
 `

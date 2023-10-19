@@ -2,6 +2,7 @@ import React from 'react';
 import {Spinner} from "../../../../assets/spinner/Spinner";
 import classes from "./ProfileInfo.module.css";
 import {ResponseProfileType} from "../../api/profile-api";
+import styled from "styled-components";
 
 type Props = {
     isMyPage: boolean
@@ -9,7 +10,6 @@ type Props = {
 }
 
 export const ProfileAvatar = (props: Props) => {
-
     let pathAva;
     if (Object.keys(props.profile).length === 0 || props.profile.photos === null) {
         pathAva = "https://st.depositphotos.com/2218212/2938/i/450/depositphotos_29387653-stock-photo-facebook-profile.jpg";
@@ -20,12 +20,23 @@ export const ProfileAvatar = (props: Props) => {
     return (
         <>
             {!props.profile.photos ? <Spinner/> :
-                <div className={classes.profileInfo}>
-                    <div className={` boxShadowEl  ${classes.wrapperAvatar}`}>
-                        <img className={classes.avatar} src={pathAva} alt={'avatar'}/>
-                    </div>
-                </div>
+                <AvatarWrapper>
+                    <img className={classes.avatar} src={pathAva} alt={'avatar'}/>
+                </AvatarWrapper>
             }
         </>
     )
 }
+
+const AvatarWrapper = styled.div`
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  overflow: hidden;
+
+  & img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+`
