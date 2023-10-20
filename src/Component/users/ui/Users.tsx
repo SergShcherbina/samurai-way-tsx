@@ -1,10 +1,10 @@
 import React from "react";
-import s from "./users.module.css";
-import avaUser from "../../../assets/img/avatarUser.png";
+import Stub from "../../../assets/img/avatarUser.png";
 import {UserType} from "../model/users-reducer";
 import {Spinner} from "../../../assets/spinner/Spinner";
 import {NavLink} from "react-router-dom";
 import {Pagination} from "./pagination/Pagination";
+import styled, {keyframes} from "styled-components";
 
 type UsersType = {
     users: UserType[];
@@ -19,61 +19,130 @@ type UsersType = {
 };
 
 export const Users = (props: UsersType) => {
+    if (props.isFetching) return <Spinner/>
+
+    const onFollow = (userId: number, follow: boolean) => {
+        follow ? props.follow(userId) : props.unFollow(userId)
+    }
+
+    const disableBtn = (userId: number) => {
+        return props.disableBtnFollow.some(((id: number) => id === userId))
+    }
+
+    const onFollowBtn = (user: UserType) => {
+        return (
+            <button
+                disabled={disableBtn(user.id)}
+                onClick={() => onFollow(user.id, user.followed)}
+            >
+                {user.followed ? 'Unfollow' : 'Follow'}
+            </button>
+        )
+    }
 
     return (
-        <div className={s.wrapperUsers}>
+        <Root>
+            {props.users.map((user) => (
+                <User key={user.id} isFollow={user.followed}>
+
+                    <StyleNavLink to={`/profile/${user.id}`}>
+                        <img
+                            src={user.photos.small ? user.photos.small : Stub}
+                            alt={'user photo'}/>
+                    </StyleNavLink>
+
+                    <Info>
+                        <div>name: <b>{user.name}</b> </div>
+                        <span>status: {user.status ? user.status : 'empty status'}</span>
+                    </Info>
+
+                    {onFollowBtn(user)}
+                </User>
+            ))}
+
             <Pagination
                 currentPage={props.currentPage}
                 changeCurrentPage={props.changeCurrentPage}
                 totalItemsCount={props.totalItemsCout}
                 pageSize={props.pageSize}
             />
-            {props.isFetching
-                ? <Spinner/> : (
-                    props.users.map((user) => (
-                        <div key={user.id} className={s.userItem}>
-                            <div className={s.userIcon}>
-                                <div>
-                                    <NavLink to={`/profile/${user.id}`}>
-                                        <img style={{width: "40px"}}
-                                             src={user.photos.small ? user.photos.small : avaUser}/>
-                                    </NavLink>
-                                </div>
-                                <div>
-                                    {user.followed
-                                        ? (
-                                            <button
-                                                disabled={props.disableBtnFollow.some((id) => id === user.id)}
-                                                onClick={() => {
-                                                    props.follow(user.id);
-                                                }}
-                                            >
-                                                Unfollow
-                                            </button>
-                                        ) : (
-                                            <button
-                                                disabled={props.disableBtnFollow.some((el) => el === user.id)}
-                                                onClick={() => {
-                                                    props.unFollow(user.id);
-                                                }}
-                                            >
-                                                Follow
-                                            </button>
-                                        )}
-                                </div>
-                            </div>
-                            <div className={s.userContent}>
-                                <div className={s.userNameWrapper}>
-                                    <div>
-                                        Name:
-                                        <span style={{fontSize: '16px'}}> {user.name}</span>
-                                    </div>
-                                    {user.status &&  <div>Status: {user.status}</div> }
-                                </div>
-                            </div>
-                        </div>
-                    ))
-                )}
-        </div>
+        </Root>
     );
 };
+
+const hello = keyframes`
+  0% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(2px);
+  }
+  60% {
+    transform:  translateY(-2px);
+  }
+  100% {
+    transform:  translateY(0);
+  }
+`
+const Root = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px
+`
+const User = styled.div <{ isFollow: boolean }>`
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 30px;
+
+  border-radius: 10px;
+  background-color: var(--color-bloks);
+  padding: 20px;
+
+  & button {
+    padding: 10px;
+    width: 100px;
+    border: none;
+    border-radius: 5px;
+    background-color: ${props => props.isFollow ? '#ffab00' : '#2196f3;'};
+    color: var(--color-bloks);
+    font-size: 1rem;
+    box-shadow: 2px 2px 5px #777575;
+    transition: all 0.2s;
+
+    &:hover {
+      transform: translateY(2px);
+      box-shadow: none;
+    }
+  }
+`
+const StyleNavLink = styled(NavLink)`
+  display: block;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: all 0.3s;
+
+  & img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  &:hover {
+    animation: ${hello} 0.5s ease-in-out;
+  }
+`
+const Info = styled.div`
+  & div {
+    font-size: 1.2rem;
+  }
+
+  & span {
+    color: #939393;
+  }
+`
+
+
+

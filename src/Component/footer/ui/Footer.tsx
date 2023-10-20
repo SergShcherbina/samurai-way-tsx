@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 
 export const Footer = () => {
-  return <FooterStyle className="footer-wrapper">footer</FooterStyle>;
+  return <FooterStyle>footer</FooterStyle>;
 };
 
-const FooterStyle = styled.div `
+const FooterStyle = styled.footer `
   font-size: 32px;
   text-align: center;
   grid-column: 1 / 4;

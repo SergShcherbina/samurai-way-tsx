@@ -49,7 +49,7 @@ export const usersReducer = (state: usersState = initialState, action: ActionTyp
         ...state,
         disableBtnFollow: action.loading
           ? [...state.disableBtnFollow, action.userId]
-          : state.disableBtnFollow.filter((el) => el !== action.userId),
+          : state.disableBtnFollow.filter((id) => id !== action.userId),
       };
     case "SET-FRIENDS" :
       return {

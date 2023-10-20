@@ -26,9 +26,15 @@ const FriendsStyle = styled.div`
   padding: var(--padding-blocks);
   border-radius: 10px;
   box-shadow: var(--box-shadow-blocks);
+  height: fit-content;
+
+  position: sticky;
+  top: 5px;
+
   & > span {
     font-size: 1.3rem;
     position: relative;
+
     &:after {
       content: '';
       position: absolute;

@@ -2,7 +2,10 @@
 
 * {
   font-family: 'M PLUS 1p', sans-serif;
-  color: #545454;
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -27,4 +30,6 @@ a {
   --color-bloks: #fff;
   --padding-blocks: 20px;
   --main-color: #2196f3;
+  --text-color: #545454;
+  --second-text-color: #939393;
 }
