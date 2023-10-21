@@ -1,7 +1,7 @@
 import React from "react";
 import {ResponseProfileType} from "../api/profile-api";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ConnectMyPost} from "./MyPosts/MyPostsContainer";
+import {ConnectMyPost} from "./Posts/PostsContainer";
 
 export type ProfileType = {
     profile: ResponseProfileType;

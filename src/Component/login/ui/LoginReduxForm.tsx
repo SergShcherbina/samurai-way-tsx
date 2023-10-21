@@ -2,7 +2,6 @@ import React from "react";
 import {reduxForm, Field, InjectedFormProps} from "redux-form";
 import {Input} from "../../../common/form-controls/Input";
 import {requiredField} from "../../../utils/validators/validators";
-import s from "../../../common/form-controls/errorField.module.css";
 
 //создаем уточняющую типизацию возвращаемого объекта form по именам input/Field
 export type LoginReduxFormType = {
@@ -29,7 +28,7 @@ const LoginRedux = (props: InjectedFormProps<LoginReduxFormType>) => {
             <div>
                 <Field type={"checkbox"} name={"rememberMe"} component={Input}/> remember me
             </div>
-            <div className={s.errorMessage}>
+            <div >
                 {/*эта ошибка приходит из thunk благодаря action stopSubmit из redux-form*/}
                 {props.error}
             </div>
