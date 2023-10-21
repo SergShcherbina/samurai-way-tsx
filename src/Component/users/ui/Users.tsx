@@ -135,6 +135,8 @@ const StyleNavLink = styled(NavLink)`
   }
 `
 const Info = styled.div`
+  overflow: auto;
+  
   & div {
     font-size: 1.2rem;
   }

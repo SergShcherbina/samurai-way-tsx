@@ -1,6 +1,8 @@
 import {NavLink} from "react-router-dom";
 import styled from "styled-components";
 import {ResponseProfileType} from "../../profile/api/profile-api";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSignOut} from "@fortawesome/free-solid-svg-icons";
 
 type HeaderType = {
     isAuth: boolean;
@@ -10,22 +12,25 @@ type HeaderType = {
 };
 
 export const Header = (props: HeaderType) => {
+
+    const isMyProfile = () => {
+        if(props.isAuth){
+            return <LogOut
+                onClick={props.logoutTC}>
+                {props.userName} <FontAwesomeIcon icon={faSignOut} size={"xl"}/>
+            </LogOut>
+        } else {
+            return <NavLink to={"/login"}>Login</NavLink>
+        }
+    }
+
     return (
         <HeaderStyle>
             <LogoWrapper href="/">
                 <Logo></Logo>
                 <span>Social network</span>
             </LogoWrapper>
-            <div>
-                {props.isAuth ?
-                    (
-                        <WrapperUserName onClick={props.logoutTC} imgPath={props.profile.photos.small}>
-                            <UserName> выйти  </UserName>
-                        </WrapperUserName>
-                    ) : (
-                        <NavLink to={"/login"}>Login</NavLink>
-                    )}
-            </div>
+            { isMyProfile() }
         </HeaderStyle>
     );
 };
@@ -44,7 +49,6 @@ const HeaderStyle = styled.header`
   border-radius: 10px;
   padding: 0 var(--padding-blocks);
   height: 70px;
-  box-shadow: var(--box-shadow-blocks);
 
   img {
     height: 80px;
@@ -52,8 +56,8 @@ const HeaderStyle = styled.header`
 
 const Logo = styled.span`
   display: inline-block;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   background-color: var(--main-color);
   box-shadow: var(--box-shadow-blocks);
@@ -68,7 +72,8 @@ const LogoWrapper = styled.a`
 
   &:before {
     content: 'S';
-    left: 15px;
+    left: 18px;
+    font-size: 1.5rem;
     position: absolute;
     color: #fff;
   }
@@ -77,29 +82,18 @@ const LogoWrapper = styled.a`
     transform: scale(0.95);
   }
 `
-
-const UserName = styled.span`
-  display: inline-block;
-  
-  &:first-letter {
-    text-transform: uppercase
-  }
-`
-
-const WrapperUserName = styled.span <{imgPath: string}>`
+const LogOut = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
-  &:after {
-    content: '';
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    box-shadow: var(--box-shadow-blocks);
-    transition: 0.3s all;
-    background: url(${props => props.imgPath}) center / cover no-repeat;
-  }
-  &:hover:after{
-    transform: scale(0.95);
+  border: 1px solid var(--main-color);
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.3s;
+  box-shadow: var(--box-shadow-blocks);
+  
+  &:hover{
+    background-color: var(--main-color);
+    color: var(--color-bloks)
   }
 `

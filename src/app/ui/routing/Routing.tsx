@@ -21,7 +21,6 @@ export const Routing = () => {
                     return <Suspense fallback={ <Spinner/>}> <ConnectUsers/> </Suspense>}}/>
             <Route path={"/news"} component={News}/>
             <Route path={"/music"} component={Music}/>
-            <Route path={"/setting"} component={Setting}/>
             <Route path={"/login"} component={LoginConnect}/>
         </>
     );

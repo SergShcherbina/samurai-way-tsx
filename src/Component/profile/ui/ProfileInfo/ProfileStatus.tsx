@@ -5,6 +5,7 @@ import styled from "styled-components";
 type ProfileStatusType = {
     status: string;
     updateStatus: (statue: string) => void;
+    isMyPage: boolean;
 };
 
 export class ProfileStatus extends React.Component<ProfileStatusType> {
@@ -15,7 +16,6 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
 
     componentDidUpdate(prevProps: ProfileStatusType, prevState: AppStateType) {
         //setState внутри componentDidUpdate делать только при условии сравнения, иначе зациклим
-
         //если статус пришел и не равен предыдущему
         if (prevProps.status !== this.props.status) {
             this.setState({
@@ -25,6 +25,8 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
     }
 
     onEditableSpan = () => {
+        if(!this.props.isMyPage) return
+
         this.setState({
             editMode: false,
         });
@@ -42,11 +44,10 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
     };
 
     render() {
-        const status = this.state.status.length > 59 ? this.state.status.slice(0, 59) + '...' : this.state.status
         return (
-            <div>
+            <>
                 {this.state.editMode ? (
-                    <><Status onDoubleClick={this.onEditableSpan}>{status || "...😶"}</Status> <hr/></>
+                    <Status onDoubleClick={this.onEditableSpan}>{ this.state.status || "..."}</Status>
                 ) : (
                     <StatusField
                         onChange={this.onChangeStatusHandler}
@@ -55,21 +56,29 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
                         value={this.state.status}
                     />
                 )}
-            </div>
+            </>
         );
     }
 }
 
 const Status = styled.div`
+  grid-column: 1/4;
   cursor: pointer;
-  font-size: 0.9rem;
-`
+  overflow: hidden;
 
+  padding-bottom: 5px;
+  width: fit-content;
+  border-bottom: 1px solid var(--border-color);
+  
+  &:first-letter {
+    text-transform: uppercase;
+  }
+  
+`
 const StatusField = styled.input`
+  grid-column: 1/4;
   outline : 1px solid var(--main-color);
   padding: 3px;
-  width: 200px;
   border-radius: 5px;
-  min-width: 250px;
   margin-bottom: 5px;
 `

@@ -1,11 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@300;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Days+One&family=M+PLUS+1p:wght@300;500;700;900&display=swap');
+
 
 * {
   font-family: 'M PLUS 1p', sans-serif;
   color: var(--text-color);
+
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
+  user-select: none;
 }
 
 body {
@@ -14,7 +18,7 @@ body {
     "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f0f0f0;
+  background-color: rgb(237 238 240);
 }
 
 code {
@@ -32,4 +36,5 @@ a {
   --main-color: #2196f3;
   --text-color: #545454;
   --second-text-color: #939393;
+  --border-color: #efefef;
 }
