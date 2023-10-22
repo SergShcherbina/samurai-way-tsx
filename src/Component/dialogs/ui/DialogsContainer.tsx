@@ -2,7 +2,7 @@ import {addNewMessageAC, updateNewMessageAC} from "../model/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../app/model/store";
-import React, {ComponentType} from "react";
+import {ComponentType} from "react";
 import {withAuthRedirect} from "../../../common/hoc/withAuthRedirect";
 import {compose, Dispatch} from "redux";
 

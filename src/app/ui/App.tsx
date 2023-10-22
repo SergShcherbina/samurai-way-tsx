@@ -1,44 +1,51 @@
 import React, {Component} from "react";
 import {Footer} from "../../Component/footer/ui/Footer";
 import {Navbar} from "../../Component/navbar/ui/Navbar";
-import {BrowserRouter, HashRouter} from "react-router-dom";
 import {ConnectHeaderContainer} from "../../Component/header/ui/HeaderContainer";
 import {Spinner} from "../../assets/spinner/Spinner";
 import {Routing} from "./routing/Routing";
 import styled from 'styled-components'
 import {ConnectFriends} from "../../Component/friends/ui/FriendsContainer";
+import {LoginConnect} from "../../Component/login/ui/LoginConnect";
 
 type AppType = {
-  initialized: boolean;
-  initAppTC: () => void;
+    initialized: boolean;
+    initAppTC: () => void;
+    isAuth: boolean
 };
 
 export class App extends Component<AppType> {
-  componentDidMount() {
-    this.props.initAppTC();
-  }
-  render() {
-    if (!this.props.initialized)  return <Spinner />;
+    componentDidMount() {
+        this.props.initAppTC();
+    }
 
-    return (
-      // для размещения на gh-pages и корректной работы путей добавить basename={process.env.PUBLIC_URL}
-      <HashRouter >
-        <AppStyle>
-          <ConnectHeaderContainer />
-          <Navbar />
-          <ContentBlock>
-            <Routing/>
-          </ContentBlock>
-          <ConnectFriends/>
-          <Footer />
-        </AppStyle>
-      </HashRouter>
-    );
-  }
+    render() {
+        if (!this.props.initialized) return <Spinner/>;
+
+        return (
+            <AppStyle>
+                <ConnectHeaderContainer/>
+                {this.props.isAuth ?
+                    <>
+                        <Navbar/>
+                        <ContentBlock>
+                            <Routing/>
+                        </ContentBlock>
+                        <ConnectFriends/>
+                    </>
+                    :
+                    <div>
+                        <LoginConnect/>
+                    </div>
+                }
+                <Footer/>
+            </AppStyle>
+        );
+    }
 }
 
-const AppStyle = styled.div `
-  min-height: calc(100vh - 20px) ;
+const AppStyle = styled.div`
+  min-height: calc(100vh - 20px);
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   grid-template-rows: auto 1fr auto;
@@ -47,7 +54,7 @@ const AppStyle = styled.div `
   margin: 10px auto;
 `
 
-const ContentBlock = styled.div `
+const ContentBlock = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;

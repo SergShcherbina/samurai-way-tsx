@@ -13,10 +13,20 @@ export const Input = ({ input, meta, ...props }: FieldType) => {
   );
 };
 
-const StyleInput = styled.textarea <{ errors: string }>`
-  box-shadow: inset 0 0 2px 2px ${props => props.errors  ? '#f44336' : 'none'};
-  border-radius: 10px;
+const StyleInput = styled.input <{ errors: string }>`
+    //box-shadow: inset 0 0 2px 2px ${props => props.errors ? '#f44336' : 'none'};
   position: relative;
+  border-radius: 5px;
+  padding: 15px;
+  width: 100%;
+  border: 1px solid var(--border-color);
+  
+  &:focus {
+    outline: 2px solid var(--main-color);
+  }
+    
+  
+}
 `
 const ErrorMessage = styled.div`
   color: #f44336;

@@ -20,7 +20,7 @@ export const Header = (props: HeaderType) => {
                 {props.userName} <FontAwesomeIcon icon={faSignOut} size={"xl"}/>
             </LogOut>
         } else {
-            return <NavLink to={"/login"}>Login</NavLink>
+            return <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to={"/login"}>Login</NavLink>
         }
     }
 

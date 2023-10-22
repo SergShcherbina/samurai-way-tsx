@@ -4,6 +4,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faMessage, faMusic, faNewspaper, faPersonDotsFromLine, faUserGroup
 } from "@fortawesome/free-solid-svg-icons"
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../../app/model/store";
+import {Spinner} from "../../../assets/spinner/Spinner";
 
 //exact activeClassName={classes.active}
 export const Navbar = () => {
