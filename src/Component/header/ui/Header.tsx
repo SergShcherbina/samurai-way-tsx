@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {ResponseProfileType} from "../../profile/api/profile-api";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSignOut} from "@fortawesome/free-solid-svg-icons";
+import React from "react";
 
 type HeaderType = {
     isAuth: boolean;
@@ -26,7 +27,7 @@ export const Header = (props: HeaderType) => {
 
     return (
         <HeaderStyle>
-            <LogoWrapper href="/">
+            <LogoWrapper to={"/"}>
                 <Logo></Logo>
                 <span>Social network</span>
             </LogoWrapper>
@@ -63,7 +64,7 @@ const Logo = styled.span`
   box-shadow: var(--box-shadow-blocks);
 `
 
-const LogoWrapper = styled.a`
+const LogoWrapper = styled(NavLink)`
   position: relative;
   display: flex;
   align-items: center;
@@ -79,7 +80,7 @@ const LogoWrapper = styled.a`
   }
 
   &:hover {
-    transform: scale(0.95);
+    transform: scale(0.98);
   }
 `
 const LogOut = styled.div`

@@ -4,7 +4,7 @@ import {AddPostReduxForm} from "./addPost/addPostForm/AddPostForm";
 import {MDTPType, MSTPType} from "./PostsContainer";
 import styled from "styled-components";
 
-export type MyPostType =  MSTPType & MDTPType;
+export type MyPostType = MSTPType & MDTPType;
 
 export type AddPostFormDataType = {
     addPost: string;
@@ -21,8 +21,11 @@ export const Posts: React.FC<MyPostType> = ({addPost, posts, ...rest}) => {
                 id={el.id}
                 key={el.id}
                 message={el.message}
-                counterLike={el.likeCounter}
-                counterDislike={el.counterDislike}
+                like={el.like}
+                dislike={el.dislike}
+                watch={el.watch}
+                postDate={el.postDate}
+                postTime={el.postTime}
                 profile={{...rest.profile}}
             />
         }
@@ -30,7 +33,7 @@ export const Posts: React.FC<MyPostType> = ({addPost, posts, ...rest}) => {
 
     return (
         <>
-            <AddPostReduxForm onSubmit={onSubmit} />
+            <AddPostReduxForm onSubmit={onSubmit}/>
             <StylePosts>{postElement}</StylePosts>
         </>
     );

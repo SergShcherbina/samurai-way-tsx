@@ -16,7 +16,7 @@ export const ProfileInfo = (props: ProfileType) => {
         }
     }
 
-    const userName = props.profile.fullName.length > 15
+    const userName = props.profile.fullName.length > 14
         ? 'good mood 😉'
         : props.profile.fullName
 

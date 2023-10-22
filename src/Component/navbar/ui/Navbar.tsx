@@ -18,11 +18,11 @@ export const Navbar = () => {
             </li>
             <li>
                 <FontAwesomeIcon icon={faMessage} size={'xs'}/>
-                <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/message">Message</NavLink>
+                <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/message">Dialogs</NavLink>
             </li>
             <li>
                 <FontAwesomeIcon icon={faNewspaper} size={'xs'}/>
-                <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/news">News</NavLink>
+                <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/news">Gallery</NavLink>
             </li>
             <li>
                 <FontAwesomeIcon icon={faMusic} size={'xs'}/>
@@ -40,7 +40,7 @@ const Nav = styled.ul`
   box-shadow: var(--box-shadow-blocks);
   padding: 20px;
   border-radius: 10px;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   height: fit-content;
   list-style-type: none;
 
@@ -48,7 +48,7 @@ const Nav = styled.ul`
   top: 5px;
 
   & li {
-    padding-bottom: 10px;
+    padding-bottom: 15px;
     transition: all 0.3s;
 
     & a {

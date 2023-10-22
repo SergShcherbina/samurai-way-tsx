@@ -1,41 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Days+One&family=M+PLUS+1p:wght@300;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Days+One&family=Roboto:wght@300;400;700&display=swap');
 
 
 * {
-  font-family: 'M PLUS 1p', sans-serif;
-  color: var(--text-color);
-
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-
-  user-select: none;
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
 }
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(237 238 240);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: rgb(237 238 240);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-}
 a {
-  text-decoration: none;
-  color: #545454
+    text-decoration: none;
+    /*color: #545454*/
 }
 
-:root{
-  --box-shadow-blocks: 0 0 5px rgba(179, 180, 182, 0.46);
-  --color-bloks: #fff;
-  --padding-blocks: 20px;
-  --main-color: #2196f3;
-  --text-color: #545454;
-  --second-text-color: #939393;
-  --border-color: #efefef;
-  --active-color: #ffab00;
+:root {
+    --box-shadow-blocks: 0 0 5px rgba(179, 180, 182, 0.46);
+    --color-bloks: #fff;
+    --padding-blocks: 20px;
+    --main-color: #2196f3;
+    --text-color: #545454;
+    --second-text-color: #939393;
+    --border-color: #efefef;
+    --active-color: #ffab00;
 }

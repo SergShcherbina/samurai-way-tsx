@@ -21,6 +21,7 @@ export class App extends Component<AppType> {
 
     render() {
         if (!this.props.initialized) return <Spinner/>;
+        // if(this.props.isAuth) return <Redirect to={'/login'}/>
 
         return (
             <AppStyle>

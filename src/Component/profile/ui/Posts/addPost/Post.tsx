@@ -9,13 +9,17 @@ import {ResponseProfileType} from "../../../api/profile-api";
 
 type TypeProps = {
     message?: string;
-    counterLike?: number;
-    counterDislike?: number;
+    like?: number;
+    dislike?: number;
+    watch?: number
     id: number;
+    postDate: string;
+    postTime: string;
     profile: ResponseProfileType;
 };
 
 export const Post = (props: TypeProps) => {
+    console.log(new Date().toLocaleDateString('ru-Ru'), new Date().toLocaleTimeString())
     return (
         <Root>
             <Header>
@@ -25,16 +29,16 @@ export const Post = (props: TypeProps) => {
                 <Name>
                     <span><b>{props.profile.fullName}</b></span>
                     <br/>
-                    <span>Published: 10.03.2023, 19:09:18</span>
+                    <span>Published: {props.postDate}, {props.postTime}</span>
                 </Name>
             </Header>
 
             <Content>{props.message}</Content>
 
             <Icons>
-                <span><FontAwesomeIcon icon={faHeart} size={"sm"} /> {props.counterLike}</span>
-                <span><FontAwesomeIcon icon={faHeartCrack} size={"sm"}/> {props.counterDislike}</span>
-                <span><FontAwesomeIcon icon={faEye} size={"sm"}/> {props.counterDislike}</span>
+                <span><FontAwesomeIcon icon={faHeart} size={"sm"} /> {props.like}</span>
+                <span><FontAwesomeIcon icon={faHeartCrack} size={"sm"}/> {props.dislike}</span>
+                <span><FontAwesomeIcon icon={faEye} size={"sm"}/> {props.watch}</span>
             </Icons>
         </Root>
     );
@@ -53,11 +57,7 @@ const Header = styled.div`
   gap: 20px;
   align-items: center;
   line-height: 18px;
-`
-const Content = styled.div`
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
+  margin-bottom: 5px;
 `
 const Avatar = styled.div`
   width: 50px;
@@ -72,12 +72,22 @@ const Avatar = styled.div`
   }
 `
 const Name = styled.div`
-  
-  & span:last-child{
+  & span > b {
     color: var(--main-color);
+    font-size: 1.2rem;
+  }
+
+  & span:last-child {
+    color: var(--second-text-color);
     font-size: .8rem;
   }
 `
+const Content = styled.div`
+  padding: 10px;
+  line-height: 27px;
+  border-top: 1px solid var(--border-color);
+`
+
 
 const Icons = styled.div`
   display: flex;

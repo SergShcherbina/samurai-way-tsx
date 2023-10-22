@@ -52,14 +52,17 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;
-
-  & div:has(label) {
+  
+  & div:has(label) {       //div в котором вложенным label
     position: relative;
     font-size: 0.8rem;
 
     & label {
       position: absolute;
-      top: -10px;
+      border-radius: 3px;
+      padding: 0 3px;
+      border: 1px solid var(--border-color);
+      top: -8px;
       left: 15px;
       z-index: 1;
       
@@ -80,7 +83,7 @@ const Form = styled.form`
     font-weight: bold;
     background-color: var(--main-color);
     border: none;
-    padding: 10px;
+    padding: 12px;
     border-radius: 5px;
     transition: all 0.3s;
 
