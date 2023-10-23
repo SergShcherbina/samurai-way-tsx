@@ -70,20 +70,26 @@ const LogoWrapper = styled(NavLink)`
   align-items: center;
   gap: 10px;
   transition: 0.3s all;
+  font-family: 'Days One', sans-serif;
 
+  & span {
+    font-family: 'Days One', sans-serif;
+  }
+  
   &:before {
     content: 'S';
-    left: 18px;
-    font-size: 1.5rem;
     position: absolute;
+    left: 16px;
+    top: 9px;
+    font-size: 1.5rem;
     color: #fff;
   }
 
   &:hover {
-    transform: translateX(2px)  ;
+    transform: translateX(2px);
   }
-  
-  &:active{
+
+  &:active {
     transform: scale(0.98);
   }
 `
@@ -97,6 +103,7 @@ const LogOut = styled.div`
   transition: all 0.3s;
   box-shadow: var(--box-shadow-blocks);
   cursor: pointer;
+  font-weight: bold;
   
   &:hover{
     background-color: var(--main-color);

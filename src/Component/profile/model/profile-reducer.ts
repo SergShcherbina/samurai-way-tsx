@@ -6,13 +6,13 @@ import {v1} from "uuid";
 
 const initialState: ProfilePageType = {
     posts: [
-        {id: +v1(), message: 'The characters Bert and Ernie on Sesame Street were named after ' +
+        {id: v1(), message: 'The characters Bert and Ernie on Sesame Street were named after ' +
                 'Ernie the taxi driver in Frank Capra\'s "It\'s a Wonderful Life.',
             like: 55, dislike: 1, watch: 167 , postDate: '23.10.2023' , postTime: '05:20:55'},
-        {id: +v1(), message: 'The average person\'s left hand does 56% of the typing (when using ' +
+        {id: v1(), message: 'The average person\'s left hand does 56% of the typing (when using ' +
                 'the proper position of the hands on the keyboard; ' + 'Hunting and pecking doesn\'t count!).',
             like: 123, dislike: 0, watch: 351, postDate: '21.06.2023' , postTime: '01:20:36'},
-        {id: +v1(), message: 'The longest one-syllable words in the English language are "scraunched" ' +
+        {id: v1(), message: 'The longest one-syllable words in the English language are "scraunched" ' +
                 'and "strengthed." Some suggest that "squirreled" could be included, but squirrel is intended ' +
                 'to be pronounced as two syllables (squir-rel) according to most dictionaries. "Screeched" and ' +
                 '"strengths" are two other long one-syllable words, but they only have 9 ' + 'letters.',
@@ -50,7 +50,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 return state;
             } else {
                 let newPostObj = {
-                    id: +v1(), message: action.values, like: 0, dislike: 0, watch: 0,
+                    id: v1(), message: action.values, like: 0, dislike: 0, watch: 0,
                     postDate: new Date().toLocaleDateString(),
                     postTime: new Date().toLocaleTimeString()
                 };
@@ -75,10 +75,16 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             return {
                 ...state, profile: {...state.profile, photos: action.photos}
             }
-        // case "SET-LIKE":
-        //     return {
-        //         ...state, profile
-        //     }
+        case "PROFILE/SET-LIKE":
+            return {
+                ...state, posts: state.posts
+                    .map(el => el.id === action.postId ? {...el, like: el.like += 1 } : el)
+            }
+        case "PROFILE/SET-DISLIKE":
+            return {
+                ...state, posts: state.posts
+                    .map(el => el.id === action.postId ? {...el, dislike: el.dislike += 1 } : el)
+            }
         default:
             return state;
     }
@@ -111,7 +117,8 @@ const replaceAvatarAC = (photos: ResponsePhotoType) => {
     } as const
 }
 
-export const setLikeAC = () => ({type: 'SET-LIKE'} as const )
+export const setLikeAC = (postId: string) => ({type: 'PROFILE/SET-LIKE', postId} as const )
+export const setDislikeAC = (postId: string) => ({type: 'PROFILE/SET-DISLIKE', postId} as const )
 
 //Thunks
 export const setUserProfileTC = (userId: number) => {
@@ -169,7 +176,7 @@ export type ProfilePageType = {
     status: string;
 };
 export type PostsType = {
-    id: number;
+    id: string;
     message: string;
     like: number;
     dislike: number;
@@ -179,9 +186,10 @@ export type PostsType = {
 };
 
 export type SetLikeAT = ReturnType<typeof setLikeAC>
+export type SetDislikeAT = ReturnType<typeof setDislikeAC>
 export type AddPostAT = ReturnType<typeof addPostAC>
 export type SetUserProfileAT = ReturnType<typeof setProfileAC>;
 type SetStatusAT = ReturnType<typeof setStatusAC>;
 type ReplaceAvatarAT = ReturnType<typeof replaceAvatarAC>
 
-export type ActionType = AddPostAT | SetUserProfileAT | SetStatusAT | ReplaceAvatarAT | SetLikeAT;
+export type ActionType = AddPostAT | SetUserProfileAT | SetStatusAT | ReplaceAvatarAT | SetLikeAT | SetDislikeAT;

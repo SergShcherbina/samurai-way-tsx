@@ -1,4 +1,4 @@
-import {addPostAC} from "../../model/profile-reducer";
+import {addPostAC, setDislikeAC, setLikeAC} from "../../model/profile-reducer";
 import {AppStateType} from "../../../../app/model/store";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
@@ -21,6 +21,12 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
             dispatch(addPostAC(values));
             dispatch(reset('addPost'))   //сбрасываем форму по ее названию(reset - из redux-form)
         },
+        setLike: (postId: string) => {
+            dispatch(setLikeAC(postId))
+        },
+        setDislike: (postId: string) => {
+            dispatch(setDislikeAC(postId))
+        }
     };
 };
 

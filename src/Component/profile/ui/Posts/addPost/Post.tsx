@@ -12,14 +12,24 @@ type TypeProps = {
     like?: number;
     dislike?: number;
     watch?: number
-    id: number;
+    id: string;
     postDate: string;
     postTime: string;
     profile: ResponseProfileType;
+    onLikePost: (postId: string) => void;
+    onDislikePost: (postId: string) => void;
 };
 
 export const Post = (props: TypeProps) => {
-    console.log(new Date().toLocaleDateString('ru-Ru'), new Date().toLocaleTimeString())
+
+    const onLikePost = (postId: string) => {
+        props.onLikePost(postId)
+    }
+
+    const onDislikePost = (postId: string) => {
+        props.onDislikePost(postId)
+    }
+
     return (
         <Root>
             <Header>
@@ -36,8 +46,14 @@ export const Post = (props: TypeProps) => {
             <Content>{props.message}</Content>
 
             <Icons>
-                <span><FontAwesomeIcon icon={faHeart} size={"sm"} /> {props.like}</span>
-                <span><FontAwesomeIcon icon={faHeartCrack} size={"sm"}/> {props.dislike}</span>
+                <span
+                    onClick={()=>onLikePost(props.id)}>
+                    <FontAwesomeIcon icon={faHeart} size={"sm"} /> {props.like}
+                </span>
+                <span
+                    onClick={()=>onDislikePost(props.id)}>
+                    <FontAwesomeIcon icon={faHeartCrack} size={"sm"}/> {props.dislike}
+                </span>
                 <span><FontAwesomeIcon icon={faEye} size={"sm"}/> {props.watch}</span>
             </Icons>
         </Root>

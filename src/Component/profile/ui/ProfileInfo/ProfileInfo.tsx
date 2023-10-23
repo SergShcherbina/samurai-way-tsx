@@ -38,13 +38,13 @@ export const ProfileInfo = (props: ProfileType) => {
                     }
                 </div>
                 <Info>
-                    <li>Name: <b>{restProps.profile.fullName}</b></li>
-                    <li>About me: <b>{restProps.profile.boutMe || 'no information'}</b></li>
-                    <li>Job: <b>{restProps.profile.lookingForAJob || 'no work'}</b></li>
-                    <li>facebook: <b>{restProps.profile.contacts.facebook || 'facebook.com'}</b></li>
-                    <li>github: <b>{restProps.profile.contacts.github || 'github.com'}</b></li>
-                    <li>instagram: <b>{restProps.profile.contacts.instagram || 'instagram.com'}</b></li>
-                    <li>vk: <b>{restProps.profile.contacts.vk || 'vk.com'}</b></li>
+                    <li><b>Name:</b> {restProps.profile.fullName}</li>
+                    <li><b>About me:</b>  {restProps.profile.boutMe || 'No information'}</li>
+                    <li><b>Job</b> {restProps.profile.lookingForAJob || 'No information'}</li>
+                    <li><b>facebook:</b> {restProps.profile.contacts.facebook || 'facebook.com'}</li>
+                    <li><b>github:</b> {restProps.profile.contacts.github || 'github.com'}</li>
+                    <li><b>instagram:</b> {restProps.profile.contacts.instagram || 'instagram.com'}</li>
+                    <li><b>vk:</b> {restProps.profile.contacts.vk || 'vk.com'}</li>
                 </Info>
             </Profile>
         </WrapperProfile>
@@ -116,7 +116,7 @@ const Info = styled.ul`
 
   & li {
     line-height: 30px;
-    color: var(--second-text-color);
+    //color: var(--second-text-color);
 
     & b {
       font-size: 1rem;
