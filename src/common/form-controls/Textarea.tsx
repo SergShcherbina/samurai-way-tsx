@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 export type FieldType = {
     input: TextareaInputType;
@@ -40,15 +40,27 @@ export const Textarea: React.FC<FieldType> = ({input, meta, ...props}) => {
 
     return (
         <div>
-            <StyleTextarea {...input} {...props} errors={meta.touched && meta.error ? 'true' : ''}/>
+            <StyleTextarea {...input} {...props} color={'#f44336'} errors={meta.touched && meta.error}/>
             {meta.touched && meta.error ? <ErrorMessage> {meta.error} </ErrorMessage> : null}
         </div>
     );
 };
 
-const StyleTextarea = styled.textarea <{ errors: string }>`
-  //box-shadow: inset 0 -2px 0px 1px ${props => props.errors  ? '#f44336' : 'none'};
+const StyleTextarea = styled.textarea <{ errors: boolean | string, color: string }>`
+  border-radius: 5px;
+  outline: none;
+  
+  //комбинирование стилей в зависимости от пропсов не забываем import css и типизация его 
+  ${props => props.errors && css<{ color: string }>`
+    box-shadow: 0 0 3px ${props => props.color};
+  `
+  };
+
+  &:focus-visible {
+    outline: 1px solid var(--main-color);
+  }
+
 `
 const ErrorMessage = styled.div`
-  color: #f44336;
+  color: var(--error-color);
 `

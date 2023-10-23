@@ -4,36 +4,34 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faMessage, faMusic, faNewspaper, faPersonDotsFromLine, faUserGroup
 } from "@fortawesome/free-solid-svg-icons"
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../../app/model/store";
-import {Spinner} from "../../../assets/spinner/Spinner";
 
-//exact activeClassName={classes.active}
 export const Navbar = () => {
     return (
         <Nav>
             <li>
-                <FontAwesomeIcon icon={faPersonDotsFromLine} size={'xs'}/>
+                <Icon icon={faPersonDotsFromLine} size={'xs'}/>
                 <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/profile">Profile</NavLink>
             </li>
             <li>
-                <FontAwesomeIcon icon={faMessage} size={'xs'}/>
+                <Icon icon={faMessage} size={'xs'}/>
                 <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/message">Dialogs</NavLink>
             </li>
             <li>
-                <FontAwesomeIcon icon={faNewspaper} size={'xs'}/>
+                <Icon icon={faNewspaper} size={'xs'}/>
                 <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/news">Gallery</NavLink>
             </li>
             <li>
-                <FontAwesomeIcon icon={faMusic} size={'xs'}/>
+                <Icon icon={faMusic} size={'xs'}/>
                 <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/music">Music</NavLink>
             </li>
-            <li><FontAwesomeIcon icon={faUserGroup} size={'xs'}/>
+            <li><Icon icon={faUserGroup} size={'xs'}/>
                 <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/users">Users</NavLink>
             </li>
         </Nav>
     );
 };
+
+const Icon = styled(FontAwesomeIcon)``;
 
 const Nav = styled.ul`
   background-color: var(--color-bloks);
@@ -50,12 +48,23 @@ const Nav = styled.ul`
   & li {
     padding-bottom: 15px;
     transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
     & a {
-      padding-left: 10px;
+      flex-grow: 1;
     }
+
     &:hover {
       transform: translateX(2px);
+
+      ${Icon} > path {
+        fill: #2196F3;
+        stroke: var(--second-text-color);
+        stroke-width: 20px;
+      }
+
     }
   }
 `

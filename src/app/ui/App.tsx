@@ -4,7 +4,8 @@ import {Navbar} from "../../Component/navbar/ui/Navbar";
 import {ConnectHeaderContainer} from "../../Component/header/ui/HeaderContainer";
 import {Spinner} from "../../assets/spinner/Spinner";
 import {Routing} from "./routing/Routing";
-import styled from 'styled-components'
+import styled
+    from 'styled-components'
 import {ConnectFriends} from "../../Component/friends/ui/FriendsContainer";
 import {LoginConnect} from "../../Component/login/ui/LoginConnect";
 

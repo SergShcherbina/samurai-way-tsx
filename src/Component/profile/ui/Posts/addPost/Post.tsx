@@ -48,7 +48,7 @@ export const Post = (props: TypeProps) => {
             <Icons>
                 <span
                     onClick={()=>onLikePost(props.id)}>
-                    <FontAwesomeIcon icon={faHeart} size={"sm"} /> {props.like}
+                    <FontAwesomeIcon icon={faHeart} size={"sm"}/> {props.like}
                 </span>
                 <span
                     onClick={()=>onDislikePost(props.id)}>
@@ -114,8 +114,36 @@ const Icons = styled.div`
     transition: 0.3s all;
     cursor: pointer;
 
+    & svg {
+      transition: all 0.3s;
+    }
+
     &:hover {
       transform: translateY(-2px);
+
+      &:nth-child(1) {
+        & svg path {
+          fill: var(--error-color);
+        }
+      }
+
+      &:nth-child(2) {
+        & svg path {
+          fill: var(--main-color);
+        }
+      }
+
+      &:last-child {
+        &:hover {
+          transform: translateY(0px);
+          cursor: auto;
+        }
+
+        & svg {
+          transform: rotateX(180deg);
+        }
+      }
+
     }
   }
 `

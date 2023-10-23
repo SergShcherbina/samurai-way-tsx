@@ -61,7 +61,8 @@ const Logo = styled.span`
   height: 50px;
   border-radius: 50%;
   background-color: var(--main-color);
-  box-shadow: var(--box-shadow-blocks);
+  border: 2px solid var(--second-text-color);
+  transition: all 0.3s;
 `
 
 const LogoWrapper = styled(NavLink)`
@@ -75,7 +76,7 @@ const LogoWrapper = styled(NavLink)`
   & span {
     font-family: 'Days One', sans-serif;
   }
-  
+
   &:before {
     content: 'S';
     position: absolute;
@@ -87,6 +88,10 @@ const LogoWrapper = styled(NavLink)`
 
   &:hover {
     transform: translateX(2px);
+
+    ${Logo} {
+      background: var(--hover-btn-color);
+    }
   }
 
   &:active {
@@ -105,12 +110,20 @@ const LogOut = styled.div`
   cursor: pointer;
   font-weight: bold;
   
-  &:hover{
-    background-color: var(--main-color);
-    color: var(--color-bloks)
+  & svg path {
+    transition: all 0.3s;
   }
-  
-  &:active{
+
+  &:hover {
+    background-color: var(--main-color);
+    color: var(--color-bloks);
+
+    & svg path {
+      fill: var(--color-bloks)
+    }
+  }
+
+  &:active {
     background-color: var(--hover-btn-color)
   }
 `

@@ -28,7 +28,7 @@ export const ProfileInfo = (props: ProfileType) => {
                 <div>
                     <ProfileAvatar profile={restProps.profile} isMyPage={isMyPage}/>
                     {props.isMyPage && <EditPhoto>
-                            <FontAwesomeIcon icon={faCameraRotate} size={'1x'}/>
+                            <Icons icon={faCameraRotate} size={'1x'}/>
                             Edit photo
                             <input
                                 type='file'
@@ -88,6 +88,10 @@ const Profile = styled.div`
   gap: 20px;
 `
 
+const Icons = styled(FontAwesomeIcon) `
+    transition: all 0.3s;
+`
+
 const EditPhoto = styled.label`
   display: flex;
   align-items: center;
@@ -105,7 +109,12 @@ const EditPhoto = styled.label`
   }
 
   &:hover {
-    color: var(--main-color)
+    color: var(--main-color);
+
+    ${Icons} {
+      transform: rotateY(180deg);
+    }
+
   }
 `
 
@@ -116,7 +125,6 @@ const Info = styled.ul`
 
   & li {
     line-height: 30px;
-    //color: var(--second-text-color);
 
     & b {
       font-size: 1rem;
@@ -129,3 +137,4 @@ const Info = styled.ul`
     }
   }
 `
+
