@@ -88,7 +88,7 @@ const Form = styled.form`
     transition: all 0.3s;
 
     &:hover {
-      background-color: #0078d8;
+      background-color: var(--hover-btn-color);
     }
   }
 `

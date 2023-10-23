@@ -49,14 +49,14 @@ const StyleForm = styled.form`
   background-color: var(--color-bloks);
   border-radius: 10px;
   padding: 10px 20px;
-  align-items: center; 
+  align-items: center;
 
   & div > textarea {
     width: 100%;
     height: 30px;
     border: none;
     resize: vertical;
-    padding: 5px;
+    padding: 7px;
     border-bottom: 1px solid var(--border-color);
   }
 `
@@ -79,10 +79,18 @@ const Button = styled.button`
   padding: 10px;
   min-width: 80px;
   border-radius: 8px;
+  box-shadow: 1px 1px 5px var(--second-text-color);
   transition: all 0.3s;
   
   &:not([disabled]):hover {
-    background-color: var(--active-color);
+    background-color: var(--hover-btn-color);
+    box-shadow: 1px 1px 2px var(--second-text-color);
+  }
+  
+  &:not([disabled]):active {
+    background-color: var(--hover-btn-color);
+    transform: translateY(1px);
+    box-shadow: none;
   }
   
   &:disabled {

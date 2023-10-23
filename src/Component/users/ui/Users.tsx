@@ -46,15 +46,16 @@ export const Users = (props: UsersType) => {
                 <User key={user.id} isFollow={user.followed}>
 
                     <StyleNavLink to={`/profile/${user.id}`}>
-                        <img
-                            src={user.photos.small ? user.photos.small : Stub}
-                            alt={'user photo'}/>
+                        <div>
+                            <img src={user.photos.small ? user.photos.small : Stub}
+                                 alt={'user photo'}
+                            />
+                        </div>
+                        <Info>
+                            <div>name: <b>{user.name}</b></div>
+                            <span>status: {user.status ? user.status : 'empty status'}</span>
+                        </Info>
                     </StyleNavLink>
-
-                    <Info>
-                        <div>name: <b>{user.name}</b> </div>
-                        <span>status: {user.status ? user.status : 'empty status'}</span>
-                    </Info>
 
                     {onFollowBtn(user)}
                 </User>
@@ -78,10 +79,10 @@ const hello = keyframes`
     transform: translateY(2px);
   }
   60% {
-    transform:  translateY(-2px);
+    transform: translateY(-2px);
   }
   100% {
-    transform:  translateY(0);
+    transform: translateY(0);
   }
 `
 const Root = styled.div`
@@ -91,15 +92,17 @@ const Root = styled.div`
 `
 const User = styled.div <{ isFollow: boolean }>`
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto auto;
   align-items: center;
+  justify-content: space-between;
   gap: 30px;
 
   border-radius: 10px;
   background-color: var(--color-bloks);
-  padding: 20px;
+  padding: 20px 40px;
 
   & button {
+    cursor: pointer;
     padding: 10px;
     width: 100px;
     border: none;
@@ -112,31 +115,43 @@ const User = styled.div <{ isFollow: boolean }>`
 
     &:hover {
       transform: translateY(2px);
+      box-shadow: 1px 1px 1px #777575;
+    }
+    &:active {
+      transform: translateY(3px);
       box-shadow: none;
     }
   }
 `
 const StyleNavLink = styled(NavLink)`
-  display: block;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  overflow: hidden;
-  transition: all 0.3s;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  transition: all 0.1s;
+  
+  & div:has(img) {
+    width: 80px;
+    height: 80px;
+  }
 
   & img {
     height: 100%;
     width: 100%;
+    border-radius: 50%;
     object-fit: cover;
   }
-  
+
   &:hover {
     animation: ${hello} 0.5s ease-in-out;
+  }
+  
+  &:active {
+    transform: scale(0.98);
   }
 `
 const Info = styled.div`
   overflow: auto;
-  
+
   & div {
     font-size: 1.2rem;
   }

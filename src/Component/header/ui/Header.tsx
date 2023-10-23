@@ -80,6 +80,10 @@ const LogoWrapper = styled(NavLink)`
   }
 
   &:hover {
+    transform: translateX(2px)  ;
+  }
+  
+  &:active{
     transform: scale(0.98);
   }
 `
@@ -92,9 +96,14 @@ const LogOut = styled.div`
   border-radius: 5px;
   transition: all 0.3s;
   box-shadow: var(--box-shadow-blocks);
+  cursor: pointer;
   
   &:hover{
     background-color: var(--main-color);
     color: var(--color-bloks)
+  }
+  
+  &:active{
+    background-color: var(--hover-btn-color)
   }
 `

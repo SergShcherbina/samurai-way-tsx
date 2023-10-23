@@ -20,9 +20,11 @@ const StyleInput = styled.input <{ errors: string }>`
   padding: 15px;
   width: 100%;
   border: 1px solid var(--border-color);
+  font-size: 1rem;
   
   &:focus {
-    outline: 2px solid var(--main-color);
+    box-shadow: 0 0 5px var(--main-color);
+    outline: none;
   }
     
   
