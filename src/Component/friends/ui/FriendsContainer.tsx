@@ -1,16 +1,17 @@
 import React from "react";
 import {AppStateType} from "../../../app/model/store";
 import {connect} from "react-redux";
-import {getMyFriendsTC} from "../../users/model/users-reducer";
+import {getMyFriendsTC, searchUsersTC} from "../../users/model/users-reducer";
 import {Friends} from "./Friends";
 
-
-export type FriendsType = MapStateToPropsFriendsType & {
+export type MapStateToPropsFriendsType = ReturnType<typeof mapStateToProps>
+export type FriendsContainerType = MapStateToPropsFriendsType & {
     getMyFriends: () => void
+    searchUsers: (value: string) => void
 }
 
-export class FriendsContainer extends React.Component<FriendsType> {
-    constructor(props: FriendsType) {
+export class FriendsContainer extends React.Component<FriendsContainerType> {
+    constructor(props: FriendsContainerType) {
         super(props);
     }
 
@@ -21,18 +22,27 @@ export class FriendsContainer extends React.Component<FriendsType> {
     render() {
         return (
             <>
-                <Friends friends={this.props.friends}/>
+                <Friends
+                    friends={this.props.friends}
+                    friendsCount={this.props.friendsCount}
+                    searchUsers={this.props.searchUsers}
+                />
             </>
         )
     }
-
 }
 
-export type MapStateToPropsFriendsType = ReturnType<typeof mapStateToProps>
 const mapStateToProps = (state: AppStateType) => {
     return {
-        friends: state.usersPage.friends
+        friends: state.usersPage.friends,
+        friendsCount: state.usersPage.friendsCount
     }
-}
-export const ConnectFriends = connect(mapStateToProps, {getMyFriends: getMyFriendsTC})(FriendsContainer)
+};
+
+export const ConnectFriends = connect(mapStateToProps,
+    {
+        getMyFriends: getMyFriendsTC,
+        searchUsers: searchUsersTC,
+    }
+)(FriendsContainer)
 

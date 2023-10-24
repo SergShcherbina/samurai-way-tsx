@@ -1,13 +1,16 @@
-import React from "react";
-import {MapStateToPropsFriendsType} from "./FriendsContainer";
+import React, {FC} from "react";
+import { MapStateToPropsFriendsType} from "./FriendsContainer";
 import {Friend} from "./friend/Friend";
 import styled from "styled-components";
-import {Input} from "antd";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUserFriends} from "@fortawesome/free-solid-svg-icons";
+import {FormSearchType, SearchFriendForm} from "./friend/SearchFriendForm";
 
-export const Friends = (props: MapStateToPropsFriendsType) => {
+type PropsType = {
+    searchUsers: (value: string) => void
+} & MapStateToPropsFriendsType;
 
+export const Friends: FC<PropsType>= (props ) => {
     const friends = props.friends.map(friend => {
         if (friend.followed) {
             return (
@@ -16,10 +19,14 @@ export const Friends = (props: MapStateToPropsFriendsType) => {
         }
     });
 
+    const onSubmit = (value: FormSearchType) => {
+        props.searchUsers(value.searchValue)
+    }
+
     return (
         <FriendsRoot>
-            <span><FontAwesomeIcon icon={faUserFriends} size={'xs'}/>Friends</span>
-            <Input type={"search"}/>
+            <span><FontAwesomeIcon icon={faUserFriends} size={'1x'}/>Friends {props.friendsCount} </span>
+            <SearchFriendForm onSubmit={onSubmit} />
             {friends}
         </FriendsRoot>
     );
@@ -30,24 +37,17 @@ const FriendsRoot = styled.div`
   padding: var(--padding-blocks);
   border-radius: 10px;
   box-shadow: var(--box-shadow-blocks);
-  height: 500px;
+  max-height: 550px;
   overflow: auto;
 
   position: sticky;
   top: 5px;
 
   & > span {
-    font-size: 1.2rem;
-    position: relative;
-
-    &:after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: var(--main-color)
-    }
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-weight: bold;
+    color: var(--main-color)
   }
 `

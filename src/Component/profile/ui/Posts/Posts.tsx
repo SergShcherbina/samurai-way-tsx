@@ -14,12 +14,14 @@ export const Posts: React.FC<MyPostType> = ({addPost, posts,setLike, setDislike,
     const onSubmit = (values: AddPostFormDataType) => {
         addPost(values.addPost); //получаем значение из формы через имя самой формы
     };
+
     const onLikePost = (postId: string) => {
         setLike(postId)
-    }
+    };
+
     const onDislikePost = (postId: string) => {
         setDislike(postId)
-    }
+    };
 
     const postElement = posts.map((el) => {
             return <Post

@@ -8,12 +8,17 @@ export const usersAPI = {
                 return res.data
             });
     },
-    //todo
-    getAllUsers() {
-        return instance.get<UsersResponseType>(`users?count=100`)
+    getFriends() {
+        return instance.get<UsersResponseType>(`users?friend=true`)
             .then((res) => {
                 return res.data
             });
+    },
+    searchUser(value: string = '', isFriend: boolean) {
+        return instance.get<UsersResponseType>(`users?term=${value}&friend=${isFriend}`)
+            .then(res => {
+                return res.data
+            })
     },
     followUser(userId: number) {
         return instance.delete(`follow/${userId}`).then((res) => res.data);

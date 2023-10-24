@@ -90,7 +90,6 @@ const Avatar = styled.div`
 const Name = styled.div`
   & span > b {
     color: var(--main-color);
-    font-size: 1.2rem;
   }
 
   & span:last-child {
