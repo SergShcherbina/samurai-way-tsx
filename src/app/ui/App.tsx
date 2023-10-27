@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Footer} from "../../Component/footer/ui/Footer";
 import {Navbar} from "../../Component/navbar/ui/Navbar";
 import {ConnectHeaderContainer} from "../../Component/header/ui/HeaderContainer";
-import {Spinner} from "../../assets/spinner/Spinner";
+import {Spinner} from "../../Component/spinner/Spinner";
 import {Routing} from "./routing/Routing";
 import styled
     from 'styled-components'
@@ -49,7 +49,7 @@ export class App extends Component<AppType> {
 const AppStyle = styled.div`
   min-height: calc(100vh - 20px);
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: 2fr 7fr 3fr;
   grid-template-rows: auto 1fr auto;
   gap: 10px;
   max-width: 1140px;

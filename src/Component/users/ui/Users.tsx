@@ -1,7 +1,7 @@
 import React from "react";
-import Stub from "../../../assets/img/avatarUser.png";
+import Ava from '../../../assets/img/userAva.jpg';
 import {UserType} from "../model/users-reducer";
-import {Spinner} from "../../../assets/spinner/Spinner";
+import {Spinner} from "../../spinner/Spinner";
 import {NavLink} from "react-router-dom";
 import {Pagination} from "./pagination/Pagination";
 import styled, {keyframes} from "styled-components";
@@ -47,7 +47,7 @@ export const Users = (props: UsersType) => {
 
                     <StyleNavLink to={`/profile/${user.id}`}>
                         <div>
-                            <img src={user.photos.small ? user.photos.small : Stub}
+                            <img src={user.photos.small ? user.photos.small : Ava}
                                  alt={'user photo'}
                             />
                         </div>

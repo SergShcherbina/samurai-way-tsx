@@ -1,8 +1,8 @@
 import React from 'react';
-import {Spinner} from "../../../../assets/spinner/Spinner";
+import {Spinner} from "../../../spinner/Spinner";
 import {ResponseProfileType} from "../../api/profile-api";
 import styled from "styled-components";
-import Stub from '../../../../assets/img/avatarUser.png'
+import Ava from '../../../../assets/img/userAva.jpg'
 
 type Props = {
     isMyPage: boolean
@@ -10,7 +10,7 @@ type Props = {
 }
 
 export const ProfileAvatar = (props: Props) => {
-    let avatar = props.profile.photos.large ?  props.profile.photos.large : Stub;
+    let avatar = props.profile.photos.large ?  props.profile.photos.large : Ava;
 
     return (
         <>
@@ -26,9 +26,9 @@ export const ProfileAvatar = (props: Props) => {
 const AvatarWrapper = styled.div`
   width: 220px;
   height: 220px;
-  border-radius: 15px 60px;
+  border-radius: 15px 50px;
   overflow: hidden;
-  background-color: var(--main-color);
+  outline: 1px solid var(--border-color);
 
   & img {
     height: 100%;

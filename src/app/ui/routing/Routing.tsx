@@ -3,7 +3,7 @@ import {Redirect, Route} from "react-router-dom";
 import {DialogsContainer} from "../../../Component/dialogs/ui/DialogsContainer";
 import {News} from "../../../Component/news/ui/News";
 import {Music} from "../../../Component/music/ui/Music";import {ConnectProfileContainer} from "../../../Component/profile/ui/ProfileContainer ";
-import {Spinner} from "../../../assets/spinner/Spinner";
+import {Spinner} from "../../../Component/spinner/Spinner";
 import {LoginConnect} from "../../../Component/login/ui/LoginConnect";
 
 const ConnectUsers = React.lazy(() => import('../../../Component/users/ui/ConnectUsers')

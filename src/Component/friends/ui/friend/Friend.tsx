@@ -1,43 +1,52 @@
-import React from 'react';
+import React, {ComponentPropsWithoutRef, forwardRef} from 'react';
 import {UserType} from "../../../users/model/users-reducer";
 import styled from "styled-components";
+import {Link} from "react-router-dom";
+import Ava from '../../../../assets/img/min-avatar.jpg'
 
 type Props = {
     friend: UserType
-}
-export const Friend: React.FC<Props> = ({friend}) => {
-    const lengthName = friend.name.length > 10 ? friend.name.slice(0, 10) + '...' : friend.name;
+} & ComponentPropsWithoutRef<'a'>
 
-    return (
-        <StyleFriend>
-            <img alt={'photo friends'}
-                 src={friend.photos.small ??
-                     'https://w7.pngwing.com/pngs/328/501/png-transparent-monkey-runner-computer-icons-monkey-mammal-animals-vertebrate.png'}/>
-            <div>
-                <div>{lengthName}</div>
-                <div>{friend.status}</div>
-            </div>
+export const Friend = forwardRef<HTMLAnchorElement | null, Props>(
+    ({friend, ...rest}, ref) => {
 
-        </StyleFriend>
-    );
-};
+        const lengthName = friend.name.length > 23 ? friend.name.slice(0, 22) + '...' : friend.name;
 
-const StyleFriend = styled.div`{
-  margin-top: 10px;
+        return (
+            <RootLink to={`/profile/${friend.id}`} ref={ref} {...rest}>
+                <img alt="photo friends" src={friend.photos.small ?? Ava}/>
+                <Description>
+                    <div>{lengthName}</div>
+                    <div>{friend.status}</div>
+                </Description>
+            </RootLink>
+        );
+    });
+
+
+const Description = styled.div`
+  & div:last-child {
+    font-size: 0.8rem;
+    color: var(--second-text-color);
+  }
+`
+const RootLink = styled(Link)`
+  margin-top: 12px;
   display: flex;
   align-items: center;
   gap: 10px;
 
   & img {
     border-radius: 100%;
-    height: 30px;
-    width: 30px;
-    box-shadow: 0 0 5px var(--second-text-color);
+    height: 35px;
+    width: 35px;
+    transition: all 0.3s;
   }
 
-  & div > :last-child {
-      font-size: 0.7rem;
-      color: var(--second-text-color);
+  &:hover {
+    img {
+      transform: translateX(-2px);
     }
   }
 `

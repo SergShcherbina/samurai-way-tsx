@@ -3,7 +3,7 @@ import React from "react";
 import {Textarea} from "../../../../../../common/form-controls/Textarea";
 import {requiredField} from "../../../../../../utils/validators/validators";
 import styled from "styled-components";
-import photo from '../../../../../../assets/img/avatarUser.png'
+import Ava from '../../../../../../assets/img/min-avatar.jpg'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCamera, faVideo, faImage, faMusic} from "@fortawesome/free-solid-svg-icons";
 
@@ -17,7 +17,7 @@ const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
     return (
         <StyleForm onSubmit={props.handleSubmit}>
-            <WrapperImg><img src={photo} alt={'my photo'}/></WrapperImg>
+            <WrapperImg><img src={Ava} alt={'my photo'}/></WrapperImg>
 
             <Field component={Textarea}
                    name="addPost"

@@ -59,9 +59,14 @@ export const usersReducer = (state: usersState = initialState, action: ActionTyp
                     : state.disableBtnFollow.filter((id) => id !== action.userId),
             };
         case "SET-FRIENDS" :
+            const friendsArr = action.isSearch ? action.users : [...state.friends, ...action.users]
             return {
-                ...state, friends: action.users, friendsCount: action.friendsCount
-            }
+                ...state, friends: friendsArr, friendsCount: action.friendsCount
+            };
+        // case "SET-SEARCH-FRIENDS" :
+        //     return {
+        //         ...state, friends: friendsArr, friendsCount: action.friendsCount
+        //     };
         default:
             return state;
     }
@@ -111,14 +116,14 @@ export const toggleDisableBtnFollow = (loading: boolean, userId: number) => {
     } as const;
 };
 
-const setFriendsAC = (users: UserType[], friendsCount: number ) => {
+const setFriendsAC = (users: UserType[], friendsCount: number, isSearch: boolean = false) => {
     return {
         type: "SET-FRIENDS",
         users,
         friendsCount,
+        isSearch,
     } as const
 }
-
 
 //создаем сан-крейтoр
 export const getUsersTC = (currentPage: number, pageSize: number) => {
@@ -148,7 +153,7 @@ export const follow = (userId: number) => {
             .then((response) => {
                 if (response.resultCode === 0) {
                     dispatch(followSuccess(userId));
-                    dispatch(getMyFriendsTC())
+                    // dispatch(getMyFriendsTC(1))
                 }
             })
             .catch((err) => {
@@ -166,10 +171,9 @@ export const unFollow = (userId: number) => {
         usersAPI
             .unFollowUser(userId)
             .then((response) => {
-                console.log('unFollow: ', response)
                 if (response.resultCode === 0) {
                     dispatch(unFollowSuccess(userId));
-                    dispatch(getMyFriendsTC())
+                    // dispatch(getMyFriendsTC(1))
                 }
             })
             .catch((err) => {
@@ -181,30 +185,33 @@ export const unFollow = (userId: number) => {
     };
 };
 
-export const getMyFriendsTC = () => {
+export const getFriendsTC = (page: number, value: string, isSearch: boolean) => {
     return (dispatch: Dispatch) => {
-        usersAPI.getFriends()
+        dispatch(setFetching(true))
+        usersAPI.getFriends(page, value)
             .then(res => {
-                dispatch(setFriendsAC(res.items, res.totalCount))
+                dispatch(setFriendsAC(res.items, res.totalCount, isSearch))
             })
             .catch(err => {
-                alert('error: getMyFriendsTC:')
+                alert('error: getFriendsTC:')
+            })
+            .finally(() => {
+                dispatch(setFetching(false))
             })
     }
 }
 
-export const searchUsersTC = (value: string) => {
-    const  isFriend = true
-    return (dispatch: Dispatch) => {
-        usersAPI.searchUser(value, isFriend)
-            .then(res => {
-                dispatch(setFriendsAC(res.items, res.totalCount))
-            })
-            .catch(err => {
-                alert('error searchUsersTC')
-            })
-    }
-}
+// export const searchUsersTC = (value: string, isFriend: boolean) => {
+//     return (dispatch: Dispatch) => {
+//         usersAPI.searchUser(value, isFriend)
+//             .then(res => {
+//                 dispatch(setSearchAC(res.items, res.totalCount))
+//             })
+//             .catch(err => {
+//                 alert('error searchUsersTC')
+//             })
+//     }
+// }
 
 export type usersState = {
     users: UserType[];

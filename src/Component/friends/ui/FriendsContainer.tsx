@@ -1,22 +1,22 @@
 import React from "react";
 import {AppStateType} from "../../../app/model/store";
 import {connect} from "react-redux";
-import {getMyFriendsTC, searchUsersTC} from "../../users/model/users-reducer";
+import {getFriendsTC} from "../../users/model/users-reducer";
 import {Friends} from "./Friends";
 
-export type MapStateToPropsFriendsType = ReturnType<typeof mapStateToProps>
-export type FriendsContainerType = MapStateToPropsFriendsType & {
-    getMyFriends: () => void
-    searchUsers: (value: string) => void
+export type FriendsMSTPType = ReturnType<typeof mapStateToProps>
+export type FriendsContainerType = FriendsMSTPType & {
+    getFriends: (page: number, value: string, isSearch: boolean) => void
 }
 
-export class FriendsContainer extends React.Component<FriendsContainerType> {
+export class FriendsContainer extends React.Component<FriendsContainerType, { page: number }> {
     constructor(props: FriendsContainerType) {
         super(props);
+        this.state = {page: 1};
     }
 
     componentDidMount() {
-        this.props.getMyFriends()
+        this.props.getFriends(1, '', false )
     }
 
     render() {
@@ -25,7 +25,8 @@ export class FriendsContainer extends React.Component<FriendsContainerType> {
                 <Friends
                     friends={this.props.friends}
                     friendsCount={this.props.friendsCount}
-                    searchUsers={this.props.searchUsers}
+                    getFriends={this.props.getFriends}
+                    isFetching={this.props.isFetching}
                 />
             </>
         )
@@ -35,14 +36,14 @@ export class FriendsContainer extends React.Component<FriendsContainerType> {
 const mapStateToProps = (state: AppStateType) => {
     return {
         friends: state.usersPage.friends,
-        friendsCount: state.usersPage.friendsCount
+        friendsCount: state.usersPage.friendsCount,
+        isFetching: state.usersPage.isFetching,
     }
 };
 
 export const ConnectFriends = connect(mapStateToProps,
     {
-        getMyFriends: getMyFriendsTC,
-        searchUsers: searchUsersTC,
+        getFriends: getFriendsTC,
     }
 )(FriendsContainer)
 

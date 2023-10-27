@@ -8,18 +8,18 @@ export const usersAPI = {
                 return res.data
             });
     },
-    getFriends() {
-        return instance.get<UsersResponseType>(`users?friend=true`)
+    getFriends(page: number = 1, value: string = '') {
+        return instance.get<UsersResponseType>(`users?friend=true&page=${page}&term=${value}`)
             .then((res) => {
                 return res.data
             });
     },
-    searchUser(value: string = '', isFriend: boolean) {
-        return instance.get<UsersResponseType>(`users?term=${value}&friend=${isFriend}`)
-            .then(res => {
-                return res.data
-            })
-    },
+    // searchUser(value: string = '', isFriend: boolean) {
+    //     return instance.get<UsersResponseType>(`users?term=${value}&friend=${isFriend}`)
+    //         .then(res => {
+    //             return res.data
+    //         })
+    // },
     followUser(userId: number) {
         return instance.delete(`follow/${userId}`).then((res) => res.data);
     },

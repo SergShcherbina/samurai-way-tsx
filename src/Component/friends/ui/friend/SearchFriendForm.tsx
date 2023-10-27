@@ -26,7 +26,7 @@ export const SearchFriendForm =
 
 const Root = styled.form`
   margin: 10px 0;
-  padding-bottom: 20px;
+  padding-bottom: 15px;
   border-bottom: 1px solid var(--border-color);
   position: relative;
   
@@ -34,7 +34,7 @@ const Root = styled.form`
     content: '';
     position: absolute;
     top: 18px;
-    right: 15px;
+    right: 10px;
     width: 15px;
     height: 15px;
     background: url(${iconSearch})center / cover no-repeat;

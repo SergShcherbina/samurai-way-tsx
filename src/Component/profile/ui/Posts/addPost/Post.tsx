@@ -1,4 +1,4 @@
-import photo from '../../../../../assets/img/avatarUser.png'
+import Ava from '../../../../../assets/img/min-avatar.jpg'
 import styled from "styled-components";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
@@ -34,7 +34,7 @@ export const Post = (props: TypeProps) => {
         <Root>
             <Header>
                 <Avatar>
-                    <img src={props.profile.photos.small || photo} alt={"img"}/>
+                    <img src={props.profile.photos.small || Ava} alt={"img"}/>
                 </Avatar>
                 <Name>
                     <span><b>{props.profile.fullName}</b></span>

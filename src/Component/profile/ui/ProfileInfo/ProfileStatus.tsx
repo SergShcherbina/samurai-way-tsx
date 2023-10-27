@@ -25,7 +25,7 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
     }
 
     onEditableSpan = () => {
-        if(!this.props.isMyPage) return
+        if (!this.props.isMyPage) return
 
         this.setState({
             editMode: false,
@@ -47,7 +47,10 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
         return (
             <>
                 {this.state.editMode ? (
-                    <Status onDoubleClick={this.onEditableSpan}>{ this.state.status || "..."}</Status>
+                    <Status
+                        onDoubleClick={this.onEditableSpan}
+                        isMyPage={this.props.isMyPage}
+                    >{this.state.status || "..."}</Status>
                 ) : (
                     <StatusField
                         onChange={this.onChangeStatusHandler}
@@ -61,23 +64,22 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
     }
 }
 
-const Status = styled.div`
+const Status = styled.div<{ isMyPage: boolean }>`
   grid-column: 1/4;
-  cursor: pointer;
+  cursor: ${props => props.isMyPage ? 'pointer' : 'auto'};
   overflow: hidden;
 
   padding-bottom: 5px;
-  width: fit-content;
   border-bottom: 1px solid var(--border-color);
-  
+
   &:first-letter {
     text-transform: uppercase;
   }
-  
+
 `
 const StatusField = styled.input`
   grid-column: 1/4;
-  outline : 1px solid var(--main-color);
+  outline: 1px solid var(--main-color);
   padding: 3px;
   border-radius: 5px;
   margin-bottom: 5px;

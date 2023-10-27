@@ -104,7 +104,7 @@ const LogOut = styled.div`
   align-items: center;
   border: 1px solid var(--main-color);
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 8px;
   transition: all 0.3s;
   box-shadow: var(--box-shadow-blocks);
   cursor: pointer;
