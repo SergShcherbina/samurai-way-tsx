@@ -153,7 +153,7 @@ export const follow = (userId: number) => {
             .then((response) => {
                 if (response.resultCode === 0) {
                     dispatch(followSuccess(userId));
-                    // dispatch(getMyFriendsTC(1))
+                    dispatch(getFriendsTC(1, '', true))
                 }
             })
             .catch((err) => {
@@ -173,7 +173,7 @@ export const unFollow = (userId: number) => {
             .then((response) => {
                 if (response.resultCode === 0) {
                     dispatch(unFollowSuccess(userId));
-                    // dispatch(getMyFriendsTC(1))
+                    dispatch(getFriendsTC(1, '', true))
                 }
             })
             .catch((err) => {

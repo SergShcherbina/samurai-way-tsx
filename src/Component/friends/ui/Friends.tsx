@@ -5,7 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUserFriends} from "@fortawesome/free-solid-svg-icons";
 import {FormSearchType, SearchFriendForm} from "./friend/SearchFriendForm";
 import {FriendsMSTPType} from "./FriendsContainer";
-import spinner from '../../../assets/img/loading.gif'
+import {Spinner} from "../../spinner/Spinner";
 
 
 type PropsType = {
@@ -18,22 +18,20 @@ export const Friends: FC<PropsType> = (props) => {
     const lastFriend: any = createRef();
     const observerLoader: MutableRefObject<IntersectionObserver | null> = useRef(null);
     const count = useRef(2) //Не setState т.к. нет необходимости рендерить компонент
-
-console.log('render Friends', props.isFetching)
-
+    
     let actionInSight = (entries: IntersectionObserverEntry[], observer: any) => {
-        if (entries[0].isIntersecting  && !props.isFetching && props.friends.length < props.friendsCount) {
-            props.getFriends( count.current, '', false);
+        if (entries[0].isIntersecting && !props.isFetching && props.friends.length < props.friendsCount) {
+            props.getFriends(count.current, '', false);
             count.current++
             observer.disconnect()           //отключаем обработчик так как меняем на новый элемент
         }
     };
 
-    observerLoader.current =  new IntersectionObserver(actionInSight, {threshold: 0.5}) //Создаём объект-наблюдатель
+    observerLoader.current = new IntersectionObserver(actionInSight, {threshold: 0.5}) //Создаём объект-наблюдатель
 
-    useEffect ( () => {
+    useEffect(() => {
         //Если последний элемент существует, устанавливаем его как наблюдаемый элемент
-        if(lastFriend.current){
+        if (lastFriend.current) {
             observerLoader.current?.observe(lastFriend.current)
         }
     }, [lastFriend]);
@@ -59,6 +57,7 @@ console.log('render Friends', props.isFetching)
                         return <Friend key={friend.id} friend={friend}/>
                     })
             }
+            {props.isFetching && <Spinner size={'50'}/>}
         </FriendsRoot>
     );
 };
@@ -81,19 +80,6 @@ const FriendsRoot = styled.div<{ loading: string }>`
     align-items: center;
     font-weight: bold;
     color: var(--main-color)
-    
-    ${props => props.loading === 'true' && css `
-    //overflow: hidden;
-
-    &:before {
-      content: 'loading ... ';
-      position: absolute;
-      bottom: 50%;
-      left: 35%;
-      padding: 10px;
-      background-color: red;
-    }
-  `}
   }
 
   &::-webkit-scrollbar {
