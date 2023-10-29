@@ -5,6 +5,7 @@ import {Spinner} from "../../spinner/Spinner";
 import {NavLink} from "react-router-dom";
 import {Pagination} from "./pagination/Pagination";
 import styled, {keyframes} from "styled-components";
+import {UserSearchForm, UserSearchFormType} from "./UserSearchForm";
 
 type UsersType = {
     users: UserType[];
@@ -40,13 +41,13 @@ export const Users = (props: UsersType) => {
         )
     }
 
-    const onSubmit = (value: any) => {
-        console.log(value)
+    const onSubmit = (valueSearch: UserSearchFormType) => {
+        console.log(valueSearch.value)
     }
 
     return (
         <Root>
-            {/*<UsersSearchForm onSubmit={onSubmit} />*/}
+            <UserSearchForm onSubmit={onSubmit} />
             {props.users.map((user) => (
                 <User key={user.id} isFollow={user.followed}>
 

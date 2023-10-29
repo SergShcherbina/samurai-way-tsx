@@ -23,6 +23,7 @@ export const Input: FC<InputType> = (
             <StyleInput
                 {...input}
                 {...rest}
+                placeholder={placeholder}
                 id={input.name}
                 type={type}
                 errors={meta.touched && meta.error ? 'true' : 'false'}
