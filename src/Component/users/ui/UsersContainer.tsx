@@ -3,7 +3,7 @@ import {Users} from "./Users";
 import {mapStateToPropsUsersType} from "./ConnectUsers";
 
 export type UsersContainerType = mapStateToPropsUsersType & {
-    getUsers: (currentPage: number, pageSize: number) => void;
+    getUsers: (currentPage: number, pageSize: number, valueSearch?: string) => void;
     follow: (userId: number) => void;
     unFollow: (userId: number) => void;
 };
@@ -21,6 +21,10 @@ export class UsersContainer extends React.Component<UsersContainerType> {
         this.props.getUsers(pageNumber, this.props.pageSize);
     };
 
+    searchUser = (valueSearch: string) => {
+        this.props.getUsers(this.props.currentPage, this.props.pageSize, valueSearch);
+    }
+
     render() {
         return (
             <Users
@@ -33,6 +37,7 @@ export class UsersContainer extends React.Component<UsersContainerType> {
                 disableBtnFollow={this.props.disableBtnFollow}
                 follow={this.props.follow}
                 unFollow={this.props.unFollow}
+                searchUser={this.searchUser}
             />
         );
     }

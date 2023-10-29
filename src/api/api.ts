@@ -2,8 +2,9 @@ import {instance} from "../common/common-api/common-api";
 import {UserType} from "../Component/users/model/users-reducer";
 
 export const usersAPI = {
-    getUsers(currentPage: number, pageSize: number) {
-        return instance.get<UsersResponseType>(`users?page=${currentPage}&count=${pageSize}`)
+    getUsers(currentPage: number, pageSize: number, valueSearch: string = '') {
+        return instance
+            .get<UsersResponseType>(`users?page=${currentPage}&count=${pageSize}&term=${valueSearch}`)
             .then((res) => {
                 return res.data
             });

@@ -17,10 +17,10 @@ type UsersType = {
     changeCurrentPage: (pageNumber: number) => void;
     follow: (userId: number) => void;
     unFollow: (userId: number) => void;
+    searchUser: (valueSearch: string) => void;
 };
 
 export const Users = (props: UsersType) => {
-    if (props.isFetching) return <Spinner/>
 
     const onFollow = (userId: number, follow: boolean) => {
         follow ? props.follow(userId) : props.unFollow(userId)
@@ -42,30 +42,35 @@ export const Users = (props: UsersType) => {
     }
 
     const onSubmit = (valueSearch: UserSearchFormType) => {
-        console.log(valueSearch.value)
+        props.searchUser(valueSearch.value)
     }
 
     return (
         <Root>
-            <UserSearchForm onSubmit={onSubmit} />
-            {props.users.map((user) => (
-                <User key={user.id} isFollow={user.followed}>
+            <UserSearchForm onSubmit={onSubmit}/>
+            {props.isFetching
+                ?
+                <Spinner/>
+                :
+                props.users.map((user: UserType) => (
+                    <User key={user.id} isFollow={user.followed}>
 
-                    <StyleNavLink to={`/profile/${user.id}`}>
-                        <div>
-                            <img src={user.photos.small ? user.photos.small : Ava}
-                                 alt={'user photo'}
-                            />
-                        </div>
-                        <Info>
-                            <div>name: <b>{user.name}</b></div>
-                            <span>status: {user.status ? user.status : 'empty status'}</span>
-                        </Info>
-                    </StyleNavLink>
+                        <StyleNavLink to={`/profile/${user.id}`}>
+                            <div>
+                                <img src={user.photos.small ? user.photos.small : Ava}
+                                     alt={'user photo'}
+                                />
+                            </div>
+                            <Info>
+                                <div>name: <b>{user.name}</b></div>
+                                <span>status: {user.status ? user.status : 'empty status'}</span>
+                            </Info>
+                        </StyleNavLink>
 
-                    {onFollowBtn(user)}
-                </User>
-            ))}
+                        {onFollowBtn(user)}
+                    </User>
+                ))
+            }
 
             <Pagination
                 currentPage={props.currentPage}
@@ -123,6 +128,7 @@ const User = styled.div <{ isFollow: boolean }>`
       transform: translateY(2px);
       box-shadow: 1px 1px 1px #777575;
     }
+
     &:active {
       transform: translateY(3px);
       box-shadow: none;
@@ -134,7 +140,7 @@ const StyleNavLink = styled(NavLink)`
   gap: 20px;
   align-items: center;
   transition: all 0.1s;
-  
+
   & div:has(img) {
     width: 80px;
     height: 80px;
@@ -150,7 +156,7 @@ const StyleNavLink = styled(NavLink)`
   &:hover {
     animation: ${hello} 0.5s ease-in-out;
   }
-  
+
   &:active {
     transform: scale(0.98);
   }

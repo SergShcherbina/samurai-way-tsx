@@ -126,12 +126,12 @@ const setFriendsAC = (users: UserType[], friendsCount: number, isSearch: boolean
 }
 
 //создаем сан-крейтoр
-export const getUsersTC = (currentPage: number, pageSize: number) => {
+export const getUsersTC = (currentPage: number, pageSize: number, valueSearch?: string) => {
     return (dispatch: Dispatch) => {
         dispatch(setFetching(true));
         dispatch(setCurrentPage(currentPage));
         usersAPI
-            .getUsers(currentPage, pageSize)
+            .getUsers(currentPage, pageSize, valueSearch)
             .then((response) => {
                 dispatch(setUsers(response.items));
                 dispatch(settotalItemsCout(response.totalCount));
