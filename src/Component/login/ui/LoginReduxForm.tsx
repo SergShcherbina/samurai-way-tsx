@@ -14,26 +14,20 @@ export type LoginReduxFormType = {
 const LoginRedux = (props: InjectedFormProps<LoginReduxFormType>) => {
     return (
         <Form onSubmit={props.handleSubmit}>
-            <div>
-                <label htmlFor={"login"}>Email</label>
-                <Field
-                    id={"login"}
-                    name={"login"}
-                    component={Input}
-                    validate={[requiredField]} //ф-и в validate вызывается самим redux-form
-                />
-            </div>
-
-            <div>
-                <label htmlFor={"Password"}>Password</label>
-                <Field id={"Password"}
-                       name={"password"}
-                       type={'password'}
-                       component={Input}
-                       validate={[requiredField]}
-                />
-            </div>
-
+            <Field
+                id={"login"}
+                name={"login"}
+                component={Input}
+                validate={[requiredField]} //ф-и в validate вызывается самим redux-form
+                label={'Email'}
+            />
+            <Field id={"Password"}
+                   name={"password"}
+                   type={'password'}
+                   component={Input}
+                   validate={[requiredField]}
+                   label={'Password'}
+            />
             <label>
                 <Field type={"checkbox"} name={"rememberMe"} component={Input}/>
                 Remember me
@@ -53,24 +47,6 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  
-  & div:has(label) {       //div в котором вложенным label
-    position: relative;
-    font-size: 0.8rem;
-
-    & label {
-      position: absolute;
-      border-radius: 3px;
-      padding: 0 3px;
-      border: 1px solid var(--border-color);
-      top: -8px;
-      left: 15px;
-      z-index: 1;
-      
-      color: var(--second-text-color);
-      background-color: var(--color-bloks);
-    }
-  }
 
   & label {
     display: flex;
