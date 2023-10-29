@@ -1,11 +1,11 @@
 import React from "react";
 import Ava from '../../../assets/img/userAva.jpg';
-import {UserType} from "../model/users-reducer";
 import {Spinner} from "../../spinner/Spinner";
 import {NavLink} from "react-router-dom";
 import {Pagination} from "./pagination/Pagination";
 import styled, {keyframes} from "styled-components";
 import {UserSearchForm, UserSearchFormType} from "./UserSearchForm";
+import {UserType} from "../model/users-types";
 
 type UsersType = {
     users: UserType[];

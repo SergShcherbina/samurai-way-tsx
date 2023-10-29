@@ -1,8 +1,8 @@
 import React, {ComponentPropsWithoutRef, forwardRef} from 'react';
-import {UserType} from "../../../users/model/users-reducer";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 import Ava from '../../../../assets/img/min-avatar.jpg'
+import {UserType} from "../../../users/model/users-types";
 
 type Props = {
     friend: UserType

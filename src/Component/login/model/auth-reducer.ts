@@ -1,8 +1,8 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../../api/api";
-import {LoginReduxFormType} from "./ui/LoginReduxForm";
-import {setFetching} from "../users/model/users-reducer";
+import {LoginReduxFormType} from "../ui/LoginReduxForm";
 import {stopSubmit} from "redux-form";
+import {usersActionCreators} from "../../users/model/users-action-creators";
+import {authAPI} from "../auth-api/auth-api";
 
 export type InitialAuthType = {
     userId: string;
@@ -64,7 +64,7 @@ export const authUser = () => {
             .getAuthMe()
             .then((res) => {
                 //делаем return, чтобы получить promise в месте вызова(для app-reducer)
-                dispatch(setFetching(true));
+                dispatch(usersActionCreators.setFetching(true));
                 if (res.data.resultCode === 0) {
                     const {id, email, login} = res.data.data;
                     dispatch(setAuthUserData(id, email, login, true));
@@ -80,14 +80,14 @@ export const authUser = () => {
                 console.log("error authUser:", err);
             })
             .finally(() => {
-                dispatch(setFetching(false));
+                dispatch(usersActionCreators.setFetching(false));
             });
     };
 };
 export const loginTC = (dataForm: LoginReduxFormType) => {
     const {login, password, rememberMe} = dataForm;
     return (dispatch: Dispatch) => {
-        dispatch(setFetching(true));
+        dispatch(usersActionCreators.setFetching(true));
         authAPI
             .setLogin({email: login, password, rememberMe})
             .then((res) => {

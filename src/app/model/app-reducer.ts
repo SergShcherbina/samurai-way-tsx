@@ -1,4 +1,4 @@
-import {authUser} from "../../Component/login/auth-reducer";
+import {authUser} from "../../Component/login/model/auth-reducer";
 import {AppDispatchType} from "./store";
 
 const initialState = {
