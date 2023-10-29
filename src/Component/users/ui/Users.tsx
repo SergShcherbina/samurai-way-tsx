@@ -40,8 +40,13 @@ export const Users = (props: UsersType) => {
         )
     }
 
+    const onSubmit = (value: any) => {
+        console.log(value)
+    }
+
     return (
         <Root>
+            {/*<UsersSearchForm onSubmit={onSubmit} />*/}
             {props.users.map((user) => (
                 <User key={user.id} isFollow={user.followed}>
 

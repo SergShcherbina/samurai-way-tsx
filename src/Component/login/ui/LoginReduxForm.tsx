@@ -28,6 +28,7 @@ const LoginRedux = (props: InjectedFormProps<LoginReduxFormType>) => {
                 <label htmlFor={"Password"}>Password</label>
                 <Field id={"Password"}
                        name={"password"}
+                       type={'password'}
                        component={Input}
                        validate={[requiredField]}
                 />

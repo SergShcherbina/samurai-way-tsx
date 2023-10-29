@@ -187,7 +187,7 @@ export const unFollow = (userId: number) => {
 
 export const getFriendsTC = (page: number, value: string, isSearch: boolean) => {
     return (dispatch: Dispatch) => {
-        dispatch(setFetching(true))
+        // dispatch(setFetching(true))
         usersAPI.getFriends(page, value)
             .then(res => {
                 dispatch(setFriendsAC(res.items, res.totalCount, isSearch))
@@ -196,7 +196,7 @@ export const getFriendsTC = (page: number, value: string, isSearch: boolean) => 
                 alert('error: getFriendsTC:')
             })
             .finally(() => {
-                dispatch(setFetching(false))
+                // dispatch(setFetching(false))
             })
     }
 }

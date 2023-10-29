@@ -1,6 +1,6 @@
 import React, {createRef, FC, MutableRefObject, useEffect, useRef} from "react";
 import {Friend} from "./friend/Friend";
-import styled, {css} from "styled-components";
+import styled from "styled-components";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUserFriends} from "@fortawesome/free-solid-svg-icons";
 import {FormSearchType, SearchFriendForm} from "./friend/SearchFriendForm";
@@ -18,9 +18,10 @@ export const Friends: FC<PropsType> = (props) => {
     const lastFriend: any = createRef();
     const observerLoader: MutableRefObject<IntersectionObserver | null> = useRef(null);
     const count = useRef(2) //Не setState т.к. нет необходимости рендерить компонент
-    
+
     let actionInSight = (entries: IntersectionObserverEntry[], observer: any) => {
         if (entries[0].isIntersecting && !props.isFetching && props.friends.length < props.friendsCount) {
+            console.log('actionInSight')
             props.getFriends(count.current, '', false);
             count.current++
             observer.disconnect()           //отключаем обработчик так как меняем на новый элемент

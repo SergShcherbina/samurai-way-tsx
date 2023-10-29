@@ -1,22 +1,67 @@
-import React from "react";
+import React, {ComponentPropsWithoutRef, FC} from "react";
 import {FieldType} from "./Textarea";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
+import iconSearch from './search.svg'
 
-//наш кастомный input для redux-form
-//в пропсах приходят все данные о input, в том числе validate
-export const Input = ({input, meta, ...props}: FieldType) => {
+type InputType = {
+    label?: string
+    fulWidth?: boolean
+} & FieldType & ComponentPropsWithoutRef<'input'>
+
+export const Input: FC<InputType> = (
+    {
+        input,
+        meta,
+        placeholder,
+        type,
+        label,
+        ...rest
+    }) => {
+    console.log(rest)
     return (
-        <div>
+        <Wrapper type={type}>
+            {label && <label htmlFor={input.name}>{label}</label>}
             <StyleInput
                 {...input}
-                {...props}
-                // type={'search'}
+                {...rest}
+                id={input.name}
+                type={type}
                 errors={meta.touched && meta.error ? 'true' : 'false'}
             />
             {meta.touched && meta.error ? <ErrorMessage> {meta.error} </ErrorMessage> : null}
-        </div>
+        </Wrapper>
     );
 };
+
+const Wrapper = styled.div <{ type: string | undefined }>`{
+  position: relative;
+  font-size: 0.8rem;
+
+  & label {
+    position: absolute;
+    border-radius: 3px;
+    padding: 0 3px;
+    border: 1px solid var(--border-color);
+    top: -8px;
+    left: 15px;
+    z-index: 1;
+
+    color: var(--second-text-color);
+    background-color: var(--color-bloks);
+  }
+
+  ${props => props.type === 'search' && css`
+    &:before {
+      content: '';
+      position: absolute;
+      top: 18px;
+      right: 10px;
+      width: 15px;
+      height: 15px;
+      background: url(${iconSearch})center / cover no-repeat;
+    }`
+  }`
+
 
 const StyleInput = styled.input <{ errors: string }>`
     //box-shadow: inset 0 0 2px 2px ${props => props.errors ? '#f44336' : 'none'};
@@ -32,5 +77,5 @@ const StyleInput = styled.input <{ errors: string }>`
   }
 `
 const ErrorMessage = styled.div`
-  color: #f44336;
+  color: var(--error-color);
 `

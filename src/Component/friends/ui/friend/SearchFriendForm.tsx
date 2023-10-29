@@ -16,6 +16,7 @@ const SearchFriend: FC<InjectedFormProps<FormSearchType>> = (props) => {
                 name={'searchValue'}
                 placeholder={'search by name'}
                 component={Input}
+                type={'search'}
             />
         </Root>
     );
@@ -28,15 +29,4 @@ const Root = styled.form`
   margin: 10px 0;
   padding-bottom: 15px;
   border-bottom: 1px solid var(--border-color);
-  position: relative;
-  
-  &:before {
-    content: '';
-    position: absolute;
-    top: 18px;
-    right: 10px;
-    width: 15px;
-    height: 15px;
-    background: url(${iconSearch})center / cover no-repeat;
-  }
 `
