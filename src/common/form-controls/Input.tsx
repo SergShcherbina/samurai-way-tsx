@@ -17,7 +17,6 @@ export const Input: FC<InputType> = (
         label,
         ...rest
     }) => {
-    console.log(rest)
     return (
         <Wrapper type={type}>
             {label && <label htmlFor={input.name}>{label}</label>}
@@ -74,6 +73,14 @@ const StyleInput = styled.input <{ errors: string }>`
   &:focus {
     box-shadow: 0 0 5px var(--main-color);
     outline: none;
+  }
+
+  //стили для скрытия крестика type=search
+  &[type="search"]::-webkit-search-decoration,
+  &[type="search"]::-webkit-search-cancel-button,
+  &[type="search"]::-webkit-search-results-button,
+  &[type="search"]::-webkit-search-results-decoration {
+    -webkit-appearance:none;
   }
 `
 const ErrorMessage = styled.div`
