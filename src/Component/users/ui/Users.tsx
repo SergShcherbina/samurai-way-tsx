@@ -109,7 +109,7 @@ const User = styled.div <{ isFollow: boolean }>`
   gap: 30px;
 
   border-radius: 10px;
-  background-color: var(--color-bloks);
+  background-color: var(--bloks-color);
   padding: 20px 40px;
 
   & button {
@@ -119,7 +119,7 @@ const User = styled.div <{ isFollow: boolean }>`
     border: none;
     border-radius: 5px;
     background-color: ${props => props.isFollow ? '#ffab00' : '#2196f3;'};
-    color: var(--color-bloks);
+    color: var(--bloks-color);
     font-size: 1rem;
     box-shadow: 2px 2px 5px #777575;
     transition: all 0.2s;

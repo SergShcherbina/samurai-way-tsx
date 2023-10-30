@@ -80,7 +80,7 @@ const Banner = styled.div <{userName: string, background: string}>`
 `
 const Profile = styled.div`
   padding: 20px;
-  background-color: var(--color-bloks);
+  background-color: var(--bloks-color);
   border-radius: 10px;
 
   display: grid;

@@ -13,7 +13,7 @@
 body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: rgb(237 238 240);
+    background-color: var(--background-color);
 }
 
 a {
@@ -22,8 +22,9 @@ a {
 }
 
 :root {
+    --background-color: rgb(237 238 240);
     --box-shadow-blocks: 0 0 5px rgba(179, 180, 182, 0.46);
-    --color-bloks: #fff;
+    --bloks-color: #fff;
     --padding-blocks: 20px;
     --main-color: #2196f3;
     --text-color: #545454;
@@ -32,4 +33,6 @@ a {
     --active-color: #ffab00;
     --hover-btn-color: #0078d8;
     --error-color: #f44336;
+
+    --border-radius: 8px;
 }

@@ -1,7 +1,7 @@
 import React, {Suspense} from 'react';
 import {Redirect, Route} from "react-router-dom";
 import {DialogsContainer} from "../../../Component/dialogs/ui/DialogsContainer";
-import {News} from "../../../Component/news/ui/News";
+import {Gallery} from "../../../Component/gallery/ui/Gallery";
 import {Music} from "../../../Component/music/ui/Music";import {ConnectProfileContainer} from "../../../Component/profile/ui/ProfileContainer ";
 import {Spinner} from "../../../Component/spinner/Spinner";
 import {LoginConnect} from "../../../Component/login/ui/LoginConnect";
@@ -17,7 +17,7 @@ export const Routing = () => {
             <Route path={"/message"} render={() => <DialogsContainer/>}/>
             <Route path={"/users"} render={() => {
                     return <Suspense fallback={ <Spinner/>}> <ConnectUsers/> </Suspense>}}/>
-            <Route path={"/news"} component={News}/>
+            <Route path={"/gallery"} component={Gallery}/>
             <Route path={"/music"} component={Music}/>
             <Route path={"/login"} component={LoginConnect}/>
         </>

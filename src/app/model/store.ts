@@ -6,7 +6,8 @@ import { authReducer } from "../../Component/login/model/auth-reducer";
 import thunkMiddleware, {ThunkDispatch} from "redux-thunk";
 import { reducer as formReducer } from "redux-form";
 import { appReducer } from "./app-reducer";
-import { composeWithDevTools } from 'redux-devtools-extension';  //для работы с расширением REDUX_DEV_TOOLS
+import { composeWithDevTools } from 'redux-devtools-extension';
+import {galleryReducer} from "../../Component/gallery/model/gallery-reducer";  //для работы с расширением REDUX_DEV_TOOLS
 
 let rootReducer = combineReducers({
   app: appReducer,
@@ -14,6 +15,7 @@ let rootReducer = combineReducers({
   dialogsPage: dialogsReducer,
   usersPage: usersReducer,
   auth: authReducer,
+  gallery: galleryReducer,
   form: formReducer,
 });
 

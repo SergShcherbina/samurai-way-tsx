@@ -65,7 +65,7 @@ const Root = styled.div`
   flex-direction: column;
   gap: 10px;
   border-radius: 10px;
-  background-color: var(--color-bloks);
+  background-color: var(--bloks-color);
   padding: 20px;
 `
 const Header = styled.div`

@@ -18,7 +18,7 @@ export const Navbar = () => {
             </li>
             <li>
                 <Icon icon={faNewspaper} size={'xs'}/>
-                <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/news">Gallery</NavLink>
+                <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/gallery">Gallery</NavLink>
             </li>
             <li>
                 <Icon icon={faMusic} size={'xs'}/>
@@ -34,7 +34,7 @@ export const Navbar = () => {
 const Icon = styled(FontAwesomeIcon)``;
 
 const Nav = styled.ul`
-  background-color: var(--color-bloks);
+  background-color: var(--bloks-color);
   box-shadow: var(--box-shadow-blocks);
   padding: 20px;
   border-radius: 10px;

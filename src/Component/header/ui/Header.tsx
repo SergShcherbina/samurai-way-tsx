@@ -46,7 +46,7 @@ const HeaderStyle = styled.header`
   grid-column: 1 / 4;
   grid-row: 1;
 
-  background-color: var(--color-bloks);
+  background-color: var(--bloks-color);
   border-radius: 10px;
   padding: 0 var(--padding-blocks);
   height: 70px;
@@ -109,17 +109,17 @@ const LogOut = styled.div`
   box-shadow: var(--box-shadow-blocks);
   cursor: pointer;
   font-weight: bold;
-  
+
   & svg path {
     transition: all 0.3s;
   }
 
   &:hover {
     background-color: var(--main-color);
-    color: var(--color-bloks);
+    color: var(--bloks-color);
 
     & svg path {
-      fill: var(--color-bloks)
+      fill: var(--bloks-color)
     }
   }
 

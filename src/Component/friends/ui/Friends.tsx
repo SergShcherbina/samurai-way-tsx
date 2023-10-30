@@ -65,7 +65,7 @@ export const Friends: FC<PropsType> = (props) => {
 
 
 const FriendsRoot = styled.div<{ loading: string }>`
-  background-color: var(--color-bloks);
+  background-color: var(--bloks-color);
   padding: var(--padding-blocks);
   border-radius: 10px;
   box-shadow: var(--box-shadow-blocks);
