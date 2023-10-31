@@ -3,6 +3,9 @@ import {fieldMaxLengthCreator, requiredField} from "../../../../utils/validators
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../../../../common/form-controls/Input";
 import {DialogReduxFormType} from "./Dialogs";
+import {Button} from "../../../Button/button";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEye} from "@fortawesome/free-solid-svg-icons";
 
 //creator для валидации длинны выносим за пределы формы и сохр-й результат передаем в validate !!!!!
 const maxLength = fieldMaxLengthCreator(200);
