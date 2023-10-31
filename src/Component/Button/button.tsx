@@ -48,6 +48,7 @@ const Root = styled.button<{ variant: 'primary' | 'outline' }>`
 
   &:disabled {
     opacity: 0.8;
+    background-color: var(--background-color);
   }
 
   ${props => props.variant === 'outline' && css`

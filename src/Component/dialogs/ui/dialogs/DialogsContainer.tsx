@@ -5,6 +5,7 @@ import {AppDispatchType, AppStateType} from "../../../../app/model/store";
 import {ComponentType} from "react";
 import {withAuthRedirect} from "../../../../common/hoc/withAuthRedirect";
 import {compose} from "redux";
+import {reset} from "redux-form";
 
 export type MapStateToPropsDialogType = ReturnType<typeof mapStateToProps>
 export type MapDispatchToPropsDialogType = ReturnType<typeof mapDispatchToProps>
@@ -18,11 +19,12 @@ let mapStateToProps = (state: AppStateType) => {
 };
 let mapDispatchToProps = (dispatch: AppDispatchType) => {
     return {
-        onChangeHandler: (value: string) => {
+        updateMessageHandler: (value: string) => {
             dispatch(updateMessageAC(value));
         },
-        onClickHandler: (dataForm: string) => {
+        addMessageHandler: (dataForm: string) => {
             dispatch(addMessageAC(dataForm));
+            dispatch(reset('dialogsForm'))
         },
         setDialogs: () => {
             dispatch(setDialogsTC())

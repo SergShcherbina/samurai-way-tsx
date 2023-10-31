@@ -16,7 +16,7 @@ export const Dialogs = (props: DialogsType) => {
     }, []);
 
     const onSubmit = (formData: DialogReduxFormType) => {
-        props.onClickHandler(formData.dialogMessage);
+        props.addMessageHandler(formData.dialogMessage);
     };
 
     if (!props.dialogsData[0]) return <Spinner/>

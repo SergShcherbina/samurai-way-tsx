@@ -27,11 +27,14 @@ export const Messages: FC<PropsType> = ({messagesData, onSubmit, avatar, userNam
                     <em>{'Online'}</em>
                 </div>
             </Companion>
+
             <MessagesWrapper>
                 {messagesData.map((message, i) =>
-                    <Message message={message.messageD} key={message.id} time={message.time} idMessage={message.id}/>) }
-                <DialogReduxForm onSubmit={onSubmit}/>
+                    <Message message={message.messageD} key={message.id} time={message.time}
+                             idMessage={message.id}/>)}
             </MessagesWrapper>
+
+            <DialogReduxForm onSubmit={onSubmit}/>
         </Root>
     );
 };
@@ -39,19 +42,17 @@ export const Messages: FC<PropsType> = ({messagesData, onSubmit, avatar, userNam
 const Root = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   width: 100%;
+  gap: 10px;
 `
 const Companion = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
   
-  padding-bottom: 10px;
   border-bottom: 3px solid var(--main-color);
-  margin-bottom: 10px;
 
-  &>div {
+  & > div {
     width: 100px;
 
     & img {
@@ -64,9 +65,10 @@ const Companion = styled.div`
 const MessagesWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  flex-grow: 1;
   gap: 15px;
-  
+
+  margin-bottom: 20px;
   max-height: 60vh;
-  overflow: auto;
+  overflow-y: auto;
 `
