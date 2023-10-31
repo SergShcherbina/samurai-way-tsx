@@ -1,9 +1,0 @@
-.dialogs {
-  display: grid;
-  grid-template: auto/ 2fr 10fr;
-  padding: 10px;
-}
-.active a {
-  color: red;
-  font-weight: 500;
-}

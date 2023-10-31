@@ -1,6 +1,6 @@
 import React, {Suspense} from 'react';
 import {Redirect, Route} from "react-router-dom";
-import {DialogsContainer} from "../../../Component/dialogs/ui/DialogsContainer";
+import {DialogsContainer} from "../../../Component/dialogs/ui/dialogs/DialogsContainer";
 import {Gallery} from "../../../Component/gallery/ui/Gallery";
 import {Music} from "../../../Component/music/ui/Music";import {ConnectProfileContainer} from "../../../Component/profile/ui/ProfileContainer ";
 import {Spinner} from "../../../Component/spinner/Spinner";

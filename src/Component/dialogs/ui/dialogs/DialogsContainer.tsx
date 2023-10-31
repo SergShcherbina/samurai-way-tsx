@@ -1,10 +1,10 @@
-import {addNewMessageAC, updateNewMessageAC} from "../model/dialogs-reducer";
+import {addMessageAC, setDialogsTC, updateMessageAC} from "../../model/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
-import {AppStateType} from "../../../app/model/store";
+import {AppDispatchType, AppStateType} from "../../../../app/model/store";
 import {ComponentType} from "react";
-import {withAuthRedirect} from "../../../common/hoc/withAuthRedirect";
-import {compose, Dispatch} from "redux";
+import {withAuthRedirect} from "../../../../common/hoc/withAuthRedirect";
+import {compose} from "redux";
 
 export type MapStateToPropsDialogType = ReturnType<typeof mapStateToProps>
 export type MapDispatchToPropsDialogType = ReturnType<typeof mapDispatchToProps>
@@ -16,14 +16,17 @@ let mapStateToProps = (state: AppStateType) => {
         dialogsData: state.dialogsPage.dialogsData,
     };
 };
-let mapDispatchToProps = (dispatch: Dispatch) => {
+let mapDispatchToProps = (dispatch: AppDispatchType) => {
     return {
         onChangeHandler: (value: string) => {
-            dispatch(updateNewMessageAC(value));
+            dispatch(updateMessageAC(value));
         },
         onClickHandler: (dataForm: string) => {
-            dispatch(addNewMessageAC(dataForm));
+            dispatch(addMessageAC(dataForm));
         },
+        setDialogs: () => {
+            dispatch(setDialogsTC())
+        }
     };
 };
 

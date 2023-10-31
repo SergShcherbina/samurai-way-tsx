@@ -50,6 +50,7 @@ const Root = styled.div`
   width: 195px;
   gap: 10px;
   position: relative;
+  cursor: pointer;
 
   &:hover {
     ${ImgWrapper} {

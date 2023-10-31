@@ -1,23 +1,19 @@
+import {UserType} from "../../users/model/users-types";
+import {v4} from "uuid";
+import {Dispatch} from "redux";
+import {usersAPI} from "../../users/users-api/users-api";
+
 const initialState: DialogsStateType = {
-    dialogsData: [
-        {id: 1, name: "Sacha"},
-        {id: 2, name: "Petya"},
-        {id: 3, name: "Maikl"},
-        {id: 4, name: "Sveta"},
-        {id: 5, name: "Dima"},
-        {id: 6, name: "Serge"},
-    ],
+    dialogsData: [] as UserType[],
     messageData: [
-        {id: 1, messageD: "Hi"},
-        {id: 2, messageD: "Ho"},
-        {id: 3, messageD: "Hu"},
-        {id: 4, messageD: "He"},
-        {id: 5, messageD: "Ha"},
+        {id: v4(), messageD: "Hi, friend!", time: '31.10.2023, 13.33.23'},
+        {id: v4(), messageD: "How are you?", time: '31.10.2023, 13.35.06'},
+        {id: v4(), messageD: "Bye", time: '31.10.2023, 13.38.40'},
     ],
     messageText: "",
 };
 
-export const dialogsReducer = (state: DialogsStateType = initialState, action: ActionType): DialogsStateType => {
+export const dialogsReducer = (state: DialogsStateType = initialState, action: DialogsActionType): DialogsStateType => {
     switch (action.type) {
         case "UPDATE-NEW-MESSAGE":
             return {...state, messageText: action.valueInput};
@@ -25,51 +21,73 @@ export const dialogsReducer = (state: DialogsStateType = initialState, action: A
             if (action.dataForm.trim() === "") {
                 break;
             } else {
-                const message = {id: +action.dataForm + 11, messageD: action.dataForm};
+                const message = {id: v4(), messageD: action.dataForm, time: new Date().toLocaleString()};
                 return {
                     ...state,
                     messageData: [...state.messageData, message],
                 };
             }
+        case 'DIALOGS/SET-DIALOGS':
+            return {
+                ...state, dialogsData: action.payload.dialogs
+            }
+
         default:
             return state;
     }
     return state;
 };
 
-export const updateNewMessageAC = (value: string) => {
+export const updateMessageAC = (value: string) => {
     return {
         type: "UPDATE-NEW-MESSAGE",
         valueInput: value,
     };
 };
-export const addNewMessageAC = (dataForm: string) => {
+export const addMessageAC = (dataForm: string) => {
     return {
         type: "ADD-NEW-MESSAGE",
         dataForm,
     };
 };
 
-type ActionType = UpdateNewMessageAT | AddNewMessageAT;
+const setDialogsAC = (users: UserType[]) => {
+    return {
+        type: 'DIALOGS/SET-DIALOGS',
+        payload: {
+            dialogs: users
+        }
+    } as const
+}
+
+export const setDialogsTC = () => {
+    return (dispatch: Dispatch) => {
+        usersAPI.getFriends()
+            .then(res => {
+                dispatch(setDialogsAC(res.items))
+            })
+    }
+}
+
+
 export type DialogsStateType = {
-    dialogsData: DialogsDataType[];
+    dialogsData: UserType[];
     messageData: MessageDataType[];
     messageText: any;
 };
-export type DialogsDataType = {
-    id: number;
-    name: string;
-};
 export type MessageDataType = {
-    id: number;
+    id: string;
     messageD: string;
+    time: string
 };
-type UpdateNewMessageAT = {
+type UpdateMessageAT = {
     type: "UPDATE-NEW-MESSAGE";
     valueInput: string;
 };
-type AddNewMessageAT = {
+type AddMessageAT = {
     type: "ADD-NEW-MESSAGE";
     dataForm: string;
 };
+type SetDialogsAT = ReturnType<typeof setDialogsAC>
 
+type DialogsActionType = UpdateMessageAT | AddMessageAT | SetDialogsAT;
