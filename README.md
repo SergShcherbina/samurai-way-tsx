@@ -9,7 +9,7 @@
 
 ### `yarn start`
 
-- **antd**
+- **styled-components**
 - **axios**
 - **classnames**
 - **formik**
