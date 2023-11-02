@@ -4,6 +4,7 @@ import {ResponseProfileType} from "../../profile/api/profile-api";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSignOut} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
+import {Button} from "../../Button/button";
 
 type HeaderType = {
     isAuth: boolean;
@@ -15,11 +16,13 @@ type HeaderType = {
 export const Header = (props: HeaderType) => {
 
     const isMyProfile = () => {
-        if(props.isAuth){
-            return <LogOut
-                onClick={props.logoutTC}>
+        if (props.isAuth) {
+            return <Button
+                onClick={props.logoutTC}
+                variant={'outline'}
+            >
                 {props.userName} <FontAwesomeIcon icon={faSignOut} size={"xl"}/>
-            </LogOut>
+            </Button>
         } else {
             return <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to={"/login"}>Login</NavLink>
         }
@@ -31,7 +34,7 @@ export const Header = (props: HeaderType) => {
                 <Logo></Logo>
                 <span>Social network</span>
             </LogoWrapper>
-            { isMyProfile() }
+            {isMyProfile()}
         </HeaderStyle>
     );
 };
@@ -96,34 +99,5 @@ const LogoWrapper = styled(NavLink)`
 
   &:active {
     transform: scale(0.98);
-  }
-`
-const LogOut = styled.div`
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  border: 1px solid var(--main-color);
-  padding: 10px;
-  border-radius: 8px;
-  transition: all 0.3s;
-  box-shadow: var(--box-shadow-blocks);
-  cursor: pointer;
-  font-weight: bold;
-
-  & svg path {
-    transition: all 0.3s;
-  }
-
-  &:hover {
-    background-color: var(--main-color);
-    color: var(--bloks-color);
-
-    & svg path {
-      fill: var(--bloks-color)
-    }
-  }
-
-  &:active {
-    background-color: var(--hover-btn-color)
   }
 `
