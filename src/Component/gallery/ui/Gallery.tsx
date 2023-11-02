@@ -39,7 +39,7 @@ const List = styled.div`
   justify-content: space-around;
   gap: 10px;
 
-  background-color: var(--bloks-color);
+  background-color: var(--block-color);
   border-radius: var(--border-radius);
   padding: 20px;
 `

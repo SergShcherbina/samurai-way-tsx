@@ -110,13 +110,13 @@ const User = styled.div <{ isFollow: boolean }>`
   gap: 30px;
 
   border-radius: 10px;
-  background-color: var(--bloks-color);
+  background-color: var(--block-color);
   padding: 20px 40px;
 
-   & button {
-     width: 100px;
-     background-color: ${props => props.isFollow ? '#ffab00' : '#2196f3;'};
-   }
+  & button {
+    width: 100px;
+    background-color: ${props => props.isFollow ? '#ffab00' : '#2196f3;'};
+  }
 `
 const StyleNavLink = styled(NavLink)`
   display: flex;

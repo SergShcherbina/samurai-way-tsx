@@ -24,16 +24,16 @@ const Root = styled.button<{ variant: 'primary' | 'outline' }>`
   border-radius: var(--border-radius);
   border: none;
   background-color: var(--main-color);
-  color: var(--bloks-color);
+  color: var(--block-color);
   font-size: 1rem;
-  box-shadow: 1px 2px 4px var(--text-color);
+  box-shadow: 1px 2px 4px var(--second-text-color);
   transition: all 0.3s;
 
   & svg path {
     transition: fill 0.3s;
     fill: ${props =>
             props.variant === 'primary'
-                    ? 'var(--bloks-color)'
+                    ? 'var(--block-color)'
                     : 'var(--text-color)'
     };
   }
@@ -53,17 +53,18 @@ const Root = styled.button<{ variant: 'primary' | 'outline' }>`
   }
 
   ${props => props.variant === 'outline' && css`
-    background-color: var(--bloks-color);
+    background-color: var(--block-color);
     border: 1px solid var(--main-color);
-    box-shadow: 1px 2px 4px var(--main-color);
+    box-shadow: 1px 2px 4px var(--hover-btn-color);
     color: var(--text-color);
 
     &:not([disabled]):hover {
       background-color: var(--main-color);
-      color: var(--bloks-color);
+      color: var(--block-color);
 
       & svg path {
-        fill: var(--bloks-color);
+        transition: fill 0.3s;
+        fill: var(--block-color);
       }
     }
   `};

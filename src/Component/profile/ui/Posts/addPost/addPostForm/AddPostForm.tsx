@@ -47,7 +47,7 @@ const StyleForm = styled.form`
   grid-template-columns: auto 1fr auto auto;
   gap: 20px;
 
-  background-color: var(--bloks-color);
+  background-color: var(--block-color);
   border-radius: 10px;
   padding: 10px 20px;
   align-items: center;

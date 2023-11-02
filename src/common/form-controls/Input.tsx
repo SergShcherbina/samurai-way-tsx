@@ -47,7 +47,7 @@ const Wrapper = styled.div <{ type: string | undefined }>`{
     z-index: 1;
 
     color: var(--second-text-color);
-    background-color: var(--bloks-color);
+    background-color: var(--block-color);
   }
 
   ${props => props.type === 'search' && css`

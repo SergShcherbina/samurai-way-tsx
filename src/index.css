@@ -24,12 +24,12 @@ a {
 :root {
     --background-color: rgb(237 238 240);
     --box-shadow-blocks: 0 0 5px rgba(179, 180, 182, 0.46);
-    --bloks-color: #fff;
+    --block-color: #fff;
     --padding-blocks: 20px;
     --main-color: #2196f3;
     --text-color: #545454;
     --second-text-color: #939393;
-    --border-color: #efefef;
+    --border-color: #e1e1e1;
     --active-color: #ffab00;
     --hover-btn-color: #0078d8;
     --error-color: #f44336;

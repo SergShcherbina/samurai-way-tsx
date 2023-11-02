@@ -49,7 +49,7 @@ const DialogsRoot = styled.div`
   gap: 20px;
 
   padding: 20px;
-  background-color: var(--bloks-color);
+  background-color: var(--block-color);
   border-radius: var(--border-radius);
   overflow: auto;
 `

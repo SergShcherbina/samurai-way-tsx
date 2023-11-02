@@ -34,7 +34,7 @@ export const Navbar = () => {
 const Icon = styled(FontAwesomeIcon)``;
 
 const Nav = styled.ul`
-  background-color: var(--bloks-color);
+  background-color: var(--block-color);
   box-shadow: var(--box-shadow-blocks);
   padding: 20px;
   border-radius: 10px;

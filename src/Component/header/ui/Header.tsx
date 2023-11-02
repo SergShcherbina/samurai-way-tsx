@@ -49,7 +49,7 @@ const HeaderStyle = styled.header`
   grid-column: 1 / 4;
   grid-row: 1;
 
-  background-color: var(--bloks-color);
+  background-color: var(--block-color);
   border-radius: 10px;
   padding: 0 var(--padding-blocks);
   height: 70px;

@@ -16,7 +16,7 @@ export const BlockTitle: FC<BlockTitleType> = ({title, children}) => {
 };
 
 const Header = styled.div `
-  background-color: var(--bloks-color);
-  border-radius: var(--border-radius) ;
+  background-color: var(--block-color);
+  border-radius: var(--border-radius);
   padding: 20px;
 `
