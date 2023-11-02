@@ -30,6 +30,7 @@ const Root = styled.button<{ variant: 'primary' | 'outline' }>`
   transition: all 0.3s;
 
   & svg path {
+    transition: fill 0.3s;
     fill: ${props =>
             props.variant === 'primary'
                     ? 'var(--bloks-color)'
@@ -48,8 +49,7 @@ const Root = styled.button<{ variant: 'primary' | 'outline' }>`
   }
 
   &:disabled {
-    opacity: 0.8;
-    background-color: var(--background-color);
+    opacity: 0.7;
   }
 
   ${props => props.variant === 'outline' && css`
@@ -63,7 +63,7 @@ const Root = styled.button<{ variant: 'primary' | 'outline' }>`
       color: var(--bloks-color);
 
       & svg path {
-        fill: var(--background-color);
+        fill: var(--bloks-color);
       }
     }
   `};

@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Ava from '../../../../../../assets/img/min-avatar.jpg'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCamera, faVideo, faImage, faMusic} from "@fortawesome/free-solid-svg-icons";
+import {Button} from "../../../../../Button/button";
 
 //создаем уточняющую типизацию возвращаемого объекта form по именам input/Field
 type FormDataType = {
@@ -32,7 +33,7 @@ const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 <a href="#"><FontAwesomeIcon icon={faCamera} size="1x"/></a>
             </IconsWrapper>
 
-            <Button disabled={!props.valid} >publish</Button>
+            <Button disabled={!props.anyTouched || !props.valid} >publish</Button>
         </StyleForm>
     );
 };
@@ -71,32 +72,32 @@ const WrapperImg = styled.div`
     border-radius: 50%;
   }
 `
-const Button = styled.button`
-  border: none;
-  background-color: var(--main-color);
-  color: #fff;
-  font-size: 1rem;
-  padding: 10px;
-  min-width: 80px;
-  border-radius: 8px;
-  box-shadow: 1px 1px 5px var(--second-text-color);
-  transition: all 0.3s;
-  
-  &:not([disabled]):hover {
-    background-color: var(--hover-btn-color);
-    box-shadow: 1px 1px 2px var(--second-text-color);
-  }
-  
-  &:not([disabled]):active {
-    background-color: var(--hover-btn-color);
-    transform: translateY(1px);
-    box-shadow: none;
-  }
-  
-  &:disabled {
-    opacity: 0.5;
-  }
-`
+// const Button = styled.button`
+//   border: none;
+//   background-color: var(--main-color);
+//   color: #fff;
+//   font-size: 1rem;
+//   padding: 10px;
+//   min-width: 80px;
+//   border-radius: 8px;
+//   box-shadow: 1px 1px 5px var(--second-text-color);
+//   transition: all 0.3s;
+//
+//   &:not([disabled]):hover {
+//     background-color: var(--hover-btn-color);
+//     box-shadow: 1px 1px 2px var(--second-text-color);
+//   }
+//
+//   &:not([disabled]):active {
+//     background-color: var(--hover-btn-color);
+//     transform: translateY(1px);
+//     box-shadow: none;
+//   }
+//
+//   &:disabled {
+//     opacity: 0.5;
+//   }
+// `
 const IconsWrapper = styled.div`
   display: flex;
   gap: 12px;
