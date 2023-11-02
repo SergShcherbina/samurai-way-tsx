@@ -7,7 +7,8 @@ import thunkMiddleware, {ThunkDispatch} from "redux-thunk";
 import { reducer as formReducer } from "redux-form";
 import { appReducer } from "./app-reducer";
 import { composeWithDevTools } from 'redux-devtools-extension';
-import {galleryReducer} from "../../Component/gallery/model/gallery-reducer";  //для работы с расширением REDUX_DEV_TOOLS
+import {galleryReducer} from "../../Component/gallery/model/gallery-reducer";
+import {reducerMusic} from "../../Component/music/reducer-music/reducer-music";  //для работы с расширением REDUX_DEV_TOOLS
 
 let rootReducer = combineReducers({
   app: appReducer,
@@ -17,6 +18,7 @@ let rootReducer = combineReducers({
   auth: authReducer,
   gallery: galleryReducer,
   form: formReducer,
+  music: reducerMusic,
 });
 
 export type AppStateType = ReturnType<typeof rootReducer>;
