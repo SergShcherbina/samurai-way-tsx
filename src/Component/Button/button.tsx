@@ -16,16 +16,17 @@ export const Button: FC<ButtonType> = ({variant = 'primary', children, ...rest})
 const Root = styled.button<{ variant: 'primary' | 'outline' }>`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 
   cursor: pointer;
-  padding: 10px;
+  padding: 10px 15px;
   border-radius: var(--border-radius);
   border: none;
   background-color: var(--main-color);
   color: var(--bloks-color);
   font-size: 1rem;
-  box-shadow: 2px 2px 4px #777575;
+  box-shadow: 1px 2px 4px var(--text-color);
   transition: all 0.3s;
 
   & svg path {
@@ -54,6 +55,7 @@ const Root = styled.button<{ variant: 'primary' | 'outline' }>`
   ${props => props.variant === 'outline' && css`
     background-color: var(--bloks-color);
     border: 1px solid var(--main-color);
+    box-shadow: 1px 2px 4px var(--main-color);
     color: var(--text-color);
 
     &:not([disabled]):hover {

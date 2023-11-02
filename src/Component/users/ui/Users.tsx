@@ -6,6 +6,7 @@ import {Pagination} from "./pagination/Pagination";
 import styled, {keyframes} from "styled-components";
 import {UserSearchForm, UserSearchFormType} from "./UserSearchForm";
 import {UserType} from "../model/users-types";
+import {Button} from "../../Button/button";
 
 type UsersType = {
     users: UserType[];
@@ -32,12 +33,12 @@ export const Users = (props: UsersType) => {
 
     const onFollowBtn = (user: UserType) => {
         return (
-            <button
+            <Button
                 disabled={disableBtn(user.id)}
                 onClick={() => onFollow(user.id, user.followed)}
             >
                 {user.followed ? 'Unfollow' : 'Follow'}
-            </button>
+            </Button>
         )
     }
 
@@ -112,28 +113,10 @@ const User = styled.div <{ isFollow: boolean }>`
   background-color: var(--bloks-color);
   padding: 20px 40px;
 
-  & button {
-    cursor: pointer;
-    padding: 10px;
-    width: 100px;
-    border: none;
-    border-radius: 5px;
-    background-color: ${props => props.isFollow ? '#ffab00' : '#2196f3;'};
-    color: var(--bloks-color);
-    font-size: 1rem;
-    box-shadow: 2px 2px 5px #777575;
-    transition: all 0.2s;
-
-    &:hover {
-      transform: translateY(2px);
-      box-shadow: 1px 1px 1px #777575;
-    }
-
-    &:active {
-      transform: translateY(3px);
-      box-shadow: none;
-    }
-  }
+   & button {
+     width: 100px;
+     background-color: ${props => props.isFollow ? '#ffab00' : '#2196f3;'};
+   }
 `
 const StyleNavLink = styled(NavLink)`
   display: flex;
