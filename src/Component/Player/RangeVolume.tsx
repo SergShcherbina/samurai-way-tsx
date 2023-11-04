@@ -4,7 +4,7 @@ import volumeBg from '../../assets/img/volume-bg.png';
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../app/model/store";
 import {Dispatch} from "redux";
-import {setVolumeAC} from "../music/reducer-music/reducer-music";
+import {actionsMusic} from "../music/reducer-music/actions-music";
 
 type PropsType = {
     songRef: RefObject<HTMLAudioElement>
@@ -21,7 +21,7 @@ export const RangeVolume: FC<PropsType> = React.memo(({songRef}) => {
     }, [currentVolume]);
 
     const onVolume = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setVolumeAC(Number(e.target.value)));
+        dispatch(actionsMusic.setVolumeAC(Number(e.target.value)));
         localStorage.setItem('volumePlayer', e.target.value);
     };
 

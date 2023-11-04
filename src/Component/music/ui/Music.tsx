@@ -3,8 +3,9 @@ import {Player} from "../../Player/Player";
 import styled from "styled-components";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../app/model/store";
-import {RootObjectMusic} from "../reducer-music/music-types";
+import {RootObjectMusic} from "../reducer-music/types-music";
 import {TrackItem} from "./TrackItem";
+import {Spinner} from "../../spinner/Spinner";
 
 export const Music = () => {
     const [isAllList, setIsAllList] = useState<boolean>(true)
@@ -15,6 +16,8 @@ export const Music = () => {
     }
 
     const dataMusicList = isAllList ? dataMusic.data : dataMusic.favoriteMusic
+
+    if(!dataMusic) return <Spinner/>
 
     return (
         <MusicRoot>

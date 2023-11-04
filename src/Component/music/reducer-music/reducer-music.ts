@@ -1,4 +1,4 @@
-import {RootObjectMusic, TrackType} from "./music-types";
+import {MusicActionsType, RootObjectMusic} from "./types-music";
 
 const initialState: RootObjectMusic = {
     data: [
@@ -381,9 +381,33 @@ const initialState: RootObjectMusic = {
     },
     isAutoPlay: false,
     isPlay: false,
-    volume: Number(localStorage.getItem('volumePlayer')),
-    favoriteMusic: [],
-} //https://api.deezer.com/track/3135556
+    favoriteMusic: [{
+        id: 3135555,
+        readable: true,
+        title: "Digital Love",
+        title_short: "Digital Love",
+        title_version: "",
+        isrc: "GBDUW0000058",
+        link: "https://www.deezer.com/track/3135555",
+        duration: 301,
+        track_position: 3,
+        disk_number: 1,
+        rank: 680417,
+        explicit_lyrics: false,
+        explicit_content_lyrics: 0,
+        explicit_content_cover: 0,
+        preview: "https://cdns-preview-0.dzcdn.net/stream/c-01ef0c4982c94b86c7c0e6b2a70dde4b-9.mp3",
+        image: "https://e-cdns-images.dzcdn.net/images/artist/f2bc007e9133c946ac3c3907ddc5d2ea/56x56-000000-80-0-0.jpg",
+        artist: {
+            id: 27,
+            name: "Daft Punk",
+            tracklist: "https://api.deezer.com/artist/27/top?limit=50",
+            type: "artist"
+        },
+        type: "track"
+    }],
+    volume: Number(localStorage.getItem('volumePlayer')) || 20,
+}
 
 export const reducerMusic = (state: RootObjectMusic = initialState, action: MusicActionsType) => {
     switch (action.type) {
@@ -421,36 +445,5 @@ export const reducerMusic = (state: RootObjectMusic = initialState, action: Musi
 }
 
 
-export const setActiveTrackAC = (id: number) => {
-    return {
-        type: 'MUSIC/ACTIVE-TRACK',
-        payload: id
-    } as const
-}
-export const setPlayAC = (play: boolean, autoplay: boolean = false) => {
-    return {
-        type: 'MUSIC/SET-PLAY',
-        payload: {play, autoplay}
-    } as const
-}
 
-export const setVolumeAC = (value: number) => {
-    return {
-        type: 'MUSIC/SET-VOLUME',
-        payload: value
-    } as const
-}
-export const setFavoriteMusicAC = (id: number) => {
-    return {
-        type: 'MUSIC/SET-FAVORITE-MUSIC',
-        payload: id,
-    } as const
-}
-
-type SetActiveTrackAT = ReturnType<typeof setActiveTrackAC>
-type SetPlayAT = ReturnType<typeof setPlayAC>
-type SetVolumeAT = ReturnType<typeof setVolumeAC>
-type SetFavoriteMusicAT = ReturnType<typeof setFavoriteMusicAC>
-
-type MusicActionsType = SetActiveTrackAT | SetPlayAT | SetVolumeAT | SetFavoriteMusicAT
 

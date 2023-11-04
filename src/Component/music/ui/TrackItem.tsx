@@ -1,12 +1,12 @@
 import React, {FC} from 'react';
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
-import {setActiveTrackAC, setFavoriteMusicAC, setPlayAC} from "../reducer-music/reducer-music";
 import {AppStateType} from "../../../app/model/store";
 import {Dispatch} from "redux";
-import {TrackType} from "../reducer-music/music-types";
+import {TrackType} from "../reducer-music/types-music";
 import {getZero} from "../../../utils/get-zero/get-zero";
 import {IconLike} from "../../icons-component";
+import {actionsMusic} from "../reducer-music/actions-music";
 
 type PropsType = {
     image: string
@@ -22,13 +22,13 @@ export const TrackItem: FC<PropsType> = ({image, title, artist, duration, id}) =
     const favoriteMusic = useSelector<AppStateType, TrackType[]>(state => state.music.favoriteMusic)
 
     const onActiveTrack = (id: number) => {
-        dispatch(setActiveTrackAC(id))
-        dispatch(setPlayAC(true, true))
+        dispatch(actionsMusic.setActiveTrackAC(id))
+        dispatch(actionsMusic.setPlayAC(true, true))
     }
 
-    const onFavorite = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const onFavorite = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation()
-        dispatch(setFavoriteMusicAC(id))
+        dispatch(actionsMusic.setFavoriteMusicAC(id))
     }
 
     const isActiveColor = () => !!favoriteMusic.find(track => track.id === id)
@@ -102,17 +102,6 @@ const LastChild = styled.div<{ activeColor: boolean }>`
   flex-grow: 1;
 
   & svg {
-    fill: ${props => props.activeColor ? 'red' : ''}
+    fill: ${props => props.activeColor ? 'var(--error-color)' : ''};
   }
-
-  & svg {
-    &:hover {
-      fill: red
-    }
-
-    &:active {
-      transform: scale(0.95);
-    }
-  }
-
 `

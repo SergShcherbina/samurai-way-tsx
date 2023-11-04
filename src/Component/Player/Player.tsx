@@ -1,13 +1,14 @@
-import React, {FC, useRef, useState} from 'react';
+import React, {FC, useCallback, useRef, useState} from 'react';
 import {RangeVolume} from "./RangeVolume";
 import styled from "styled-components";
-import {IconStop, IconPause, IconLike, IconPrev, IconPlay, IconNext} from "../icons-component";
 import {DataTimeType, RangeSong} from "./RangeSong";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../app/model/store";
-import {TrackType} from "../music/reducer-music/music-types";
+import {TrackType} from "../music/reducer-music/types-music";
 import {Dispatch} from "redux";
-import {setPlayAC} from "../music/reducer-music/reducer-music";
+import {ControlBlock} from "./ControlBlock";
+import {TrackName} from "./TrackName";
+import {actionsMusic} from "../music/reducer-music/actions-music";
 
 type PropsType = {
     onToggleList: () => void
@@ -22,15 +23,15 @@ export const Player: FC<PropsType> = ({onToggleList, isAllList}) => {
     const isAutoPlay = useSelector<AppStateType, boolean>(state => state.music.isAutoPlay)
     const dispatch: Dispatch = useDispatch()
 
-    const togglePlay = () => {
+    const togglePlay = useCallback(() => {
         if (isPlay) {
             songRef.current?.pause()
-            dispatch(setPlayAC(false))
+            dispatch(actionsMusic.setPlayAC(false))
         } else {
             void songRef.current?.play()
-            dispatch(setPlayAC(true, true))
+            dispatch(actionsMusic.setPlayAC(true, true))
         }
-    };
+    }, [isPlay]);
 
     const updateTimeTrack = () => {
         if (songRef.current) {
@@ -56,19 +57,8 @@ export const Player: FC<PropsType> = ({onToggleList, isAllList}) => {
 
     return (
         <PlayerRoot>
-            <SongName>
-                <p>{activeTrack.artist.name}</p>
-                <span>{activeTrack.title}</span>
-            </SongName>
-
-            <IconsWrap>
-                <IconStop/>
-                <IconPrev/>
-                {isPlay ? <IconPause onClick={togglePlay}/> : <IconPlay onClick={togglePlay}/>}
-                <IconNext/>
-                <IconLike onClick={onToggleList} color={!isAllList ? '#fff': ''}/>
-            </IconsWrap>
-
+            <TrackName/>
+            <ControlBlock togglePlay={togglePlay} onToggleList={onToggleList} isAllList={isAllList}/>
             <RangeVolume songRef={songRef}/>
 
             <audio
@@ -81,7 +71,7 @@ export const Player: FC<PropsType> = ({onToggleList, isAllList}) => {
             <RangeSong songRef={songRef} dataTime={dataTime}/>
         </PlayerRoot>
     );
-};
+}
 
 const PlayerRoot = styled.div`
   display: grid;
@@ -91,20 +81,8 @@ const PlayerRoot = styled.div`
   position: sticky;
   top: 5px;
 
-  background-color: rgb(255 95 173);
+  background-color: var(--block-color);
   border-radius: 10px;
   padding: var(--padding-blocks) 40px;
-  border: 2px solid var(--main-color);
-`
-const IconsWrap = styled.div`
-  justify-self: center;
-`
-const SongName = styled.div`
-  font-weight: 700;
-  font-size: 1.1rem;
-
-  & > span {
-    font-weight: normal;
-    font-size: 0.9rem;
-  }
+  border: 2px solid var(--border-color);
 `

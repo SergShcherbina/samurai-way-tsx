@@ -1,3 +1,5 @@
+import {actionsMusic} from "./actions-music";
+
 export type RootObjectMusic = {
     data: TrackType[];
     total: number;
@@ -33,3 +35,10 @@ export type TrackType = {
     artist: ArtistType;
     type: string;
 }
+
+type SetActiveTrackAT = ReturnType<typeof actionsMusic.setActiveTrackAC>
+type SetPlayAT = ReturnType<typeof actionsMusic.setPlayAC>
+type SetVolumeAT = ReturnType<typeof actionsMusic.setVolumeAC>
+type SetFavoriteMusicAT = ReturnType<typeof actionsMusic.setFavoriteMusicAC>
+
+export type MusicActionsType = SetActiveTrackAT | SetPlayAT | SetVolumeAT | SetFavoriteMusicAT
