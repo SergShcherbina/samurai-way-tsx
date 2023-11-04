@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {FC, useRef, useState} from 'react';
 import {RangeVolume} from "./RangeVolume";
 import styled from "styled-components";
 import {IconStop, IconPause, IconLike, IconPrev, IconPlay, IconNext} from "../icons-component";
@@ -9,7 +9,12 @@ import {TrackType} from "../music/reducer-music/music-types";
 import {Dispatch} from "redux";
 import {setPlayAC} from "../music/reducer-music/reducer-music";
 
-export const Player = () => {
+type PropsType = {
+    onToggleList: () => void
+    isAllList: boolean
+}
+
+export const Player: FC<PropsType> = ({onToggleList, isAllList}) => {
     const songRef = useRef<HTMLAudioElement>(null)
     const [dataTime, setDataTime] = useState({} as DataTimeType)
     const activeTrack = useSelector<AppStateType, TrackType>(state => state.music.activeTrack)
@@ -61,7 +66,7 @@ export const Player = () => {
                 <IconPrev/>
                 {isPlay ? <IconPause onClick={togglePlay}/> : <IconPlay onClick={togglePlay}/>}
                 <IconNext/>
-                <IconLike/>
+                <IconLike onClick={onToggleList} color={!isAllList ? '#fff': ''}/>
             </IconsWrap>
 
             <RangeVolume songRef={songRef}/>

@@ -1,4 +1,4 @@
-import {RootObjectMusic} from "./music-types";
+import {RootObjectMusic, TrackType} from "./music-types";
 
 const initialState: RootObjectMusic = {
     data: [
@@ -382,6 +382,7 @@ const initialState: RootObjectMusic = {
     isAutoPlay: false,
     isPlay: false,
     volume: Number(localStorage.getItem('volumePlayer')),
+    favoriteMusic: [],
 } //https://api.deezer.com/track/3135556
 
 export const reducerMusic = (state: RootObjectMusic = initialState, action: MusicActionsType) => {
@@ -401,10 +402,24 @@ export const reducerMusic = (state: RootObjectMusic = initialState, action: Musi
             return {
                 ...state, volume: action.payload
             }
+        case 'MUSIC/SET-FAVORITE-MUSIC':
+            if (state.favoriteMusic.find(track => track.id === action.payload)) {
+                return {
+                    ...state, favoriteMusic:
+                        state.favoriteMusic.filter(track => track.id !== action.payload)
+                }
+            } else {
+                return {
+                    ...state, favoriteMusic:
+                        [...state.data.filter(track => track.id === action.payload), ...state.favoriteMusic]
+                }
+            }
+
         default:
             return state
     }
 }
+
 
 export const setActiveTrackAC = (id: number) => {
     return {
@@ -425,10 +440,17 @@ export const setVolumeAC = (value: number) => {
         payload: value
     } as const
 }
+export const setFavoriteMusicAC = (id: number) => {
+    return {
+        type: 'MUSIC/SET-FAVORITE-MUSIC',
+        payload: id,
+    } as const
+}
 
 type SetActiveTrackAT = ReturnType<typeof setActiveTrackAC>
 type SetPlayAT = ReturnType<typeof setPlayAC>
 type SetVolumeAT = ReturnType<typeof setVolumeAC>
+type SetFavoriteMusicAT = ReturnType<typeof setFavoriteMusicAC>
 
-type MusicActionsType = SetActiveTrackAT | SetPlayAT | SetVolumeAT
+type MusicActionsType = SetActiveTrackAT | SetPlayAT | SetVolumeAT | SetFavoriteMusicAT
 

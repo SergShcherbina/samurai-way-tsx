@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Player} from "../../Player/Player";
 import styled from "styled-components";
 import {useSelector} from "react-redux";
@@ -7,13 +7,20 @@ import {RootObjectMusic} from "../reducer-music/music-types";
 import {TrackItem} from "./TrackItem";
 
 export const Music = () => {
+    const [isAllList, setIsAllList] = useState<boolean>(true)
     const dataMusic = useSelector<AppStateType, RootObjectMusic>(state => state.music)
+
+    const onToggleList = () => {
+        setIsAllList(!isAllList)
+    }
+
+    const dataMusicList = isAllList ? dataMusic.data : dataMusic.favoriteMusic
 
     return (
         <MusicRoot>
-            <Player/>
+            <Player onToggleList={onToggleList} isAllList={isAllList}/>
             <TrackList>
-                {dataMusic.data.map(item =>
+                {dataMusicList.map(item =>
                     <TrackItem
                         key={item.id}
                         image={item.image}

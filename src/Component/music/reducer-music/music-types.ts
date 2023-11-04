@@ -4,7 +4,8 @@ export type RootObjectMusic = {
     activeTrack: TrackType,
     isAutoPlay: boolean,
     isPlay: boolean,
-    volume: number
+    volume: number,
+    favoriteMusic: TrackType[],
 }
 export type ArtistType = {
     id: number;

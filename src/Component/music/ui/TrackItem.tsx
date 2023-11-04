@@ -1,11 +1,12 @@
 import React, {FC} from 'react';
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
-import {setActiveTrackAC, setPlayAC} from "../reducer-music/reducer-music";
+import {setActiveTrackAC, setFavoriteMusicAC, setPlayAC} from "../reducer-music/reducer-music";
 import {AppStateType} from "../../../app/model/store";
 import {Dispatch} from "redux";
 import {TrackType} from "../reducer-music/music-types";
 import {getZero} from "../../../utils/get-zero/get-zero";
+import {IconLike} from "../../icons-component";
 
 type PropsType = {
     image: string
@@ -18,11 +19,19 @@ type PropsType = {
 export const TrackItem: FC<PropsType> = ({image, title, artist, duration, id}) => {
     const dispatch: Dispatch = useDispatch();
     const activeTrack = useSelector<AppStateType, TrackType>(state => state.music.activeTrack)
+    const favoriteMusic = useSelector<AppStateType, TrackType[]>(state => state.music.favoriteMusic)
 
     const onActiveTrack = (id: number) => {
         dispatch(setActiveTrackAC(id))
         dispatch(setPlayAC(true, true))
     }
+
+    const onFavorite = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.stopPropagation()
+        dispatch(setFavoriteMusicAC(id))
+    }
+
+    const isActiveColor = () => !!favoriteMusic.find(track => track.id === id)
 
     const minutesDuration = Math.floor(duration / 60)
     const secondsDuration = duration - Math.floor(duration / 60) * 60
@@ -33,11 +42,18 @@ export const TrackItem: FC<PropsType> = ({image, title, artist, duration, id}) =
             active={activeTrack.id === id}
         >
             <img src={image} alt={'alt'}/>
+
             <Title>
                 <h3>{artist}</h3>
                 <p>{title}</p>
             </Title>
-            <span>{getZero(minutesDuration) + ':' + getZero(secondsDuration) }</span>
+
+            <LastChild
+                activeColor={isActiveColor()}
+            >
+                <IconLike onClick={(e) => onFavorite(e)}/>
+                <span>{getZero(minutesDuration) + ':' + getZero(secondsDuration)}</span>
+            </LastChild>
         </TrackRoot>
     );
 };
@@ -77,4 +93,26 @@ const TrackRoot = styled.button<{ active: boolean }>`
 `
 const Title = styled.div`
   text-align: left;
+`
+const LastChild = styled.div<{ activeColor: boolean }>`
+  display: grid;
+  height: 100%;
+  align-items: baseline;
+  justify-content: flex-end;
+  flex-grow: 1;
+
+  & svg {
+    fill: ${props => props.activeColor ? 'red' : ''}
+  }
+
+  & svg {
+    &:hover {
+      fill: red
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
 `
