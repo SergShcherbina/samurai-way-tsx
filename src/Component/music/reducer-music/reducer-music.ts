@@ -406,7 +406,7 @@ const initialState: RootObjectMusic = {
         },
         type: "track"
     }],
-    volume: Number(localStorage.getItem('volumePlayer')) || 20,
+    volume: 20,
     rangeTrack: 0,
     refLink: {} as HTMLAudioElement,
 }

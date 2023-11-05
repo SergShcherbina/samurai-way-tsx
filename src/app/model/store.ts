@@ -31,9 +31,9 @@ export const store = createStore(
     getLocalStorage(), //данные из localStorage
     composeWithDevTools(applyMiddleware(thunkMiddleware))
 );
-
+console.log(getLocalStorage())
 store.subscribe(() => {
-    setLocalStorage(store.getState().profilePage)
+    setLocalStorage()
 });
 
 // window.store = store

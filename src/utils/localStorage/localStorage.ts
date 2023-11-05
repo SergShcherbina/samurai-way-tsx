@@ -1,9 +1,13 @@
 import {ProfilePageType} from "../../Component/profile/model/profile-reducer";
+import {store} from "../../app/model/store";
 
-export const setLocalStorage = (profilePage: ProfilePageType) => {
+export const setLocalStorage = () => {
     try {
-        localStorage.setItem('profilePage', JSON.stringify(
-            {profilePage: profilePage}
+        localStorage.setItem('stateStorageSN', JSON.stringify(
+            {
+                profilePage: store.getState().profilePage,
+                music: store.getState().music
+            }
         ))
     } catch (err) {
         return undefined
@@ -12,7 +16,7 @@ export const setLocalStorage = (profilePage: ProfilePageType) => {
 
 export const getLocalStorage = () => {
     try {
-        const persistedState = localStorage.getItem('profilePage')
+        const persistedState = localStorage.getItem('stateStorageSN')
         if (persistedState !== null) {
             return JSON.parse(persistedState)
         }
