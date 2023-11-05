@@ -11,9 +11,10 @@ type PropsType = {
     togglePlay: () => void
     isAllList: boolean
     onToggleList: () => void
+    songRef: HTMLAudioElement | null
 }
 
-export const ControlBlock: FC<PropsType> = React.memo(({togglePlay, onToggleList, isAllList}) => {
+export const ControlBlock: FC<PropsType> = React.memo(({togglePlay, onToggleList, isAllList, songRef}) => {
     const isPlay = useSelector<AppStateType, boolean>(state => state.music.isPlay)
     const activeTrack = useSelector<AppStateType, TrackType>(state => state.music.activeTrack)
     const trackList = useSelector<AppStateType, TrackType[]>(state => state.music.data)
@@ -41,10 +42,10 @@ export const ControlBlock: FC<PropsType> = React.memo(({togglePlay, onToggleList
     }
 
     const onStopRange = () => {
-        if (refLink) {
+        if (songRef) {
             dispatch(actionsMusic.setPlayAC(false))
-            refLink.currentTime = 0
-            refLink.pause()
+            songRef.currentTime = 0
+            songRef.pause()
         }
     }
 

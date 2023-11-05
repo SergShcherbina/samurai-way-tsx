@@ -23,11 +23,6 @@ export const Player: FC<PropsType> = ({onToggleList, isAllList}) => {
     const isAutoPlay = useSelector<AppStateType, boolean>(state => state.music.isAutoPlay)
     const dispatch: Dispatch = useDispatch();
 
-    useEffect(() => {
-        if(songRef.current){
-            dispatch(actionsMusic.setRefLinkAC(songRef.current))
-        }
-    }, []);
 
     const togglePlay = useCallback(() => {
         if (isPlay) {
@@ -64,7 +59,7 @@ export const Player: FC<PropsType> = ({onToggleList, isAllList}) => {
     return (
         <PlayerRoot>
             <TrackName/>
-            <ControlBlock togglePlay={togglePlay} onToggleList={onToggleList} isAllList={isAllList}/>
+            <ControlBlock togglePlay={togglePlay} onToggleList={onToggleList} isAllList={isAllList} songRef={songRef.current}/>
             <RangeVolume songRef={songRef}/>
 
             <audio
