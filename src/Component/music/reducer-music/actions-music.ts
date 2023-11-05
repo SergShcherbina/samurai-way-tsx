@@ -1,4 +1,3 @@
-
 export const actionsMusic = {
      setActiveTrackAC: (id: number) => {
         return {
@@ -20,8 +19,20 @@ export const actionsMusic = {
     },
      setFavoriteMusicAC: (id: number) => {
         return {
-            type: 'MUSIC/SET-FAVORITE-MUSIC',
+            type: 'MUSIC/SET-FAVORITE-TRACK',
             payload: id,
         } as const
+    },
+    setRangeTrackAC: (range: number) => {
+        return {
+            type: 'MUSIC/SET-RANGE-TRACK',
+            payload: range,
+        } as const
+    },
+    setRefLinkAC: (refLink: HTMLAudioElement) => {
+         return {
+             type: 'MUSIC/SET-REF',
+             payload: refLink
+         } as const
     }
 }

@@ -1,6 +1,10 @@
-import React, {ChangeEvent, FC, RefObject} from 'react';
+import React, {ChangeEvent, FC, RefObject, useEffect} from 'react';
 import styled from "styled-components";
-import {getZero} from "../../utils/get-zero/get-zero";
+import {getZero} from "../../../../utils/get-zero/get-zero";
+import {useDispatch, useSelector} from "react-redux";
+import {Dispatch} from "redux";
+import {actionsMusic} from "../../reducer-music/actions-music";
+import {AppStateType} from "../../../../app/model/store";
 
 export type DataTimeType = {
     progress: number,
@@ -15,15 +19,15 @@ type PropsType = {
     dataTime: DataTimeType
 }
 
-export const RangeSong: FC<PropsType> = (
+export const RangeTrack: FC<PropsType> = (
     {
         songRef,
         dataTime: {
             progress,
-            minutesPassed= 0,
-            secondsPassed= 0,
-            minutesDuration= 0,
-            secondDuration= 0,
+            minutesPassed = 0,
+            secondsPassed = 0,
+            minutesDuration = 0,
+            secondDuration = 0,
         }
     }) => {
 
@@ -37,7 +41,7 @@ export const RangeSong: FC<PropsType> = (
 
     const timeSong = () => {
         const current = getZero(minutesPassed) + ':' + getZero(secondsPassed)
-        const duration =  getZero(minutesDuration) + ':' + getZero(secondDuration)
+        const duration = getZero(minutesDuration) + ':' + getZero(secondDuration)
         return `${current} / ${duration}`
     }
 
@@ -46,7 +50,7 @@ export const RangeSong: FC<PropsType> = (
             <SongRange
                 type={'range'}
                 onChange={onRangeTrack}
-                value={progress ? progress : 0}
+                value={progress || 0}
             />
             <p>
                 {timeSong()}

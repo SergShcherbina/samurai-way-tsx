@@ -1,14 +1,14 @@
-import React, {FC, useCallback, useRef, useState} from 'react';
+import React, {FC, useCallback, useEffect, useRef, useState} from 'react';
 import {RangeVolume} from "./RangeVolume";
 import styled from "styled-components";
-import {DataTimeType, RangeSong} from "./RangeSong";
+import {DataTimeType, RangeTrack} from "./RangeTrack";
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../app/model/store";
-import {TrackType} from "../music/reducer-music/types-music";
+import {AppStateType} from "../../../../app/model/store";
+import {TrackType} from "../../reducer-music/types-music";
 import {Dispatch} from "redux";
 import {ControlBlock} from "./ControlBlock";
 import {TrackName} from "./TrackName";
-import {actionsMusic} from "../music/reducer-music/actions-music";
+import {actionsMusic} from "../../reducer-music/actions-music";
 
 type PropsType = {
     onToggleList: () => void
@@ -21,7 +21,13 @@ export const Player: FC<PropsType> = ({onToggleList, isAllList}) => {
     const activeTrack = useSelector<AppStateType, TrackType>(state => state.music.activeTrack)
     const isPlay = useSelector<AppStateType, boolean>(state => state.music.isPlay)
     const isAutoPlay = useSelector<AppStateType, boolean>(state => state.music.isAutoPlay)
-    const dispatch: Dispatch = useDispatch()
+    const dispatch: Dispatch = useDispatch();
+
+    useEffect(() => {
+        if(songRef.current){
+            dispatch(actionsMusic.setRefLinkAC(songRef.current))
+        }
+    }, []);
 
     const togglePlay = useCallback(() => {
         if (isPlay) {
@@ -68,10 +74,10 @@ export const Player: FC<PropsType> = ({onToggleList, isAllList}) => {
                 onTimeUpdate={updateTimeTrack}
             />
 
-            <RangeSong songRef={songRef} dataTime={dataTime}/>
+            <RangeTrack songRef={songRef} dataTime={dataTime}/>
         </PlayerRoot>
     );
-}
+};
 
 const PlayerRoot = styled.div`
   display: grid;

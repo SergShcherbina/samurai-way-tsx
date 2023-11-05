@@ -1,23 +1,24 @@
 import React, {useState} from "react";
-import {Player} from "../../Player/Player";
+import {Player} from "./Player/Player";
 import styled from "styled-components";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../app/model/store";
-import {RootObjectMusic} from "../reducer-music/types-music";
+import {TrackType} from "../reducer-music/types-music";
 import {TrackItem} from "./TrackItem";
 import {Spinner} from "../../spinner/Spinner";
 
 export const Music = () => {
     const [isAllList, setIsAllList] = useState<boolean>(true)
-    const dataMusic = useSelector<AppStateType, RootObjectMusic>(state => state.music)
+    const musicList = useSelector<AppStateType, TrackType[]>(state => state.music.data)
+    const favoriteMusic = useSelector<AppStateType, TrackType[]>(state => state.music.favoriteMusic)
 
     const onToggleList = () => {
         setIsAllList(!isAllList)
     }
 
-    const dataMusicList = isAllList ? dataMusic.data : dataMusic.favoriteMusic
+    const dataMusicList = isAllList ? musicList : favoriteMusic
 
-    if(!dataMusic) return <Spinner/>
+    // if(!dataMusic) return <Spinner/>
 
     return (
         <MusicRoot>

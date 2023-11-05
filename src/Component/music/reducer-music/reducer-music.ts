@@ -407,6 +407,8 @@ const initialState: RootObjectMusic = {
         type: "track"
     }],
     volume: Number(localStorage.getItem('volumePlayer')) || 20,
+    rangeTrack: 0,
+    refLink: {} as HTMLAudioElement,
 }
 
 export const reducerMusic = (state: RootObjectMusic = initialState, action: MusicActionsType) => {
@@ -426,7 +428,7 @@ export const reducerMusic = (state: RootObjectMusic = initialState, action: Musi
             return {
                 ...state, volume: action.payload
             }
-        case 'MUSIC/SET-FAVORITE-MUSIC':
+        case 'MUSIC/SET-FAVORITE-TRACK':
             if (state.favoriteMusic.find(track => track.id === action.payload)) {
                 return {
                     ...state, favoriteMusic:
@@ -438,7 +440,14 @@ export const reducerMusic = (state: RootObjectMusic = initialState, action: Musi
                         [...state.data.filter(track => track.id === action.payload), ...state.favoriteMusic]
                 }
             }
-
+        case 'MUSIC/SET-RANGE-TRACK':
+            return {
+                ...state, rangeTrack: action.payload
+            }
+        case 'MUSIC/SET-REF':
+            return {
+                ...state, refLink: action.payload
+            }
         default:
             return state
     }

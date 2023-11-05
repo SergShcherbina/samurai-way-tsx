@@ -8,6 +8,8 @@ export type RootObjectMusic = {
     isPlay: boolean,
     volume: number,
     favoriteMusic: TrackType[],
+    rangeTrack: number,
+    refLink: HTMLAudioElement | null;
 }
 export type ArtistType = {
     id: number;
@@ -40,5 +42,7 @@ type SetActiveTrackAT = ReturnType<typeof actionsMusic.setActiveTrackAC>
 type SetPlayAT = ReturnType<typeof actionsMusic.setPlayAC>
 type SetVolumeAT = ReturnType<typeof actionsMusic.setVolumeAC>
 type SetFavoriteMusicAT = ReturnType<typeof actionsMusic.setFavoriteMusicAC>
+type SetRangeTrackAT = ReturnType<typeof actionsMusic.setRangeTrackAC>
+type SetRefLinkAT = ReturnType<typeof actionsMusic.setRefLinkAC>
 
-export type MusicActionsType = SetActiveTrackAT | SetPlayAT | SetVolumeAT | SetFavoriteMusicAT
+export type MusicActionsType = SetActiveTrackAT | SetPlayAT | SetVolumeAT | SetFavoriteMusicAT | SetRangeTrackAT | SetRefLinkAT;

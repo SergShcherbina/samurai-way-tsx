@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
 import {useSelector} from "react-redux";
-import {AppStateType} from "../../app/model/store";
-import {TrackType} from "../music/reducer-music/types-music";
+import {AppStateType} from "../../../../app/model/store";
+import {TrackType} from "../../reducer-music/types-music";
 
 export const TrackName = React.memo(() => {
     const activeTrack = useSelector<AppStateType, TrackType>(state => state.music.activeTrack)

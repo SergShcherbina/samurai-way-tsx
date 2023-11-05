@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
-import {IconLike, IconNext, IconPause, IconPlay, IconPrev, IconStop} from "../icons-component";
+import {IconLike, IconNext, IconPause, IconPlay, IconPrev, IconStop} from "../../../icons-component";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../app/model/store";
-import {TrackType} from "../music/reducer-music/types-music";
+import {AppStateType} from "../../../../app/model/store";
+import {TrackType} from "../../reducer-music/types-music";
 import {Dispatch} from "redux";
-import {actionsMusic} from "../music/reducer-music/actions-music";
+import {actionsMusic} from "../../reducer-music/actions-music";
 
 type PropsType = {
     togglePlay: () => void
@@ -18,13 +18,14 @@ export const ControlBlock: FC<PropsType> = React.memo(({togglePlay, onToggleList
     const activeTrack = useSelector<AppStateType, TrackType>(state => state.music.activeTrack)
     const trackList = useSelector<AppStateType, TrackType[]>(state => state.music.data)
     const dispatch: Dispatch = useDispatch()
+    const refLink = useSelector<AppStateType, HTMLAudioElement | null>(state => state.music.refLink)
 
     const nextTrackHandler = () => {
         for (let i = 0; i < trackList.length; i++) {
             if (trackList[i].id === activeTrack.id) {
                 const nextTrack = trackList[i + 1] || trackList[0]
-                    dispatch(actionsMusic.setActiveTrackAC(nextTrack.id))
-                    break
+                dispatch(actionsMusic.setActiveTrackAC(nextTrack.id))
+                break
             }
         }
     }
@@ -39,9 +40,17 @@ export const ControlBlock: FC<PropsType> = React.memo(({togglePlay, onToggleList
         }
     }
 
+    const onStopRange = () => {
+        if (refLink) {
+            dispatch(actionsMusic.setPlayAC(false))
+            refLink.currentTime = 0
+            refLink.pause()
+        }
+    }
+
     return (
         <IconsWrap>
-            <IconStop/>
+            <IconStop onClick={onStopRange}/>
             <IconPrev onClick={prevTrackHandler}/>
             {isPlay ? <IconPause onClick={togglePlay}/> : <IconPlay onClick={togglePlay}/>}
             <IconNext onClick={nextTrackHandler}/>

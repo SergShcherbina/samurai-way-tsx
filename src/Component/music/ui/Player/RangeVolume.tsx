@@ -1,10 +1,10 @@
 import React, {ChangeEvent, FC, RefObject, useEffect} from 'react';
 import styled from "styled-components";
-import volumeBg from '../../assets/img/volume-bg.png';
+import volumeBg from '../../../../assets/img/volume-bg.png';
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../app/model/store";
+import {AppStateType} from "../../../../app/model/store";
 import {Dispatch} from "redux";
-import {actionsMusic} from "../music/reducer-music/actions-music";
+import {actionsMusic} from "../../reducer-music/actions-music";
 
 type PropsType = {
     songRef: RefObject<HTMLAudioElement>
