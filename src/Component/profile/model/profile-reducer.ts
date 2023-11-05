@@ -38,7 +38,7 @@ const initialState: ProfilePageType = {
             small: '',
         },
         userId: 0,
-    },
+    } ,
     status: "",
 };
 
@@ -63,7 +63,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
         case "SET-PROFILE": {
             return {
                 ...state,
-                profile: action.profile,
+                profile: action.profile!,
             };
         }
         case "PROFILE/SET-STATUS":
