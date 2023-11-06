@@ -1,6 +1,8 @@
 import React, {ChangeEvent} from "react";
 import {AppStateType} from "../../../../app/model/store";
 import styled from "styled-components";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPen, faR, faSignOut} from "@fortawesome/free-solid-svg-icons";
 
 type ProfileStatusType = {
     status: string;
@@ -50,7 +52,9 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
                     <Status
                         onDoubleClick={this.onEditableSpan}
                         isMyPage={this.props.isMyPage}
-                    >{this.state.status || "..."}</Status>
+                    >{this.state.status || "..."}
+                        {this.props.isMyPage && <ReplaceIcon icon={faPen} /> }
+                    </Status>
                 ) : (
                     <StatusField
                         onChange={this.onChangeStatusHandler}
@@ -75,6 +79,10 @@ const Status = styled.div<{ isMyPage: boolean }>`
   &:first-letter {
     text-transform: uppercase;
   }
+  
+  &:hover svg path{
+    fill: var(--main-color)
+  }
 
 `
 const StatusField = styled.input`
@@ -83,4 +91,7 @@ const StatusField = styled.input`
   padding: 3px;
   border-radius: 5px;
   margin-bottom: 5px;
+`
+const ReplaceIcon = styled(FontAwesomeIcon)`
+  margin-left: 20px;
 `

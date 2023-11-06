@@ -4,7 +4,7 @@ const state: ProfilePageType = {
   posts: [],
   newPostText: "",
   profile: {
-    boutMe: '',
+    aboutMe: '',
     contacts: {
       facebook: '',
       website: '',

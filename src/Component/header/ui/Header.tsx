@@ -1,6 +1,6 @@
 import {NavLink} from "react-router-dom";
 import styled from "styled-components";
-import {ResponseProfileType} from "../../profile/api/profile-api";
+import {ResponseProfileType} from "../../profile-page/api/profile-api";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSignOut} from "@fortawesome/free-solid-svg-icons";
 import React from "react";

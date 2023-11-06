@@ -18,10 +18,14 @@ export const profileAPI = {
             {headers: {'Content-Type': 'multipart/form-data'}}) //так как формат не json меняем заголовки
             .then((res) => res.data);
     },
+    updateProfile(info: ResponseProfileType) {
+        return instance.put<ResponseProfileType>(`/profile`, info)
+            .then(res => res.data)
+    }
 };
 
 export type ResponseProfileType = {
-    boutMe: string
+    aboutMe: string
     contacts: ContactsProfileType
     fullName: string
     lookingForAJob: boolean

@@ -3,7 +3,7 @@ import {ResponseProfileType} from "../api/profile-api";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ConnectMyPost} from "./Posts/PostsContainer";
 
-export type ProfileType = {
+export type ProfilePropsType = {
     profile: ResponseProfileType;
     status: string;
     updateStatus: (status: string) => void;
@@ -11,11 +11,11 @@ export type ProfileType = {
     replaceAvatar: (file: File) => void
 };
 
-export const Profile = (props: ProfileType) => {
+export const ProfilePage = (props: ProfilePropsType) => {
     return (
         <>
             <ProfileInfo {...props} />
-            <ConnectMyPost/>
+            {props.isMyPage && <ConnectMyPost/>}
         </>
     );
 };

@@ -2,6 +2,7 @@ import {Dispatch} from "redux";
 import {profileAPI, ResponsePhotoType, ResponseProfileType} from "../api/profile-api";
 import {ResultCode} from "../../../common/enums/emuns";
 import {v1} from "uuid";
+import {AppDispatchType} from "../../../app/model/store";
 
 
 const initialState: ProfilePageType = {
@@ -20,7 +21,7 @@ const initialState: ProfilePageType = {
     ],
     newPostText: "",
     profile: {
-        boutMe: '',
+        aboutMe: '',
         contacts: {
             facebook: '',
             website: '',
@@ -167,6 +168,17 @@ export const replaceAvatarTC = (file: File) => {
             });
     };
 };
+
+export const updateProfileInfo = (info: ResponseProfileType) => {
+    return (dispatch: AppDispatchType) => {
+        profileAPI.updateProfile(info).then(res => {
+            dispatch(setUserProfileTC(info.userId))
+        })
+        .catch(err => {
+            console.log('updateProfileInfo:', err)
+        })
+    }
+}
 
 //types
 export type ProfilePageType = {

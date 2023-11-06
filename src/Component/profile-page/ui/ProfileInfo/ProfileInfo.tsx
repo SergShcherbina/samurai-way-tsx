@@ -1,14 +1,15 @@
 import styled from "styled-components";
 import {ProfileStatus} from "./ProfileStatus";
-import {ProfileType} from "../Profile";
+import {ProfilePropsType} from "../ProfilePage";
 import {ProfileAvatar} from "./ProfileAvatar";
 import {ChangeEvent} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCameraRotate} from "@fortawesome/free-solid-svg-icons";
 import Background from '../../../../assets/img/social-background.jpg'
+import {AboutMe} from "./AboutMe";
 
-export const ProfileInfo = (props: ProfileType) => {
-    const {status, isMyPage, ...restProps} = props
+export const ProfileInfo = (props: ProfilePropsType) => {
+    const {status, isMyPage, profile, ...restProps} = props
 
     const onReplaceAvatar = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -24,10 +25,12 @@ export const ProfileInfo = (props: ProfileType) => {
         <WrapperProfile>
             <Banner userName={userName} background={Background}></Banner>
             <Profile>
-                <ProfileStatus status={props.status} isMyPage={props.isMyPage} updateStatus={props.updateStatus}/>
+                <ProfileStatus status={props.status}  isMyPage={props.isMyPage} updateStatus={props.updateStatus}/>
                 <div>
-                    <ProfileAvatar profile={restProps.profile} isMyPage={isMyPage}/>
-                    {props.isMyPage && <EditPhoto>
+                    <ProfileAvatar profile={profile} isMyPage={isMyPage}/>
+
+                    {props.isMyPage &&
+                        <EditPhoto>
                             <Icons icon={faCameraRotate} size={'1x'}/>
                             Edit photo
                             <input
@@ -36,16 +39,12 @@ export const ProfileInfo = (props: ProfileType) => {
                             />
                         </EditPhoto>
                     }
+
                 </div>
-                <Info>
-                    <li><b>Name:</b> {restProps.profile.fullName}</li>
-                    <li><b>About me:</b>  {restProps.profile.boutMe || 'No information'}</li>
-                    <li><b>Job</b> {restProps.profile.lookingForAJob || 'No information'}</li>
-                    <li><b>facebook:</b> {restProps.profile.contacts.facebook || 'facebook.com'}</li>
-                    <li><b>github:</b> {restProps.profile.contacts.github || 'github.com'}</li>
-                    <li><b>instagram:</b> {restProps.profile.contacts.instagram || 'instagram.com'}</li>
-                    <li><b>vk:</b> {restProps.profile.contacts.vk || 'vk.com'}</li>
-                </Info>
+                <AboutMe
+                    isMyPage={props.isMyPage}
+                    profile={profile}
+                />
             </Profile>
         </WrapperProfile>
     );
@@ -57,18 +56,18 @@ const WrapperProfile = styled.div`
   gap: 10px;
 `
 
-const Banner = styled.div <{userName: string, background: string}>`
+const Banner = styled.div <{ userName: string, background: string }>`
   background: url(${props => props.background});
   width: 100%;
   min-height: 200px;
   border-radius: 10px;
   padding: 10px;
   overflow: hidden;
-  
+
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   &:after {
     content: ' ${props => props.userName} ';
     font-family: 'Days One', sans-serif;
@@ -88,8 +87,8 @@ const Profile = styled.div`
   gap: 20px;
 `
 
-const Icons = styled(FontAwesomeIcon) `
-    transition: all 0.3s;
+const Icons = styled(FontAwesomeIcon)`
+  transition: all 0.3s;
 `
 
 const EditPhoto = styled.label`
@@ -115,26 +114,6 @@ const EditPhoto = styled.label`
       transform: rotateY(180deg);
     }
 
-  }
-`
-
-const Info = styled.ul`
-  list-style-type: none;
-  margin-left: 40px;
-  max-width: fit-content;
-
-  & li {
-    line-height: 30px;
-
-    & b {
-      font-size: 1rem;
-    }
-
-    &:nth-child(3) {
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 5px;
-      margin-bottom: 5px;
-    }
   }
 `
 

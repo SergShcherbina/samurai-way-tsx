@@ -1,5 +1,5 @@
 import React, {ComponentType} from "react";
-import {Profile} from "./Profile";
+import {ProfilePage} from "./ProfilePage";
 import {AppStateType} from "../../../app/model/store";
 import {connect} from "react-redux";
 import {getStatusTC, replaceAvatarTC, setUserProfileTC, updateStatusTC} from "../model/profile-reducer";
@@ -37,7 +37,7 @@ export class ProfileContainer extends React.Component<PropsProfileContainerType>
     }
 
     render() {
-        return <Profile  isMyPage={!this.props.match.params.userId} {...this.props} />;
+        return <ProfilePage isMyPage={!this.props.match.params.userId} {...this.props} />;
     }
 }
 

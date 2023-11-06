@@ -1,4 +1,4 @@
-import {ProfilePageType} from "../../Component/profile/model/profile-reducer";
+import {ProfilePageType} from "../../Component/profile-page/model/profile-reducer";
 import {store} from "../../app/model/store";
 
 export const setLocalStorage = () => {

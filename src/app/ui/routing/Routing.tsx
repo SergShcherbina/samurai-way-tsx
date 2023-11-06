@@ -2,7 +2,7 @@ import React, {Suspense} from 'react';
 import {Redirect, Route} from "react-router-dom";
 import {DialogsContainer} from "../../../Component/dialogs/ui/dialogs/DialogsContainer";
 import {Gallery} from "../../../Component/gallery/ui/Gallery";
-import {Music} from "../../../Component/music/ui/Music";import {ConnectProfileContainer} from "../../../Component/profile/ui/ProfileContainer ";
+import {Music} from "../../../Component/music/ui/Music";import {ConnectProfileContainer} from "../../../Component/profile-page/ui/ProfileContainer ";
 import {Spinner} from "../../../Component/spinner/Spinner";
 import {LoginConnect} from "../../../Component/login/ui/LoginConnect";
 

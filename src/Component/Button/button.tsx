@@ -55,7 +55,6 @@ const Root = styled.button<{ variant: 'primary' | 'outline' }>`
   ${props => props.variant === 'outline' && css`
     background-color: var(--block-color);
     border: 1px solid var(--main-color);
-    box-shadow: 1px 2px 4px var(--hover-btn-color);
     color: var(--text-color);
 
     &:not([disabled]):hover {
