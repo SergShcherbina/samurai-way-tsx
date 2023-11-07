@@ -30,6 +30,7 @@ export class ProfileContainer extends React.Component<PropsProfileContainerType>
     componentDidMount() {
         this.refreshProfile()
     }
+
     componentDidUpdate(prevProps: Readonly<PropsProfileContainerType>, prevState: Readonly<{}>, snapshot?: any) {
         if(this.props.match.params.userId != prevProps.match.params.userId){
             this.refreshProfile()

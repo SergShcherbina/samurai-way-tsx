@@ -41,12 +41,12 @@ const RootLink = styled(Link)`
     border-radius: 100%;
     height: 35px;
     width: 35px;
-    transition: all 0.3s;
+    transition: all 0.2s;
   }
 
   &:hover {
     img {
-      transform: translateX(-2px);
+      transform: translateX(-3px);
     }
   }
 `

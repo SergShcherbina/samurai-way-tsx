@@ -24,7 +24,7 @@ type UsersType = {
 export const Users = (props: UsersType) => {
 
     const onFollow = (userId: number, follow: boolean) => {
-        follow ? props.follow(userId) : props.unFollow(userId)
+        follow ? props.unFollow(userId) : props.follow(userId)
     }
 
     const disableBtn = (userId: number) => {

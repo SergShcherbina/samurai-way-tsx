@@ -7,14 +7,28 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCameraRotate} from "@fortawesome/free-solid-svg-icons";
 import Background from '../../../../assets/img/social-background.jpg'
 import {AboutMe} from "./AboutMe";
+import {Button} from "../../../Button/button";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatchType, AppStateType} from "../../../../app/model/store";
+import {UserType} from "../../../users/model/users-types";
+import {Dispatch} from "redux";
+import {follow, unFollow} from "../../../users/model/users-reducer";
 
 export const ProfileInfo = (props: ProfilePropsType) => {
     const {status, isMyPage, profile, ...restProps} = props
+    const friends = useSelector<AppStateType, UserType[]>(state => state.usersPage.friends)
+    const dispatch: AppDispatchType = useDispatch();
 
     const onReplaceAvatar = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             props.replaceAvatar(e.target.files[0])
         }
+    }
+
+    const isFriend = friends.find(friend => friend.id === profile.userId)?.followed
+
+    const onFollow = (userId: number) => {
+        isFriend ? dispatch(unFollow(userId)) : dispatch(follow(userId))
     }
 
     const userName = props.profile.fullName.length > 14
@@ -26,10 +40,11 @@ export const ProfileInfo = (props: ProfilePropsType) => {
             <Banner userName={userName} background={Background}></Banner>
             <Profile>
                 <ProfileStatus status={props.status}  isMyPage={props.isMyPage} updateStatus={props.updateStatus}/>
-                <div>
+                <Div>
                     <ProfileAvatar profile={profile} isMyPage={isMyPage}/>
 
-                    {props.isMyPage &&
+                    {props.isMyPage
+                        ?
                         <EditPhoto>
                             <Icons icon={faCameraRotate} size={'1x'}/>
                             Edit photo
@@ -38,9 +53,13 @@ export const ProfileInfo = (props: ProfilePropsType) => {
                                 onChange={onReplaceAvatar}
                             />
                         </EditPhoto>
+                        :
+                        <Button
+                            onClick={()=> onFollow(profile.userId)}
+                        >{isFriend ? 'unfollow' : 'follow' }</Button>
                     }
 
-                </div>
+                </Div>
                 <AboutMe
                     isMyPage={props.isMyPage}
                     profile={profile}
@@ -49,6 +68,13 @@ export const ProfileInfo = (props: ProfilePropsType) => {
         </WrapperProfile>
     );
 };
+
+const Div = styled.div `
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+`
 
 const WrapperProfile = styled.div`
   display: flex;
@@ -94,8 +120,6 @@ const Icons = styled(FontAwesomeIcon)`
 const EditPhoto = styled.label`
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin: 20px 0 0;
   cursor: pointer;
   gap: 7px;
   border-radius: var(--border-radius);

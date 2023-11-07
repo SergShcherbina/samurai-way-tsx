@@ -53,7 +53,7 @@ const initialState: ProfilePageType = {
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
     switch (action.type) {
         case "ADD-POST":
-            if (action.values === "") {
+            if (action.values.trim() === "") {
                 return state;
             } else {
                 let newPostObj = {
