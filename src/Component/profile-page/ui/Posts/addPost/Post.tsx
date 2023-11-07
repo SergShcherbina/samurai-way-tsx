@@ -1,3 +1,4 @@
+import React from 'react'
 import Ava from '../../../../../assets/img/min-avatar.jpg'
 import styled from "styled-components";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -6,6 +7,10 @@ import {
     faHeart, faHeartCrack,
 } from '@fortawesome/free-solid-svg-icons'
 import {ResponseProfileType} from "../../../api/profile-api";
+import {useEffect} from "react";
+import {useDispatch} from "react-redux";
+import {Dispatch} from "redux";
+import {addViewsAC} from "../../../model/profile-reducer";
 
 type TypeProps = {
     message?: string;
@@ -20,15 +25,20 @@ type TypeProps = {
     onDislikePost: (postId: string) => void;
 };
 
-export const Post = (props: TypeProps) => {
+export const Post = React.memo((props: TypeProps) => {
+    const dispatch: Dispatch = useDispatch()
 
     const onLikePost = (postId: string) => {
         props.onLikePost(postId)
-    }
+    };
 
     const onDislikePost = (postId: string) => {
         props.onDislikePost(postId)
-    }
+    };
+
+    useEffect(() => {
+        dispatch(addViewsAC(props.id))
+    }, []);
 
     return (
         <Root>
@@ -58,7 +68,7 @@ export const Post = (props: TypeProps) => {
             </Icons>
         </Root>
     );
-};
+});
 
 const Root = styled.div`
   display: flex;
@@ -102,8 +112,6 @@ const Content = styled.div`
   line-height: 27px;
   border-top: 1px solid var(--border-color);
 `
-
-
 const Icons = styled.div`
   display: flex;
   gap: 10px;

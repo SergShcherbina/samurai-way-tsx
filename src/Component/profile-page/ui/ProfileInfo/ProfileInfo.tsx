@@ -95,9 +95,10 @@ const EditPhoto = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 10px 0 0;
+  margin: 20px 0 0;
   cursor: pointer;
   gap: 7px;
+  border-radius: var(--border-radius);
   transition: all 0.3s;
 
   & input {
@@ -109,11 +110,17 @@ const EditPhoto = styled.label`
 
   &:hover {
     color: var(--main-color);
+    box-shadow: 0 0 5px var(--border-color);
+    padding: 10px;
 
     ${Icons} {
       transform: rotateY(180deg);
     }
 
+  }
+  
+  &:active {
+    box-shadow: inset 0 0 5px var(--border-color);
   }
 `
 

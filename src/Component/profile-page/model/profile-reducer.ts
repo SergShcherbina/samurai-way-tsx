@@ -7,17 +7,23 @@ import {AppDispatchType} from "../../../app/model/store";
 
 const initialState: ProfilePageType = {
     posts: [
-        {id: v1(), message: 'The characters Bert and Ernie on Sesame Street were named after ' +
+        {
+            id: v1(), message: 'The characters Bert and Ernie on Sesame Street were named after ' +
                 'Ernie the taxi driver in Frank Capra\'s "It\'s a Wonderful Life.',
-            like: 55, dislike: 1, watch: 167 , postDate: '23.10.2023' , postTime: '05:20:55'},
-        {id: v1(), message: 'The average person\'s left hand does 56% of the typing (when using ' +
+            like: 55, dislike: 1, views: 167, postDate: '23.10.2023', postTime: '05:20:55'
+        },
+        {
+            id: v1(), message: 'The average person\'s left hand does 56% of the typing (when using ' +
                 'the proper position of the hands on the keyboard; ' + 'Hunting and pecking doesn\'t count!).',
-            like: 123, dislike: 0, watch: 351, postDate: '21.06.2023' , postTime: '01:20:36'},
-        {id: v1(), message: 'The longest one-syllable words in the English language are "scraunched" ' +
+            like: 123, dislike: 0, views: 351, postDate: '21.06.2023', postTime: '01:20:36'
+        },
+        {
+            id: v1(), message: 'The longest one-syllable words in the English language are "scraunched" ' +
                 'and "strengthed." Some suggest that "squirreled" could be included, but squirrel is intended ' +
                 'to be pronounced as two syllables (squir-rel) according to most dictionaries. "Screeched" and ' +
                 '"strengths" are two other long one-syllable words, but they only have 9 ' + 'letters.',
-            like: 4, dislike: 0, watch: 69, postDate: '03.01.2023' , postTime: '02:20:35'}
+            like: 4, dislike: 0, views: 569, postDate: '03.01.2023', postTime: '02:20:35'
+        }
     ],
     newPostText: "",
     profile: {
@@ -39,7 +45,7 @@ const initialState: ProfilePageType = {
             small: '',
         },
         userId: 0,
-    } ,
+    },
     status: "",
 };
 
@@ -51,7 +57,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 return state;
             } else {
                 let newPostObj = {
-                    id: v1(), message: action.values, like: 0, dislike: 0, watch: 0,
+                    id: v1(), message: action.values, like: 0, dislike: 0, views: 0,
                     postDate: new Date().toLocaleDateString(),
                     postTime: new Date().toLocaleTimeString()
                 };
@@ -79,12 +85,17 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
         case "PROFILE/SET-LIKE":
             return {
                 ...state, posts: state.posts
-                    .map(el => el.id === action.postId ? {...el, like: el.like += 1 } : el)
+                    .map(el => el.id === action.postId ? {...el, like: el.like += 1} : el)
             }
         case "PROFILE/SET-DISLIKE":
             return {
                 ...state, posts: state.posts
-                    .map(el => el.id === action.postId ? {...el, dislike: el.dislike += 1 } : el)
+                    .map(el => el.id === action.postId ? {...el, dislike: el.dislike += 1} : el)
+            }
+        case 'PROFILE/ADD_VIEWS':
+            return {
+                ...state, posts: state.posts
+                    .map(post => post.id === action.payload ? {...post, views: post.views + 1} : post)
             }
         default:
             return state;
@@ -116,10 +127,18 @@ const replaceAvatarAC = (photos: ResponsePhotoType) => {
         type: "PROFILE/REPLACE-PHOTO",
         photos
     } as const
-}
+};
 
-export const setLikeAC = (postId: string) => ({type: 'PROFILE/SET-LIKE', postId} as const )
-export const setDislikeAC = (postId: string) => ({type: 'PROFILE/SET-DISLIKE', postId} as const )
+export const addViewsAC = (id: string) => {
+    console.log('id:', id)
+    return {
+        type: 'PROFILE/ADD_VIEWS',
+        payload: id
+    } as const
+};
+
+export const setLikeAC = (postId: string) => ({type: 'PROFILE/SET-LIKE', postId} as const)
+export const setDislikeAC = (postId: string) => ({type: 'PROFILE/SET-DISLIKE', postId} as const)
 
 //Thunks
 export const setUserProfileTC = (userId: number) => {
@@ -174,9 +193,9 @@ export const updateProfileInfo = (info: ResponseProfileType) => {
         profileAPI.updateProfile(info).then(res => {
             dispatch(setUserProfileTC(info.userId))
         })
-        .catch(err => {
-            console.log('updateProfileInfo:', err)
-        })
+            .catch(err => {
+                console.log('updateProfileInfo:', err)
+            })
     }
 }
 
@@ -192,11 +211,12 @@ export type PostsType = {
     message: string;
     like: number;
     dislike: number;
-    watch: number;
+    views: number;
     postDate: string;
     postTime: string;
 };
 
+export type AddViewsAT = ReturnType<typeof addViewsAC>
 export type SetLikeAT = ReturnType<typeof setLikeAC>
 export type SetDislikeAT = ReturnType<typeof setDislikeAC>
 export type AddPostAT = ReturnType<typeof addPostAC>
@@ -204,4 +224,11 @@ export type SetUserProfileAT = ReturnType<typeof setProfileAC>;
 type SetStatusAT = ReturnType<typeof setStatusAC>;
 type ReplaceAvatarAT = ReturnType<typeof replaceAvatarAC>
 
-export type ActionType = AddPostAT | SetUserProfileAT | SetStatusAT | ReplaceAvatarAT | SetLikeAT | SetDislikeAT;
+export type ActionType =
+    AddPostAT
+    | SetUserProfileAT
+    | SetStatusAT
+    | ReplaceAvatarAT
+    | SetLikeAT
+    | SetDislikeAT
+    | AddViewsAT;
