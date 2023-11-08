@@ -130,7 +130,6 @@ const replaceAvatarAC = (photos: ResponsePhotoType) => {
 };
 
 export const addViewsAC = (id: string) => {
-    console.log('id:', id)
     return {
         type: 'PROFILE/ADD_VIEWS',
         payload: id

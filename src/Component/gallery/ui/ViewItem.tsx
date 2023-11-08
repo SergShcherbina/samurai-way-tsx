@@ -1,25 +1,61 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import styled from "styled-components";
+import {ReactionBlock} from "../../reactionBlock/ReactionBlock";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType, store} from "../../../app/model/store";
+import {PhotosGalleryType} from "../model/gallery-types";
+import {Dispatch} from "redux";
+import {galleryActionCreators} from "../model/gallery-action-creators";
 
 type PropsType = {
-    urlImg: string
-    title: string
+    activeId: number
     open: boolean
     onClose: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
-export const ViewItem: FC<PropsType> = ({urlImg, title, open, onClose}) => {
+export const ViewItem: FC<PropsType> = ({activeId, open, onClose}) => {
+    const photos = useSelector<AppStateType, PhotosGalleryType[]>(state => state.gallery.photos);
+    const dispatch: Dispatch = useDispatch();
+
+    const activeImg = photos.find(photo => photo.id === activeId)
+
+
+    console.log(store.getState().gallery)
+
+    const likeHandler = (id: string) => {
+        dispatch(galleryActionCreators.likedAC(Number(id)));
+    };
+
+    const dislikeHandler = (id: string) => {
+        dispatch(galleryActionCreators.dislikedAC(Number(id)));
+    };
+
+    useEffect(() => {
+        console.log('useEffect')
+        dispatch(galleryActionCreators.setViewsAC(Number(activeId)));
+    }, [activeId]);
+
     return (
         <>
-            {open &&
+            {open && activeImg &&
                 <Backdrop onClick={(e) => onClose(e)}>
                     <Wrapper>
                         <ImgWrap>
-                            <img src={urlImg} alt={title}/>
+                            <img src={activeImg.url} alt={activeImg.title}/>
                         </ImgWrap>
+
                         <Descriptions>
-                            {title}
+                            {activeImg?.title}
                         </Descriptions>
+
+                        <ReactionBlock
+                            id={String(activeImg.id)}
+                            like={activeImg.like}
+                            dislike={activeImg.dislike}
+                            watch={activeImg.watch}
+                            likeHandler={likeHandler}
+                            dislikeHandler={dislikeHandler}
+                        />
                     </Wrapper>
                 </Backdrop>
             }
@@ -31,6 +67,7 @@ const Backdrop = styled.div`
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.39);
+  z-index: 1;
 
   display: flex;
   align-items: center;
@@ -56,5 +93,5 @@ const ImgWrap = styled.div`
   }
 `
 const Descriptions = styled.h4`
-  margin-top: 20px;
+  margin: 20px 0;
 `

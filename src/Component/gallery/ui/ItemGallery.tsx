@@ -6,10 +6,10 @@ type PropsType = {
     id: number
     img: string
     title: string
-    onActiveImgId: (id: number ) => void
+    onActiveImgId: (id: number) => void
 }
 
-export const ItemGallery: FC<PropsType> = ({ img, title, onActiveImgId, id }) => {
+export const ItemGallery: FC<PropsType> = ({img, title, onActiveImgId, id}) => {
     return (
         <Root onClick={() => onActiveImgId(id)}>
             <ImgWrapper>
@@ -56,6 +56,7 @@ const Root = styled.div`
   &:hover {
     ${ImgWrapper} {
       transform: translateY(-2px);
+
       &:before {
         width: 50px;
         height: 50px;

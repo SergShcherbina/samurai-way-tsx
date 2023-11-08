@@ -11,29 +11,30 @@ import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {Dispatch} from "redux";
 import {addViewsAC} from "../../../model/profile-reducer";
+import {ReactionBlock} from "../../../../reactionBlock/ReactionBlock";
 
 type TypeProps = {
     message?: string;
-    like?: number;
-    dislike?: number;
-    watch?: number
+    like: number;
+    dislike: number;
+    watch: number
     id: string;
     postDate: string;
     postTime: string;
     profile: ResponseProfileType;
-    onLikePost: (postId: string) => void;
-    onDislikePost: (postId: string) => void;
+    likeHandler: (postId: string) => void;
+    dislikeHandler: (postId: string) => void;
 };
 
 export const Post = React.memo((props: TypeProps) => {
     const dispatch: Dispatch = useDispatch()
 
-    const onLikePost = (postId: string) => {
-        props.onLikePost(postId)
+    const likeHandler = (postId: string) => {
+        props.likeHandler(postId)
     };
 
-    const onDislikePost = (postId: string) => {
-        props.onDislikePost(postId)
+    const dislikeHandler = (postId: string) => {
+        props.dislikeHandler(postId)
     };
 
     useEffect(() => {
@@ -46,26 +47,22 @@ export const Post = React.memo((props: TypeProps) => {
                 <Avatar>
                     <img src={props.profile.photos.small || Ava} alt={"img"}/>
                 </Avatar>
-                <Name>
-                    <span><b>{props.profile.fullName}</b></span>
-                    <br/>
+                <Title>
+                    <h4>{props.profile.fullName}</h4>
                     <span>Published: {props.postDate}, {props.postTime}</span>
-                </Name>
+                </Title>
             </Header>
 
             <Content>{props.message}</Content>
 
-            <Icons>
-                <span
-                    onClick={()=>onLikePost(props.id)}>
-                    <FontAwesomeIcon icon={faHeart} size={"sm"}/> {props.like}
-                </span>
-                <span
-                    onClick={()=>onDislikePost(props.id)}>
-                    <FontAwesomeIcon icon={faHeartCrack} size={"sm"}/> {props.dislike}
-                </span>
-                <span><FontAwesomeIcon icon={faEye} size={"sm"}/> {props.watch}</span>
-            </Icons>
+            <ReactionBlock
+                id={props.id}
+                like={props.like}
+                dislike={props.dislike}
+                watch={props.watch}
+                likeHandler={likeHandler}
+                dislikeHandler={dislikeHandler}
+            />
         </Root>
     );
 });
@@ -97,8 +94,8 @@ const Avatar = styled.div`
     object-fit: cover;
   }
 `
-const Name = styled.div`
-  & span > b {
+const Title = styled.div`
+  & h4 {
     color: var(--main-color);
   }
 
@@ -112,45 +109,4 @@ const Content = styled.div`
   line-height: 27px;
   border-top: 1px solid var(--border-color);
 `
-const Icons = styled.div`
-  display: flex;
-  gap: 10px;
-  align-self: end;
 
-  & span {
-    transition: 0.3s all;
-    cursor: pointer;
-
-    & svg {
-      transition: all 0.3s;
-    }
-
-    &:hover {
-      transform: translateY(-2px);
-
-      &:nth-child(1) {
-        & svg path {
-          fill: var(--error-color);
-        }
-      }
-
-      &:nth-child(2) {
-        & svg path {
-          fill: var(--main-color);
-        }
-      }
-
-      &:last-child {
-        &:hover {
-          transform: translateY(0px);
-          cursor: auto;
-        }
-
-        & svg {
-          transform: rotateX(180deg);
-        }
-      }
-
-    }
-  }
-`

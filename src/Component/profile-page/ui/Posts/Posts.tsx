@@ -15,11 +15,11 @@ export const Posts: React.FC<MyPostType> = ({addPost, posts,setLike, setDislike,
         addPost(values.addPost); //получаем значение из формы через имя самой формы
     };
 
-    const onLikePost = (postId: string) => {
+    const likeHandler = (postId: string) => {
         setLike(postId)
     };
 
-    const onDislikePost = (postId: string) => {
+    const dislikeHandler = (postId: string) => {
         setDislike(postId)
     };
 
@@ -34,8 +34,8 @@ export const Posts: React.FC<MyPostType> = ({addPost, posts,setLike, setDislike,
                 postDate={el.postDate}
                 postTime={el.postTime}
                 profile={{...rest.profile}}
-                onLikePost={onLikePost}
-                onDislikePost={onDislikePost}
+                likeHandler={likeHandler}
+                dislikeHandler={dislikeHandler}
             />
         }
     );

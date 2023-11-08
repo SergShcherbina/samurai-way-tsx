@@ -11,7 +11,7 @@ import {GalleryStateType} from "../model/gallery-types";
 import {ViewItem} from "./ViewItem";
 
 export const Gallery = () => {
-    const [activeImgId, setActiveImgId] = useState<number>()
+    const [activeImgId, setActiveImgId] = useState<number>(0)
     const [open, setOpen] = useState<boolean>(false)
     const dispatch = useAppDispatch()
     const dataPhotos =
@@ -20,8 +20,6 @@ export const Gallery = () => {
     useEffect(() => {
         dispatch(getPhotosTC())
     }, []);
-
-    const activeImg = dataPhotos.photos.find(photo => photo.id === activeImgId)
 
     const onActiveImg = (id: number) => {
         setActiveImgId(id)
@@ -53,14 +51,11 @@ export const Gallery = () => {
                 </List>
             }
 
-            {activeImg &&
-                <ViewItem
-                    urlImg={activeImg.url}
-                    title={activeImg.title}
-                    open={open}
-                    onClose={onClose}
-                />
-            }
+            <ViewItem
+                activeId={activeImgId}
+                open={open}
+                onClose={onClose}
+            />
         </>
     )
 };

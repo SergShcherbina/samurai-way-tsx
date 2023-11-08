@@ -1,10 +1,10 @@
 import axios from 'axios'
-import {ResponseGalleryType} from "../model/gallery-types";
+import {PhotosGalleryType, ResponseGalleryType} from "../model/gallery-types";
 
 export const galleryApi = {
     getPhotos() {
         return axios
             .get<ResponseGalleryType[]>('https://jsonplaceholder.typicode.com/photos?albumId=1')
-            .then(response => response.data )
+            .then(response => response.data)
     },
 }
