@@ -73,7 +73,6 @@ const Div = styled.div `
   display: flex;
   flex-direction: column;
   gap: 20px;
-  align-items: center;
 `
 
 const WrapperProfile = styled.div`
@@ -119,7 +118,7 @@ const Icons = styled(FontAwesomeIcon)`
 
 const EditPhoto = styled.label`
   display: flex;
-  align-items: center;
+  align-self: center;
   cursor: pointer;
   gap: 7px;
   border-radius: var(--border-radius);

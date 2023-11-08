@@ -40,7 +40,7 @@ export const Users = (props: UsersType) => {
                 {user.followed ? 'Unfollow' : 'Follow'}
             </Button>
         )
-    }
+    };
 
     const onSubmit = (valueSearch: UserSearchFormType) => {
         props.searchUser(valueSearch.value)
