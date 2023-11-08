@@ -74,6 +74,7 @@ const FriendsRoot = styled.div<{ loading: string }>`
 
   position: sticky;
   top: 5px;
+  z-index: -1;
 
   & > span {
     display: flex;

@@ -95,7 +95,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
         case 'PROFILE/ADD_VIEWS':
             return {
                 ...state, posts: state.posts
-                    .map(post => post.id === action.payload ? {...post, views: post.views + 1} : post)
+                    .map(post => post.id === action.payload ? {...post, views: +post.views + 1} : post)
             }
         default:
             return state;

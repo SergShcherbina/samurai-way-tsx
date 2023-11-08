@@ -3,19 +3,20 @@ import styled from "styled-components";
 import image from '../../../assets/img/icon-resize.svg'
 
 type PropsType = {
+    id: number
     img: string
     title: string
+    onActiveImgId: (id: number ) => void
 }
 
-export const ItemGallery: FC<PropsType> = ({img, title}) => {
+export const ItemGallery: FC<PropsType> = ({ img, title, onActiveImgId, id }) => {
     return (
-        <Root>
+        <Root onClick={() => onActiveImgId(id)}>
             <ImgWrapper>
                 <img src={img} alt={'alt'}/>
             </ImgWrapper>
             <p>{title}</p>
         </Root>
-
     );
 };
 

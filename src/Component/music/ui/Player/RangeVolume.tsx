@@ -22,7 +22,6 @@ export const RangeVolume: FC<PropsType> = React.memo(({songRef}) => {
 
     const onVolume = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(actionsMusic.setVolumeAC(Number(e.target.value)));
-        localStorage.setItem('volumePlayer', e.target.value);
     };
 
     return (
