@@ -1,5 +1,5 @@
-import React from "react";
-import {reduxForm, Field, InjectedFormProps} from "redux-form";
+import React, {FC} from "react";
+import {reduxForm, Field, InjectedFormProps, FormProps} from "redux-form";
 import {Input} from "../../../common/form-controls/Input";
 import {requiredField} from "../../../utils/validators/validators";
 import styled from "styled-components";
@@ -9,9 +9,11 @@ export type LoginReduxFormType = {
     login: string;
     password: string;
     rememberMe: boolean;
+    captcha: string
 };
 
-const LoginRedux = (props: InjectedFormProps<LoginReduxFormType>) => {
+const LoginRedux: FC<{ captcha: string } & InjectedFormProps<LoginReduxFormType, { captcha: string }>> = (props) => {
+
     return (
         <Form onSubmit={props.handleSubmit}>
             <Field
@@ -35,13 +37,27 @@ const LoginRedux = (props: InjectedFormProps<LoginReduxFormType>) => {
 
             <Error>{props.error}</Error>
 
+            {props.captcha.length > 0 &&
+                <div>
+                    <Field id={"captcha"}
+                           name={"captcha"}
+                           component={Input}
+                           validate={[requiredField]}
+                           label={'Captcha'}
+                    />
+                    <br/>
+                    <img src={props.captcha} alt={'captcha'}/>
+                </div>
+            }
+
             <button>Sign in</button>
         </Form>
     );
 };
 
 //оборачиваем компоненту в reduxForm и даем имя форме 'login'
-export const LoginReduxForm = reduxForm<LoginReduxFormType>({form: "login"})(LoginRedux);
+export const LoginReduxForm =
+    reduxForm<LoginReduxFormType, { captcha: string }>({form: "login"})(LoginRedux);
 
 const Form = styled.form`
   display: flex;

@@ -1,19 +1,16 @@
 import React from "react";
-import {LoginReduxForm} from "./LoginReduxForm";
+import {LoginReduxForm, LoginReduxFormType} from "./LoginReduxForm";
 import {Redirect} from "react-router-dom";
 import styled from "styled-components";
 
-type LoginReduxFormType = {
-    login: string;
-    password: string;
-    rememberMe: boolean;
-};
 type LoginProps = {
     loginTC: ({}: LoginReduxFormType) => void;
     isAuth: boolean;
+    captcha: string
 };
 
 export const Login = (props: LoginProps) => {
+
     const onSubmit = (dataForm: LoginReduxFormType) => {
         props.loginTC(dataForm); //отправляем данные для логинизации
     };
@@ -27,7 +24,7 @@ export const Login = (props: LoginProps) => {
                 <li>Email: <b>free@samuraijs.com</b></li>
                 <li>Password: <b>free</b></li>
             </ul>
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginReduxForm onSubmit={onSubmit} captcha={props.captcha}/>
         </Root>
     );
 };
