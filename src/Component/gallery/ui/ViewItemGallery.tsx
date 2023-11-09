@@ -13,14 +13,11 @@ type PropsType = {
     onClose: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
-export const ViewItem: FC<PropsType> = ({activeId, open, onClose}) => {
+export const ViewItemGallery: FC<PropsType> = ({activeId, open, onClose}) => {
     const photos = useSelector<AppStateType, PhotosGalleryType[]>(state => state.gallery.photos);
     const dispatch: Dispatch = useDispatch();
 
     const activeImg = photos.find(photo => photo.id === activeId)
-
-
-    console.log(store.getState().gallery)
 
     const likeHandler = (id: string) => {
         dispatch(galleryActionCreators.likedAC(Number(id)));

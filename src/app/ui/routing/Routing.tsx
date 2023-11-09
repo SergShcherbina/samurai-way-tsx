@@ -4,7 +4,7 @@ import {DialogsContainer} from "../../../Component/dialogs/ui/dialogs/DialogsCon
 import {Gallery} from "../../../Component/gallery/ui/Gallery";
 import {Music} from "../../../Component/music/ui/Music";import {ConnectProfileContainer} from "../../../Component/profile-page/ui/ProfileContainer ";
 import {Spinner} from "../../../Component/spinner/Spinner";
-import {LoginConnect} from "../../../Component/login/ui/LoginConnect";
+import {LoginConnect} from "../../../Component/auth/ui/LoginConnect";
 
 const ConnectUsers = React.lazy(() => import('../../../Component/users/ui/ConnectUsers')
     .then(({ConnectUsers}) => ({default: ConnectUsers})));

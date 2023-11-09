@@ -7,7 +7,7 @@ import {Routing} from "./routing/Routing";
 import styled
     from 'styled-components'
 import {ConnectFriends} from "../../Component/friends/ui/FriendsContainer";
-import {LoginConnect} from "../../Component/login/ui/LoginConnect";
+import {LoginConnect} from "../../Component/auth/ui/LoginConnect";
 
 type AppType = {
     initialized: boolean;

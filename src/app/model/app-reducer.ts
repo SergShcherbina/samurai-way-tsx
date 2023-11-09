@@ -1,5 +1,6 @@
-import {authUser} from "../../Component/login/model/auth-reducer";
+
 import {AppDispatchType} from "./store";
+import {authMeTC} from "../../Component/auth/model/auth-actions";
 
 const initialState = {
   initialized: false,
@@ -23,7 +24,7 @@ const initAppAC = (init: boolean) =>({
   }) as const;
 
 export const initAppTC = () => (dispatch: AppDispatchType) => {
-  const promiseAuthUser = dispatch(authUser()); //из санки authUser возвращаем promise
+  const promiseAuthUser = dispatch(authMeTC()); //из санки authUser возвращаем promise
   Promise.all([promiseAuthUser]).then(() => {
     //и только после его выполнения dispatch init true в state
     dispatch(initAppAC(true)); //чтобы показывать спиннер до проверки инициализации

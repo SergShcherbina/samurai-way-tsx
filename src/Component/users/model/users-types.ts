@@ -1,4 +1,5 @@
 import {usersActionCreators} from "./users-action-creators";
+import {SetAuthLoginAT} from "../../auth/model/autch-types";
 
 export type usersState = {
     users: UserType[];
@@ -35,11 +36,6 @@ export type UsersResponseType = {
     totalCount: number
 }
 
-export type AuthType = {
-    id: 28520,
-    login: string,
-    email: string
-}
 
 type FollowAT = ReturnType<typeof usersActionCreators.followSuccess>;
 type UnFollowAT = ReturnType<typeof usersActionCreators.unFollowSuccess>;
@@ -58,4 +54,5 @@ export type UsersActionType =
     | SetTotalItemsCountAT
     | SetFetchingAT
     | ToggleDisableBtnFollowType
-    | SetFriendsAT;
+    | SetFriendsAT
+    | SetAuthLoginAT;

@@ -65,6 +65,10 @@ export const usersReducer = (state: usersState = initialState, action: UsersActi
             return {
                 ...state, friends: friendsArr, friendsCount: action.friendsCount
             };
+        case "AUTH/SET-AUTH-LOGIN":
+            return {
+                ...state, users: [], friends: []
+            }
         default:
             return state;
     }

@@ -8,7 +8,7 @@ import {useAppDispatch} from "../../../common/hoocs/useAppDiapatch";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../app/model/store";
 import {GalleryStateType} from "../model/gallery-types";
-import {ViewItem} from "./ViewItem";
+import {ViewItemGallery} from "./ViewItemGallery";
 
 export const Gallery = () => {
     const [activeImgId, setActiveImgId] = useState<number>(0)
@@ -51,7 +51,7 @@ export const Gallery = () => {
                 </List>
             }
 
-            <ViewItem
+            <ViewItemGallery
                 activeId={activeImgId}
                 open={open}
                 onClose={onClose}

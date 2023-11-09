@@ -13,15 +13,15 @@ type ProfileContainerType = MapStateToPropsProfileContainerType & MapDispatchToP
 type PatchParamsType = { userId: string };
 type MapStateToPropsProfileContainerType = ReturnType<typeof mapStateToProps>;
 type MapDispatchToPropsProfileContainerType = {
-    setUserProfile: (userId: string) => void;
-    getStatus: (userId: string) => void;
+    setUserProfile: (userId: number) => void;
+    getStatus: (userId: number) => void;
     updateStatus: (status: string) => void;
     replaceAvatar: (file: File) => void
 };
 
 export class ProfileContainer extends React.Component<PropsProfileContainerType> {
     refreshProfile =  () => {
-        let userId = this.props.match.params.userId; //получили за счет withRouter с query параметров url
+        let userId = Number(this.props.match.params.userId); //получили за счет withRouter с query параметров url
         if (!userId) userId = this.props.authUserId; //подставляю свой userId с сервера для начальной стр
         this.props.setUserProfile(userId); //передаем id в thunk для запроса
         this.props.getStatus(userId);
