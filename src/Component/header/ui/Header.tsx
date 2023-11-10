@@ -30,32 +30,35 @@ export const Header = (props: HeaderType) => {
 
     return (
         <HeaderStyle>
-            <LogoWrapper to={"/"}>
-                <Logo></Logo>
-                <span>Social network</span>
-            </LogoWrapper>
-            {isMyProfile()}
+            <Container>
+                <LogoWrapper to={"/"}>
+                    <Logo></Logo>
+                    <span>Social network</span>
+                </LogoWrapper>
+                {isMyProfile()}
+            </Container>
         </HeaderStyle>
     );
 };
 
 
 const HeaderStyle = styled.header`
+  
+
+  width: 100%;
+  background-color: var(--block-color);
+  padding: 0 var(--padding-blocks);
+  height: 70px;
+`
+
+const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  grid-template: auto / 1fr;
-  grid-column: 1 / 4;
-  grid-row: 1;
-
-  background-color: var(--block-color);
-  border-radius: 10px;
-  padding: 0 var(--padding-blocks);
-  height: 70px;
-
-  img {
-    height: 80px;
+  
+  max-width: 1140px;  
+  height: 100%;
+  margin: 0 auto;
 `
 
 const Logo = styled.span`

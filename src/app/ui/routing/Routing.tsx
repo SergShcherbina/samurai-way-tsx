@@ -5,13 +5,14 @@ import {Gallery} from "../../../Component/gallery/ui/Gallery";
 import {Music} from "../../../Component/music/ui/Music";import {ConnectProfileContainer} from "../../../Component/profile-page/ui/ProfileContainer ";
 import {Spinner} from "../../../Component/spinner/Spinner";
 import {LoginConnect} from "../../../Component/auth/ui/LoginConnect";
+import styled from "styled-components";
 
 const ConnectUsers = React.lazy(() => import('../../../Component/users/ui/ConnectUsers')
     .then(({ConnectUsers}) => ({default: ConnectUsers})));
 
 export const Routing = () => {
     return (
-        <>
+        <ContentBlock>
             <Route exact path={"/profile/:userId?"} render={() => <ConnectProfileContainer/>}/>
             <Route exact path={'/'} render={() => <Redirect to={'/profile'}/>}/>
             <Route path={"/message"} render={() => <DialogsContainer/>}/>
@@ -20,6 +21,13 @@ export const Routing = () => {
             <Route path={"/gallery"} component={Gallery}/>
             <Route path={"/music"} component={Music}/>
             <Route path={"/login"} component={LoginConnect}/>
-        </>
+        </ContentBlock>
     );
 };
+
+const ContentBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1;
+`

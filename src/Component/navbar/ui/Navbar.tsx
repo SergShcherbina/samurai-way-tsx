@@ -7,33 +7,35 @@ import {
 
 export const Navbar = () => {
     return (
-        <Nav>
-            <li>
-                <Icon icon={faPersonDotsFromLine} size={'xs'}/>
-                <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/profile">Profile</NavLink>
-            </li>
-            <li>
-                <Icon icon={faMessage} size={'xs'}/>
-                <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/message">Dialogs</NavLink>
-            </li>
-            <li>
-                <Icon icon={faNewspaper} size={'xs'}/>
-                <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/gallery">Gallery</NavLink>
-            </li>
-            <li>
-                <Icon icon={faMusic} size={'xs'}/>
-                <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/music">Music</NavLink>
-            </li>
-            <li><Icon icon={faUserGroup} size={'xs'}/>
-                <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/users">Users</NavLink>
-            </li>
-        </Nav>
+        <nav>
+            <List>
+                <li>
+                    <Icon icon={faPersonDotsFromLine} size={'xs'}/>
+                    <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/profile">Profile</NavLink>
+                </li>
+                <li>
+                    <Icon icon={faMessage} size={'xs'}/>
+                    <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/message">Dialogs</NavLink>
+                </li>
+                <li>
+                    <Icon icon={faNewspaper} size={'xs'}/>
+                    <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/gallery">Gallery</NavLink>
+                </li>
+                <li>
+                    <Icon icon={faMusic} size={'xs'}/>
+                    <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/music">Music</NavLink>
+                </li>
+                <li><Icon icon={faUserGroup} size={'xs'}/>
+                    <NavLink activeStyle={{color: '#2196f3', fontWeight: 700}} to="/users">Users</NavLink>
+                </li>
+            </List>
+        </nav>
     );
 };
 
 const Icon = styled(FontAwesomeIcon)``;
 
-const Nav = styled.ul`
+const List = styled.ul`
   background-color: var(--block-color);
   box-shadow: var(--box-shadow-blocks);
   padding: 20px;

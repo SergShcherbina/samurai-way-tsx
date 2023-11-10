@@ -100,7 +100,9 @@ const hello = keyframes`
 const Root = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px
+  justify-content: space-between;
+  gap: 10px;
+  height: 100%;
 `
 const User = styled.div <{ isFollow: boolean }>`
   display: grid;

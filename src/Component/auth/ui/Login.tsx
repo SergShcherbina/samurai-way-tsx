@@ -30,16 +30,12 @@ export const Login = (props: LoginProps) => {
 };
 
 const Root = styled.div`
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-
   border-radius: 10px;
   border: 3px solid #b5bbd0;
   box-shadow: 0 0 5px 1px var(--main-color);
   padding: 35px;
   width: 370px;
+  height: max-content;
 
   & ul {
     list-style-type: none;

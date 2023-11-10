@@ -43,7 +43,7 @@ export const Friends: FC<PropsType> = (props) => {
 
     return (
         <FriendsRoot loading={props.isFetching ? 'true' : 'false'} aria-disabled={true}>
-            <span><FontAwesomeIcon icon={faUserFriends} size={'1x'}/>Friends {props.friendsCount}</span>
+            <h3><FontAwesomeIcon icon={faUserFriends} size={'1x'}/>Friends {props.friendsCount}</h3>
             <SearchFriendForm onSubmit={onSubmit}/>
             {
                 props.friends
@@ -64,7 +64,7 @@ export const Friends: FC<PropsType> = (props) => {
 };
 
 
-const FriendsRoot = styled.div<{ loading: string }>`
+const FriendsRoot = styled.section<{ loading: string }>`
   background-color: var(--block-color);
   padding: var(--padding-blocks);
   border-radius: 10px;
@@ -75,10 +75,9 @@ const FriendsRoot = styled.div<{ loading: string }>`
   position: sticky;
   top: 5px;
 
-  & > span {
+  & > h3 {
     display: flex;
     gap: 10px;
-    align-items: center;
     font-weight: bold;
     color: var(--main-color)
   }

@@ -8,6 +8,8 @@ import styled
     from 'styled-components'
 import {ConnectFriends} from "../../Component/friends/ui/FriendsContainer";
 import {LoginConnect} from "../../Component/auth/ui/LoginConnect";
+import {Redirect} from "react-router-dom";
+import {Main} from "../../Component/Main/Main";
 
 type AppType = {
     initialized: boolean;
@@ -22,23 +24,13 @@ export class App extends Component<AppType> {
 
     render() {
         if (!this.props.initialized) return <Spinner/>;
-        // if(this.props.isAuth) return <Redirect to={'/login'}/>
 
         return (
             <AppStyle>
                 <ConnectHeaderContainer/>
-                {this.props.isAuth ?
-                    <>
-                        <Navbar/>
-                        <ContentBlock>
-                            <Routing/>
-                        </ContentBlock>
-                        <ConnectFriends/>
-                    </>
-                    :
-                    <div>
-                        <LoginConnect/>
-                    </div>
+                {this.props.isAuth
+                    ? <Main isAuth={this.props.isAuth}/>
+                    :<LoginConnect/>
                 }
                 <Footer/>
             </AppStyle>
@@ -47,18 +39,11 @@ export class App extends Component<AppType> {
 }
 
 const AppStyle = styled.div`
-  min-height: calc(100vh - 20px);
-  display: grid;
-  grid-template-columns: 2fr 7fr 3fr;
-  grid-template-rows: auto 1fr auto;
-  gap: 10px;
-  max-width: 1140px;
-  margin: 10px auto;
-`
-
-const ContentBlock = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   gap: 10px;
-  border-radius: 10px;
+
+  min-height: 100vh;
 `
