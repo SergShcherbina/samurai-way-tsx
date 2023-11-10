@@ -1,6 +1,6 @@
 
 import {AppDispatchType} from "./store";
-import {authMeTC} from "../../Component/auth/model/auth-actions";
+import {authMeTC} from "../../pages/auth/model/auth-actions";
 
 const initialState = {
   initialized: false,

@@ -1,14 +1,14 @@
 import {AnyAction, applyMiddleware, combineReducers, createStore} from "redux";
-import {profileReducer} from "../../Component/profile-page/model/profile-reducer";
-import {dialogsReducer} from "../../Component/dialogs/model/dialogs-reducer";
-import {usersReducer} from "../../Component/users/model/users-reducer";
-import {authReducer} from "../../Component/auth/model/auth-reducer";
+import {profileReducer} from "../../pages/profile/model/profile-reducer";
+import {dialogsReducer} from "../../pages/dialogs/model/dialogs-reducer";
+import {usersReducer} from "../../pages/users/model/users-reducer";
+import {authReducer} from "../../pages/auth/model/auth-reducer";
 import thunkMiddleware, {ThunkDispatch} from "redux-thunk";
 import {reducer as formReducer} from "redux-form";
 import {appReducer} from "./app-reducer";
 import {composeWithDevTools} from 'redux-devtools-extension';
-import {galleryReducer} from "../../Component/gallery/model/gallery-reducer";
-import {reducerMusic} from "../../Component/music/reducer-music/reducer-music";
+import {galleryReducer} from "../../pages/gallery/model/gallery-reducer";
+import {reducerMusic} from "../../pages/music/model/reducer-music";
 import {getLocalStorage, setLocalStorage} from "../../utils/localStorage/localStorage";
 
 const rootReducer = combineReducers({

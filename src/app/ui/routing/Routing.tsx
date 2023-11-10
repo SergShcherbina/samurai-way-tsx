@@ -1,15 +1,15 @@
 import React, {Suspense} from 'react';
 import {Redirect, Route, Switch} from "react-router-dom";
-import {DialogsContainer} from "../../../Component/dialogs/ui/dialogs/DialogsContainer";
-import {Gallery} from "../../../Component/gallery/ui/Gallery";
-import {Music} from "../../../Component/music/ui/Music";
-import {ConnectProfileContainer} from "../../../Component/profile-page/ui/ProfileContainer ";
-import {Spinner} from "../../../Component/spinner/Spinner";
-import {LoginConnect} from "../../../Component/auth/ui/LoginConnect";
+import {DialogsContainer} from "../../../pages/dialogs/ui/dialogs/DialogsContainer";
+import {Gallery} from "../../../pages/gallery/ui/Gallery";
+import {Music} from "../../../pages/music/ui/Music";
+import {ConnectProfileContainer} from "../../../pages/profile/ui/ProfileContainer ";
+import {Spinner} from "../../../component/spinner/Spinner";
+import {LoginConnect} from "../../../pages/auth/ui/LoginConnect";
 import styled from "styled-components";
-import {NotFound} from "../../../Component/page-not-found/NotFound";
+import {NotFound} from "../../../pages/page-not-found/NotFound";
 
-const ConnectUsers = React.lazy(() => import('../../../Component/users/ui/ConnectUsers')
+const ConnectUsers = React.lazy(() => import('../../../pages/users/ui/ConnectUsers')
     .then(({ConnectUsers}) => ({default: ConnectUsers})));
 
 export const Routing = () => {

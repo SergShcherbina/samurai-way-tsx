@@ -1,15 +1,10 @@
 import React, {Component} from "react";
-import {Footer} from "../../Component/footer/ui/Footer";
-import {Navbar} from "../../Component/navbar/ui/Navbar";
-import {ConnectHeaderContainer} from "../../Component/header/ui/HeaderContainer";
-import {Spinner} from "../../Component/spinner/Spinner";
-import {Routing} from "./routing/Routing";
-import styled
-    from 'styled-components'
-import {ConnectFriends} from "../../Component/friends/ui/FriendsContainer";
-import {LoginConnect} from "../../Component/auth/ui/LoginConnect";
-import {Redirect} from "react-router-dom";
-import {Main} from "../../Component/Main/Main";
+import {Footer} from "../../component/footer/Footer";
+import {ConnectHeaderContainer} from "../../component/header/HeaderContainer";
+import {Spinner} from "../../component/spinner/Spinner";
+import styled from 'styled-components'
+import {LoginConnect} from "../../pages/auth/ui/LoginConnect";
+import {Main} from "../../component/main/Main";
 
 type AppType = {
     initialized: boolean;
