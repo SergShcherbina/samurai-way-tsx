@@ -1,6 +1,6 @@
 import {
     addPostAC,
-    addViewsAC,
+    addViewsAC, deletePostAC,
     replaceAvatarAC,
     setDislikeAC, setErrorAC,
     setLikeAC,
@@ -67,6 +67,7 @@ type SetUserProfileAT = ReturnType<typeof setProfileAC>;
 type SetStatusAT = ReturnType<typeof setStatusAC>;
 type ReplaceAvatarAT = ReturnType<typeof replaceAvatarAC>
 type SetErrorAT = ReturnType<typeof setErrorAC>
+type DeletePostAC = ReturnType<typeof deletePostAC>
 
 export type ProfileActionType =
     AddPostAT
@@ -76,4 +77,5 @@ export type ProfileActionType =
     | SetLikeAT
     | SetDislikeAT
     | AddViewsAT
-    | SetErrorAT;
+    | SetErrorAT
+    | DeletePostAC;

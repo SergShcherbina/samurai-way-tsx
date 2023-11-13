@@ -93,6 +93,10 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
                 return {
                     ...state, errorMessage: action.error
                 }
+            case 'PROFILE/DELETE-POST':
+                return {
+                    ...state, posts: state.posts.filter(post => post.id !== action.postId)
+                }
             default:
                 return state;
         }

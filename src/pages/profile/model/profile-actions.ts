@@ -36,6 +36,7 @@ export const addViewsAC = (id: string) => {
 };
 export const setLikeAC = (postId: string) => ({type: 'PROFILE/SET-LIKE', postId} as const)
 export const setDislikeAC = (postId: string) => ({type: 'PROFILE/SET-DISLIKE', postId} as const)
+export const deletePostAC = (postId: string | null) => ({type: 'PROFILE/DELETE-POST', postId} as const)
 export const setErrorAC = (error: string | null) => ({type: 'PROFILE/SET-ERROR', error} as const)
 
 //Thunks

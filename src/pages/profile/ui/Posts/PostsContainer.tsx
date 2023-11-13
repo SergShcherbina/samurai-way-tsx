@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {Posts} from "./Posts";
 import {reset} from "redux-form";
-import {addPostAC, setDislikeAC, setLikeAC} from "../../model/profile-actions";
+import {addPostAC, deletePostAC, setDislikeAC, setLikeAC} from "../../model/profile-actions";
 
 export type MSTPType = ReturnType<typeof mapStateToProps>;
 export  type MDTPType = ReturnType<typeof mapDispatchToProps>;
@@ -26,7 +26,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         },
         setDislike: (postId: string) => {
             dispatch(setDislikeAC(postId))
-        }
+        },
+        deletePost: (postId: string) => [
+            dispatch(deletePostAC(postId))
+        ]
     };
 };
 

@@ -24,15 +24,15 @@ export const ReactionBlock: FC<PropsType> = (
 ) => {
     return (
         <Icons>
-                <span
-                    onClick={() => likeHandler(id)}>
-                    <FontAwesomeIcon icon={faHeart} size={"sm"}/> {like}
-                </span>
-            <span
-                onClick={() => dislikeHandler(id)}>
-                    <FontAwesomeIcon icon={faHeartCrack} size={"sm"}/> {dislike}
-                </span>
-            <span><FontAwesomeIcon icon={faEye} size={"sm"}/> {watch}</span>
+            <span onClick={() => likeHandler(id)}>
+                <FontAwesomeIcon icon={faHeart} size={"sm"}/> {like}
+            </span>
+            <span onClick={() => dislikeHandler(id)}>
+                <FontAwesomeIcon icon={faHeartCrack} size={"sm"}/> {dislike}
+            </span>
+            <span>
+                <FontAwesomeIcon icon={faEye} size={"sm"}/> {watch}
+            </span>
         </Icons>
     );
 };

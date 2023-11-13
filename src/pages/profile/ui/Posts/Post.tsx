@@ -7,6 +7,7 @@ import {Dispatch} from "redux";
 import {ReactionBlock} from "../../../../component/reaction-block/ReactionBlock";
 import {addViewsAC} from "../../model/profile-actions";
 import {ResponseProfileType} from "../../model/profile-types";
+import {Simulate} from "react-dom/test-utils";
 
 type TypeProps = {
     message?: string;
@@ -19,6 +20,7 @@ type TypeProps = {
     profile: ResponseProfileType;
     likeHandler: (postId: string) => void;
     dislikeHandler: (postId: string) => void;
+    deletePostHandler: (postId: string) => void;
 };
 
 export const Post = React.memo((props: TypeProps) => {
@@ -31,6 +33,10 @@ export const Post = React.memo((props: TypeProps) => {
     const dislikeHandler = (postId: string) => {
         props.dislikeHandler(postId)
     };
+
+    const deletePostHandler = () => {
+        props.deletePostHandler(props.id)
+    }
 
     useEffect(() => {
         dispatch(addViewsAC(props.id))
@@ -46,6 +52,7 @@ export const Post = React.memo((props: TypeProps) => {
                     <h4>{props.profile.fullName}</h4>
                     <span>Published: {props.postDate}, {props.postTime}</span>
                 </Title>
+                <ActionBar onClick={deletePostHandler} >...</ActionBar>
             </Header>
 
             <Content>{props.message}</Content>
@@ -76,6 +83,37 @@ const Header = styled.div`
   align-items: center;
   line-height: 18px;
   margin-bottom: 5px;
+`
+const ActionBar = styled.button`
+  align-self: flex-start;
+  margin-left: auto;
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+  padding: 0 5px 6px 5px;
+  position: relative;
+
+  &:after {
+    content: 'delete post';
+    position: absolute;
+    top: 5px;
+    right: 0;
+    padding: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+    width: max-content;
+  }
+
+  &:hover:after {
+    visibility: visible;
+    top: 15px;
+    opacity: 1;
+    color: var(--error-color);
+  }
 `
 const Avatar = styled.div`
   width: 50px;

@@ -9,9 +9,11 @@ export type AddPostFormDataType = {
     addPost: string;
 };
 
-export const Posts: React.FC<MyPostType> = ({addPost, posts,setLike, setDislike, ...rest}) => {
+export const Posts: React.FC<MyPostType> = (
+    {addPost, posts,setLike, setDislike, deletePost, ...rest}
+) => {
+
     const onSubmit = (values: AddPostFormDataType) => {
-        console.log(values.addPost.trim())
         if(values.addPost.trim().length === 0 ) return
         addPost(values.addPost.trim()); //получаем значение из формы через имя самой формы
     };
@@ -23,6 +25,10 @@ export const Posts: React.FC<MyPostType> = ({addPost, posts,setLike, setDislike,
     const dislikeHandler = (postId: string) => {
         setDislike(postId)
     };
+
+    const deletePostHandler = (postId: string) => {
+        deletePost(postId)
+    }
 
     const postElement = posts.map((el) => {
             return <Post
@@ -37,6 +43,7 @@ export const Posts: React.FC<MyPostType> = ({addPost, posts,setLike, setDislike,
                 profile={{...rest.profile}}
                 likeHandler={likeHandler}
                 dislikeHandler={dislikeHandler}
+                deletePostHandler={deletePostHandler}
             />
         }
     );
