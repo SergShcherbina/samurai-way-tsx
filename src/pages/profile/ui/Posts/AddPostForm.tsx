@@ -12,11 +12,11 @@ import {Input} from "../../../../component/form-controls/Input";
 //создаем уточняющую типизацию возвращаемого объекта form по именам input/Field
 export type FormDataType = {
     addPost: string;
-    addPhoto: any
 } & AddImageInPostType;
 
 type AddImageInPostType = {
     addImageInPost: (path: string)=> void
+    avatar: string
 }
 
 //импортируем InjectedFormProps из redux-form в <джинериках> уточняющий type
@@ -28,9 +28,12 @@ const AddPostForm: React.FC<AddImageInPostType & InjectedFormProps<FormDataType,
             props.addImageInPost(path)
         }
     }
+
+    const ava = props.avatar ? props.avatar : Ava
+
     return (
         <StyleForm onSubmit={props.handleSubmit}>
-            <WrapperImg><img src={Ava} alt={'my photo'}/></WrapperImg>
+            <WrapperImg><img src={ava} alt={'my photo'}/></WrapperImg>
 
             <Field component={Textarea}
                    name="addPost"

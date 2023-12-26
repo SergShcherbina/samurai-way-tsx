@@ -53,7 +53,7 @@ export const Posts: React.FC<MyPostType> = (
 
     return (
         <>
-            <AddPostReduxForm onSubmit={onSubmit} addImageInPost={addImageInPost}/>
+            <AddPostReduxForm onSubmit={onSubmit} addImageInPost={addImageInPost} avatar={rest.profile.photos.small}/>
             <StylePosts>{postElement}</StylePosts>
         </>
     );
