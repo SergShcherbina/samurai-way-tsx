@@ -25,6 +25,7 @@ export type PostsType = {
     views: number;
     postDate: string;
     postTime: string;
+    image: string;
 };
 
 export type ResponseProfileType = {

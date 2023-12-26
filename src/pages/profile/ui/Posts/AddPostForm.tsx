@@ -7,30 +7,45 @@ import Ava from '../../../../assets/img/min-avatar.jpg'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCamera, faVideo, faImage, faMusic} from "@fortawesome/free-solid-svg-icons";
 import {Button} from "../../../../component/button/button";
+import {Input} from "../../../../component/form-controls/Input";
 
 //создаем уточняющую типизацию возвращаемого объекта form по именам input/Field
-type FormDataType = {
+export type FormDataType = {
     addPost: string;
-};
+    addPhoto: any
+} & AddImageInPostType;
+
+type AddImageInPostType = {
+    addImageInPost: (path: string)=> void
+}
 
 //импортируем InjectedFormProps из redux-form в <джинериках> уточняющий type
-const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const AddPostForm: React.FC<AddImageInPostType & InjectedFormProps<FormDataType, AddImageInPostType>> = (props) => {
 
+    const addImageInPost = (fileList: FileList | null) => {
+        if(fileList){
+            const path = URL.createObjectURL(fileList[0])
+            props.addImageInPost(path)
+        }
+    }
     return (
         <StyleForm onSubmit={props.handleSubmit}>
             <WrapperImg><img src={Ava} alt={'my photo'}/></WrapperImg>
 
             <Field component={Textarea}
                    name="addPost"
-                   validate={[requiredField]}
+                   // validate={[requiredField]}
                    placeholder="write something"
             />
 
             <IconsWrapper>
-                <a href="#"><FontAwesomeIcon icon={faMusic} size="1x"/></a>
-                <a href="#"><FontAwesomeIcon icon={faImage} size="1x"/></a>
-                <a href="#"><FontAwesomeIcon icon={faVideo} size="1x"/></a>
-                <a href="#"><FontAwesomeIcon icon={faCamera} size="1x"/></a>
+                <label>
+                    <input
+                        type={'file'}
+                        accept={".png, .jpeg, .gif"}
+                        onChange={e => addImageInPost(e.target.files)}/>
+                    <FontAwesomeIcon icon={faImage} size="xl"/>
+                </label>
             </IconsWrapper>
 
             <Button disabled={!props.anyTouched || !props.valid} >publish</Button>
@@ -39,7 +54,8 @@ const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 };
 
 //типизация возвращаемого значения формы
-export const AddPostReduxForm = reduxForm<FormDataType>({form: "addPost"})(AddPostForm);
+export const AddPostReduxForm =
+    reduxForm<FormDataType, AddImageInPostType>({form: "addPost"})(AddPostForm);
 
 
 const StyleForm = styled.form`
@@ -100,13 +116,19 @@ const WrapperImg = styled.div`
 // `
 const IconsWrapper = styled.div`
   display: flex;
-  gap: 12px;
   
-  & a {
+  & label {
     transition: all 0.3s;
+    
+    & input {
+      visibility: hidden;
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
   }
 
-  & a:hover {
+  & label:hover {
     transform: translateY(-2px);
   }
 `

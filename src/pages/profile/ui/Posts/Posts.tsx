@@ -1,21 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import {Post} from "./Post";
-import {AddPostReduxForm} from "./AddPostForm";
+import {AddPostReduxForm, FormDataType} from "./AddPostForm";
 import {MDTPType, MSTPType} from "./PostsContainer";
 import styled from "styled-components";
 
 export type MyPostType = MSTPType & MDTPType;
-export type AddPostFormDataType = {
-    addPost: string;
-};
 
 export const Posts: React.FC<MyPostType> = (
     {addPost, posts,setLike, setDislike, deletePost, ...rest}
 ) => {
+    const [image, setImage] = useState('')
 
-    const onSubmit = (values: AddPostFormDataType) => {
+    const onSubmit = (values: FormDataType) => {
         if(values.addPost.trim().length === 0 ) return
-        addPost(values.addPost.trim()); //получаем значение из формы через имя самой формы
+        addPost({text: values.addPost.trim(), image}); //получаем значение из формы через имя самой формы
     };
 
     const likeHandler = (postId: string) => {
@@ -30,6 +28,10 @@ export const Posts: React.FC<MyPostType> = (
         deletePost(postId)
     }
 
+    const addImageInPost = (path: string) => {
+        setImage(path)
+    }
+
     const postElement = posts.map((el) => {
             return <Post
                 id={el.id}
@@ -40,6 +42,7 @@ export const Posts: React.FC<MyPostType> = (
                 watch={el.views}
                 postDate={el.postDate}
                 postTime={el.postTime}
+                imagePost={el.image}
                 profile={{...rest.profile}}
                 likeHandler={likeHandler}
                 dislikeHandler={dislikeHandler}
@@ -50,7 +53,7 @@ export const Posts: React.FC<MyPostType> = (
 
     return (
         <>
-            <AddPostReduxForm onSubmit={onSubmit}/>
+            <AddPostReduxForm onSubmit={onSubmit} addImageInPost={addImageInPost}/>
             <StylePosts>{postElement}</StylePosts>
         </>
     );

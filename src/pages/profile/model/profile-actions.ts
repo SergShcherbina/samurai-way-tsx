@@ -4,7 +4,7 @@ import {ResultCode} from "../../../common/enums/emuns";
 import {ResponsePhotoType, ResponseProfileType} from "./profile-types";
 import {profileAPI} from "../api/profile-api";
 
-export const addPostAC = (values: string) => {
+export const addPostAC = (values: {text: string, image: string}) => {
     return {
         type: "PROFILE/ADD-POST",
         values,

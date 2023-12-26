@@ -6,19 +6,20 @@ const initialState: ProfilePageType = {
         {
             id: v1(), message: 'The characters Bert and Ernie on Sesame Street were named after ' +
                 'Ernie the taxi driver in Frank Capra\'s "It\'s a Wonderful Life.',
-            like: 55, dislike: 1, views: 167, postDate: '23.10.2023', postTime: '05:20:55'
+            like: 55, dislike: 1, views: 167, postDate: '23.10.2023', postTime: '05:20:55',
+            image: 'https://mf.b37mrtl.ru/russian/images/f/a/d/fadd8805b2fa6478889f465b54b80447aaf6e481_article.jpg'
         },
         {
             id: v1(), message: 'The average person\'s left hand does 56% of the typing (when using ' +
                 'the proper position of the hands on the keyboard; ' + 'Hunting and pecking doesn\'t count!).',
-            like: 123, dislike: 0, views: 351, postDate: '21.06.2023', postTime: '01:20:36'
+            like: 123, dislike: 0, views: 351, postDate: '21.06.2023', postTime: '01:20:36', image: ''
         },
         {
             id: v1(), message: 'The longest one-syllable words in the English language are "scraunched" ' +
                 'and "strengthed." Some suggest that "squirreled" could be included, but squirrel is intended ' +
                 'to be pronounced as two syllables (squir-rel) according to most dictionaries. "Screeched" and ' +
                 '"strengths" are two other long one-syllable words, but they only have 9 ' + 'letters.',
-            like: 4, dislike: 0, views: 569, postDate: '03.01.2023', postTime: '02:20:35'
+            like: 4, dislike: 0, views: 569, postDate: '03.01.2023', postTime: '02:20:35', image: ''
         }
     ],
     newPostText: "",
@@ -51,9 +52,10 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
         switch (action.type) {
             case "PROFILE/ADD-POST":
                 let newPostObj = {
-                    id: v1(), message: action.values, like: 0, dislike: 0, views: 0,
+                    id: v1(), message: action.values.text, like: 0, dislike: 0, views: 0,
                     postDate: new Date().toLocaleDateString(),
-                    postTime: new Date().toLocaleTimeString()
+                    postTime: new Date().toLocaleTimeString(),
+                    image: action.values.image
                 };
                 return {
                     ...state,

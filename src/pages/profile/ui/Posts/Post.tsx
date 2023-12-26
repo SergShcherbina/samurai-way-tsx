@@ -17,6 +17,7 @@ type TypeProps = {
     id: string;
     postDate: string;
     postTime: string;
+    imagePost: string
     profile: ResponseProfileType;
     likeHandler: (postId: string) => void;
     dislikeHandler: (postId: string) => void;
@@ -52,10 +53,13 @@ export const Post = React.memo((props: TypeProps) => {
                     <h4>{props.profile.fullName}</h4>
                     <span>Published: {props.postDate}, {props.postTime}</span>
                 </Title>
-                <ActionBar onClick={deletePostHandler} >...</ActionBar>
+                <ActionBar onClick={deletePostHandler}>...</ActionBar>
             </Header>
 
-            <Content>{props.message}</Content>
+            <Content>
+                {props.imagePost && <Image src={props.imagePost} alt={' localstorage хранит только ссылку на изо, API не имеет данного функционала '}/>}
+                {props.message}
+            </Content>
 
             <ReactionBlock
                 id={props.id}
@@ -143,3 +147,9 @@ const Content = styled.div`
   border-top: 1px solid var(--border-color);
 `
 
+const Image = styled.img`
+    width: 100%;
+    max-height: 100%;
+    margin: 10px 0;
+    border-radius: var(--border-radius);
+`

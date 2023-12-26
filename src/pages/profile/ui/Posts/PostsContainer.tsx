@@ -17,7 +17,7 @@ const mapStateToProps = (state: AppStateType) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        addPost: (values: string) => {
+        addPost: (values: { text: string, image: string }) => {
             dispatch(addPostAC(values));
             dispatch(reset('addPost'))   //сбрасываем форму по ее названию(reset - из redux-form)
         },

@@ -32,7 +32,7 @@ const state: ProfilePageType = {
 
 
 it("new post should be added", () => {
-    const action: AddPostAT = addPostAC("postText");
+    const action: AddPostAT = addPostAC({text: "postText", image: ''});
 
     let newState: ProfilePageType = profileReducer(state, action);
 
