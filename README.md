@@ -1,18 +1,12 @@
 ### https://sergshcherbina.github.io/samurai-way-tsx/
 <hr>
 
-После git clone 'link' установите все зависимости из package.json:
-
 ### `yarn`
-
-а потом запустите проект:
-
 ### `yarn start`
 
 - **styled-components**
 - **axios**
 - **classnames**
-- **formik**
 - **gh-pages**
 - **jest**
 - **react** and **@types/react**
@@ -28,3 +22,6 @@
 - **typescript**
 - **uuid** and **@types/uuid**
 
+<hr>
+
+<img width="500" src="https://github.com/SergShcherbina/SergShcherbina/blob/main/assets/social-network-app%202023-12-27%20.png" alt="social-network"/>
